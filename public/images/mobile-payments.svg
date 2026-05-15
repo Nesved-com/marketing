@@ -1,0 +1,46 @@
+<svg width="420" height="860" viewBox="0 0 420 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="420" height="860" rx="48" fill="#0F172A"/>
+  <rect x="18" y="18" width="384" height="824" rx="38" fill="#F8FAFC"/>
+  <rect x="138" y="34" width="144" height="20" rx="10" fill="#0F172A"/>
+
+  <rect x="38" y="82" width="344" height="62" rx="16" fill="#FFFFFF"/>
+  <text x="56" y="110" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">Payments</text>
+  <text x="56" y="130" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="12">SmartBooker</text>
+
+  <rect x="38" y="156" width="164" height="98" rx="16" fill="#FFFFFF"/>
+  <rect x="218" y="156" width="164" height="98" rx="16" fill="#FFFFFF"/>
+  <text x="56" y="184" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="12">Net Collected</text>
+  <text x="56" y="220" fill="#059669" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">¹7.8L</text>
+  <text x="236" y="184" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="12">Balance Due</text>
+  <text x="236" y="220" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">¹1.2L</text>
+
+  <rect x="38" y="270" width="344" height="52" rx="14" fill="#FFFFFF"/>
+  <rect x="48" y="280" width="72" height="32" rx="10" fill="#0052FF"/>
+  <text x="72" y="300" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700">Due</text>
+  <text x="152" y="300" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600">Settled</text>
+  <text x="238" y="300" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600">Activity</text>
+
+  <rect x="38" y="338" width="344" height="110" rx="16" fill="#FFFFFF"/>
+  <text x="56" y="368" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">Aditi &amp; Rohan</text>
+  <text x="56" y="390" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="12">Wedding " 18 May</text>
+  <text x="56" y="420" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">¹58,000 due</text>
+  <rect x="292" y="358" width="76" height="26" rx="13" fill="#E6F0FF"/>
+  <text x="311" y="375" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700">COLLECT</text>
+
+  <rect x="38" y="462" width="344" height="110" rx="16" fill="#FFFFFF"/>
+  <text x="56" y="492" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">Karan Mehta</text>
+  <text x="56" y="514" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="12">Reception " 21 May</text>
+  <text x="56" y="544" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">¹32,000 due</text>
+  <rect x="292" y="482" width="76" height="26" rx="13" fill="#E6F0FF"/>
+  <text x="311" y="499" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700">COLLECT</text>
+
+  <rect x="38" y="708" width="344" height="96" rx="20" fill="#FFFFFF"/>
+  <circle cx="84" cy="756" r="10" fill="#94A3B8"/>
+  <circle cx="158" cy="756" r="10" fill="#94A3B8"/>
+  <circle cx="232" cy="756" r="10" fill="#0052FF"/>
+  <circle cx="306" cy="756" r="10" fill="#94A3B8"/>
+  <text x="68" y="778" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600">Home</text>
+  <text x="136" y="778" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600">Bookings</text>
+  <text x="214" y="778" fill="#0052FF" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700">Payments</text>
+  <text x="293" y="778" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600">Reports</text>
+</svg>
