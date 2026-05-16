@@ -649,7 +649,7 @@ function FAQ() {
 }
 
 // ─── CONTACT ──────────────────────────────────────────────────────────────────
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'; // get free key at web3forms.com
+const WEB3FORMS_KEY = '29ca0629-24ae-487a-b3a8-8515ac4ba09d'; // get free key at web3forms.com
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
