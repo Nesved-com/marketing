@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="NesVed — building premium software products for modern businesses. SmartBooker is our flagship product for venue and event operations." />
+    <meta name="description" content="NesVed — building premium software products for modern businesses. Quickbuk is our flagship product for venue and event operations." />
     <meta property="og:title" content="NesVed | Premium Software for Modern Businesses" />
-    <meta property="og:description" content="NesVed builds focused, premium software tools. SmartBooker — our first product — is an all-in-one venue and event operations platform." />
+    <meta property="og:description" content="NesVed builds focused, premium software tools. Quickbuk — our first product — is an all-in-one venue and event operations platform." />
     <meta property="og:type" content="website" />
-    <title>NesVed | SmartBooker — Venue & Event Operations Platform</title>
+    <title>NesVed | Quickbuk — Venue & Event Operations Platform</title>
     <link rel="icon" type="image/png" href="/images/nesved-short-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,6 +86,8 @@
       /* Product */
       .nv-product-card  { grid-template-columns: 1.1fr .9fr !important; }
       .nv-feature-grid  { grid-template-columns: repeat(3, 1fr) !important; }
+      .nv-product-showcase-grid { grid-template-columns: 1fr 1fr !important; }
+      .nv-vendor-grid   { grid-template-columns: repeat(3, 1fr) !important; }
 
       /* Screens */
       .nv-screens-grid  { grid-template-columns: repeat(3, 1fr) !important; }
@@ -104,6 +106,8 @@
       @media (max-width: 1024px) {
         .nv-feature-grid  { grid-template-columns: repeat(2, 1fr) !important; }
         .nv-hero-grid     { gap: 32px !important; }
+        .nv-vendor-grid   { grid-template-columns: repeat(2, 1fr) !important; }
+        .nv-product-showcase-grid { gap: 40px !important; }
       }
 
       /* ── Tablet portrait / large mobile (≤860px) ───────── */
@@ -121,6 +125,9 @@
         .nv-product-left { padding: 32px !important; }
         .nv-product-right{ padding: 0 32px 32px !important; justify-content: center !important; }
         .nv-product-stats{ grid-template-columns: repeat(2,1fr) !important; }
+        .nv-product-showcase-grid { grid-template-columns: 1fr !important; }
+        .nv-product-visual { display: none !important; }
+        .nv-vendor-grid { grid-template-columns: 1fr !important; }
 
         .nv-screens-grid { grid-template-columns: 1fr !important; max-width: 400px; margin: 0 auto; gap: 40px !important; }
 
