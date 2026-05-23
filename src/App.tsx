@@ -827,7 +827,7 @@ function Pricing() {
                   <div style={{ marginTop: 30, padding: '22px 24px', borderRadius: 16, background: 'rgba(18,52,95,.05)', border: '1px solid rgba(18,52,95,.10)' }}>
                     <p style={{ margin: '0 0 14px', fontSize: 14, fontWeight: 700, color: C.ink800 }}>Everything in Pro, plus:</p>
                     {['Multi-venue management', 'Dedicated account manager', 'Custom onboarding & training', 'Priority support SLA', 'API access', 'Custom integrations'].map(pt => (
-                      <div key={pt} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: C.ink600 ?? C.ink500, marginBottom: 8 }}>
+                      <div key={pt} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: C.ink500, marginBottom: 8 }}>
                         <span style={{ width: 5, height: 5, borderRadius: 99, background: C.ink500, flexShrink: 0 }} />{pt}
                       </div>
                     ))}
