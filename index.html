@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="NesVed — building premium software products for modern businesses. Quickbuk is our flagship product for venue and event operations." />
-    <meta property="og:title" content="NesVed | Premium Software for Modern Businesses" />
-    <meta property="og:description" content="NesVed builds focused, premium software tools. Quickbuk — our first product — is an all-in-one venue and event operations platform." />
+    <meta name="description" content="Quickbuk by NesVed — all-in-one booking & management platform for Venue Owners, Decorators, and Caterers. Bookings · Payments · Reports, all in one app." />
+    <meta property="og:title" content="Quickbuk — Venue, Decorator & Caterer Management App" />
+    <meta property="og:description" content="Quickbuk by NesVed — separate logins and dashboards for Venue Owners, Decorators, and Caterers. Bookings · Payments · Reports, all in one app." />
     <meta property="og:type" content="website" />
-    <title>NesVed | Quickbuk — Venue & Event Operations Platform</title>
-    <link rel="icon" type="image/png" href="/images/nesved-short-logo.png" />
+    <title>Quickbuk — Venue, Decorator & Caterer Management by NesVed</title>
+    <link rel="icon" type="image/png" href="/images/quickbuk-logo-new.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -83,6 +83,16 @@
       /* Hero */
       .nv-hero-grid { grid-template-columns: 1.15fr .85fr !important; }
 
+      /* Role cards */
+      .nv-role-card-grid { grid-template-columns: 1fr 1fr !important; }
+
+      /* Partner banner */
+      .nv-banner-visual { display: block; }
+
+      /* Sign-in showcase */
+      .nv-signin-grid { grid-template-columns: 1fr 1fr !important; }
+      .nv-signin-visual { display: flex; }
+
       /* Product */
       .nv-product-card  { grid-template-columns: 1.1fr .9fr !important; }
       .nv-feature-grid  { grid-template-columns: repeat(3, 1fr) !important; }
@@ -108,6 +118,7 @@
         .nv-hero-grid     { gap: 32px !important; }
         .nv-vendor-grid   { grid-template-columns: repeat(2, 1fr) !important; }
         .nv-product-showcase-grid { gap: 40px !important; }
+        .nv-role-card-grid { gap: 0 !important; }
       }
 
       /* ── Tablet portrait / large mobile (≤860px) ───────── */
@@ -128,6 +139,10 @@
         .nv-product-showcase-grid { grid-template-columns: 1fr !important; }
         .nv-product-visual { display: none !important; }
         .nv-vendor-grid { grid-template-columns: 1fr !important; }
+        .nv-role-card-grid { grid-template-columns: 1fr !important; }
+        .nv-banner-visual { display: none !important; }
+        .nv-signin-grid { grid-template-columns: 1fr !important; }
+        .nv-signin-visual { display: none !important; }
 
         .nv-screens-grid { grid-template-columns: 1fr !important; max-width: 400px; margin: 0 auto; gap: 40px !important; }
 
