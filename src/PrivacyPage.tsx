@@ -2,7 +2,11 @@ import { LegalShell, Section, SubSection, Body, Intro } from './LegalLayout';
 
 export default function PrivacyPage() {
   return (
-    <LegalShell title="Privacy Policy" effectiveDate="17 June 2026">
+    <LegalShell
+      title="Privacy Policy"
+      effectiveDate="17 June 2026"
+      description="Read how NesVed collects, uses, and protects your data on the Quickbuk venue, decorator, and caterer booking platform."
+    >
       <Intro>
         NesVed ("we", "our", "us") operates the Quickbuk mobile application. This Privacy Policy explains how we collect, use, store, share, and protect your personal information when you use our platform.
         By using Quickbuk, you agree to the practices described in this policy.

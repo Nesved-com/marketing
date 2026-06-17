@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const C = {
@@ -6,7 +6,39 @@ const C = {
   blue: '#2563EB',
 };
 
-export function LegalShell({ title, effectiveDate, children }: { title: string; effectiveDate: string; children: React.ReactNode }) {
+function usePageMeta(title: string, description: string) {
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = `${title} | NesVed`;
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    const prevDesc = metaDesc?.getAttribute('content') ?? '';
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', description);
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    const prevCanonical = canonical?.getAttribute('href') ?? '';
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', `https://nesved.com${window.location.pathname}`);
+
+    return () => {
+      document.title = prevTitle;
+      metaDesc?.setAttribute('content', prevDesc);
+      canonical?.setAttribute('href', prevCanonical);
+    };
+  }, [title, description]);
+}
+
+export function LegalShell({ title, effectiveDate, description, children }: { title: string; effectiveDate: string; description: string; children: React.ReactNode }) {
+  usePageMeta(title, description);
   return (
     <div style={{ background: '#fff', minHeight: '100vh', width: '100%', fontFamily: "'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif" }}>
       <header style={{

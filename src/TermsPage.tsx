@@ -2,7 +2,11 @@ import { LegalShell, Section, Body, Intro } from './LegalLayout';
 
 export default function TermsPage() {
   return (
-    <LegalShell title="Terms & Conditions" effectiveDate="17 June 2026">
+    <LegalShell
+      title="Terms & Conditions"
+      effectiveDate="17 June 2026"
+      description="Terms and conditions for using the Quickbuk venue, decorator, and caterer booking platform by NesVed."
+    >
       <Intro>
         Welcome to Quickbuk ("we", "our", "us"), a Venue &amp; Event Operations Platform developed by NesVed.
         By downloading, installing, or using the Quickbuk mobile application, you agree to be bound by these Terms &amp; Conditions.
