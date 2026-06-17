@@ -186,6 +186,31 @@ function AppStoreBadges({ onOpen }: { onOpen: () => void }) {
   );
 }
 
+// ─── PHONE FRAME (shared mockup wrapper) ───────────────────────────────────────
+function PhoneFrame({
+  src, alt, width = 280, height = 560, outerPadding = 10, outerRadius = 48, innerRadius = 38,
+  notchWidth = 80, notchHeight = 5, notchTop = 16,
+  boxShadow = '0 48px 96px -24px rgba(10,26,51,.8), 0 0 0 1px rgba(255,255,255,.07) inset',
+  animation = 'floaty 6s ease-in-out infinite',
+  style = {},
+}: {
+  src: string; alt: string; width?: number; height?: number; outerPadding?: number;
+  outerRadius?: number; innerRadius?: number; notchWidth?: number; notchHeight?: number; notchTop?: number;
+  boxShadow?: string; animation?: string; style?: React.CSSProperties;
+}) {
+  return (
+    <div style={{
+      position: 'relative', zIndex: 1, padding: outerPadding, borderRadius: outerRadius,
+      background: 'linear-gradient(180deg, #1C1C22 0%, #08080E 100%)', boxShadow, animation, ...style,
+    }}>
+      <div style={{ position: 'absolute', top: notchTop, left: '50%', transform: 'translateX(-50%)', width: notchWidth, height: notchHeight, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
+      <div style={{ borderRadius: innerRadius, overflow: 'hidden', width, height, background: '#0A0F1E' }}>
+        <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
+      </div>
+    </div>
+  );
+}
+
 // ─── HEADER ───────────────────────────────────────────────────────────────────
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -206,7 +231,6 @@ function Header() {
 
   const links = [
     { h: '#home', l: 'Home' },
-    { h: '#roles', l: 'For You' },
     { h: '#product', l: 'Product' },
     { h: '#pricing', l: 'Pricing' },
     { h: '#faq', l: 'FAQ' },
@@ -301,33 +325,26 @@ function Header() {
 function HeroPhones() {
   return (
     <div className="nv-hero-phone" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 640, padding: '40px 40px' }}>
-      {/* Back phone — roles screen */}
+      {/* Back phone — partner sign-in screen */}
       <div style={{
-        position: 'absolute', right: 30, top: 60, zIndex: 0,
+        position: 'absolute', right: -56, top: 90, zIndex: 2,
         padding: 10, borderRadius: 44,
         background: 'linear-gradient(180deg, #2a2a32 0%, #08080E 100%)',
         boxShadow: '0 40px 80px -24px rgba(10,26,51,.5), 0 0 0 1px rgba(255,255,255,.06) inset',
-        transform: 'rotate(5deg) scale(0.88)',
-        opacity: 0.85,
+        transform: 'rotate(7deg)',
       }}>
         <div style={{ borderRadius: 36, overflow: 'hidden', width: 260, height: 520, background: C.ink900 }}>
-          <img src="/images/app-roles.jpg" alt="Choose your role" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
+          <img src="/images/app-partner-signin.jpg" alt="Partner platform sign-in" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
         </div>
       </div>
 
       {/* Front phone — dashboard */}
-      <div style={{
-        position: 'relative', zIndex: 1,
-        padding: 12, borderRadius: 50,
-        background: 'linear-gradient(180deg, #1C1C22 0%, #08080E 100%)',
-        boxShadow: '0 56px 100px -28px rgba(10,26,51,.65), 0 0 0 1px rgba(255,255,255,.07) inset',
-        animation: 'floaty 6s ease-in-out infinite',
-      }}>
-        <div style={{ position: 'absolute', top: 18, left: '50%', transform: 'translateX(-50%)', width: 90, height: 6, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
-        <div style={{ borderRadius: 40, overflow: 'hidden', width: 290, height: 580, background: C.ink900 }}>
-          <img src="/images/app-dashboard-new.jpg" alt="Quickbuk dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-        </div>
-      </div>
+      <PhoneFrame
+        src="/images/app-dashboard-new.jpg" alt="Quickbuk dashboard"
+        width={290} height={580} outerPadding={12} outerRadius={50} innerRadius={40}
+        notchWidth={90} notchHeight={6} notchTop={18}
+        boxShadow="0 56px 100px -28px rgba(10,26,51,.65), 0 0 0 1px rgba(255,255,255,.07) inset"
+      />
 
       {/* Chip — Booking confirmed */}
       <div className="nv-hero-chips" style={{
@@ -403,7 +420,7 @@ function Hero() {
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 40 }}>
-              <NvBtn variant="primary" size="lg" as="a" href="#roles">Explore roles <Icon.Arrow /></NvBtn>
+              <NvBtn variant="primary" size="lg" as="a" href="#product">Explore product <Icon.Arrow /></NvBtn>
               <NvBtn variant="light" size="lg" as="a" href="#contact"><Icon.Mail /> Talk to us</NvBtn>
             </div>
 
@@ -425,535 +442,6 @@ function Hero() {
           </div>
 
           <HeroPhones />
-        </div>
-      </NvContainer>
-    </section>
-  );
-}
-
-// ─── PARTNER BANNER ───────────────────────────────────────────────────────────
-function PartnerBanner() {
-  return (
-    <section style={{
-      position: 'relative', overflow: 'hidden', width: '100%',
-      background: 'linear-gradient(135deg,#060D1F 0%,#0D1F4A 40%,#1A3A8F 75%,#2563EB 100%)',
-      padding: '80px 0',
-    }}>
-      {/* Animated orbs */}
-      <div aria-hidden style={{ position:'absolute', top:-180, right:-120, width:700, height:700, borderRadius:'50%', background:`radial-gradient(circle,rgba(53,189,231,.30) 0%,transparent 60%)`, filter:'blur(60px)', animation:'blobShift 20s ease-in-out infinite', pointerEvents:'none' }} />
-      <div aria-hidden style={{ position:'absolute', bottom:-200, left:-100, width:500, height:500, borderRadius:'50%', background:`radial-gradient(circle,rgba(168,85,247,.22) 0%,transparent 60%)`, filter:'blur(50px)', animation:'blobShift 26s ease-in-out infinite reverse', pointerEvents:'none' }} />
-      <div aria-hidden style={{ position:'absolute', top:'20%', left:'38%', width:340, height:340, borderRadius:'50%', background:`radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 60%)`, filter:'blur(40px)', pointerEvents:'none' }} />
-      <div className="noise" />
-
-      <NvContainer>
-        <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:0, alignItems:'flex-end', position:'relative' }}>
-
-          {/* ── LEFT: copy ── */}
-          <div style={{ paddingBottom: 8 }}>
-            {/* Tag */}
-            <span style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'6px 16px', borderRadius:999, fontSize:11.5, fontWeight:700, letterSpacing:'.06em', textTransform:'uppercase', background:'rgba(53,189,231,.15)', border:'1px solid rgba(53,189,231,.35)', color:'#7DD7F3', marginBottom:28 }}>
-              <span style={{ width:7, height:7, borderRadius:99, background:'#35BDE7', animation:'pulseDot 2s infinite', flexShrink:0, boxShadow:'0 0 0 3px rgba(53,189,231,.25)' }} />
-              Live on iOS &amp; Android
-            </span>
-
-            <h2 style={{ margin:'0 0 20px', fontSize:'clamp(34px,4.5vw,64px)', fontWeight:800, letterSpacing:'-.045em', lineHeight:1.0, color:'#fff' }}>
-              Run your entire<br />
-              <span style={{ background:'linear-gradient(100deg,#fff 0%,#A8D8F0 40%,#35BDE7 100%)', WebkitBackgroundClip:'text', backgroundClip:'text', color:'transparent' }}>business from</span><br />
-              one app.
-            </h2>
-
-            <p style={{ margin:'0 0 36px', maxWidth:480, fontSize:17.5, lineHeight:1.75, color:'rgba(255,255,255,.72)', fontWeight:400 }}>
-              Whether you own a marriage hall, run decoration services, or manage catering — Quickbuk gives you a professional dashboard, calendar, payments, and reports, all in your pocket.
-            </p>
-
-            {/* 3 role chips */}
-            <div style={{ display:'flex', flexWrap:'wrap', gap:10, marginBottom:40 }}>
-              {[
-                { label:'Venue Owner', color:'#2563EB', bg:'rgba(37,99,235,.18)', bd:'rgba(37,99,235,.40)' },
-                { label:'Decorator',   color:'#c084fc', bg:'rgba(192,132,252,.15)', bd:'rgba(192,132,252,.35)' },
-                { label:'Caterer',     color:'#34d399', bg:'rgba(52,211,153,.15)', bd:'rgba(52,211,153,.35)' },
-              ].map(r => (
-                <span key={r.label} style={{ padding:'8px 18px', borderRadius:999, fontSize:13.5, fontWeight:700, background:r.bg, border:`1px solid ${r.bd}`, color:r.color }}>
-                  {r.label}
-                </span>
-              ))}
-            </div>
-
-            {/* Stats row */}
-            <div style={{ display:'flex', gap:0, flexWrap:'wrap', borderTop:'1px solid rgba(255,255,255,.12)', paddingTop:28, marginBottom:40 }}>
-              {[
-                { num:'₹9,999', sub:'Venue plan / year' },
-                { num:'3 Roles', sub:'One connected platform' },
-                { num:'1 App',   sub:'iOS & Android' },
-              ].map((s,i) => (
-                <div key={s.num} style={{ paddingRight:32, marginRight:32, borderRight: i < 2 ? '1px solid rgba(255,255,255,.12)' : 'none' }}>
-                  <div style={{ fontSize:28, fontWeight:800, color:'#fff', letterSpacing:'-.03em', lineHeight:1.1 }}>{s.num}</div>
-                  <div style={{ fontSize:12.5, color:'rgba(255,255,255,.50)', fontWeight:500, marginTop:4 }}>{s.sub}</div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display:'flex', gap:12, flexWrap:'wrap' }}>
-              <a href="#contact" style={{ display:'inline-flex', alignItems:'center', gap:8, height:52, padding:'0 28px', fontSize:15, fontWeight:700, borderRadius:12, background:'#fff', color:'#0D1F4A', textDecoration:'none', boxShadow:'0 12px 32px -8px rgba(0,0,0,.35)', transition:'transform .18s ease' }}
-                onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.transform='translateY(-2px)'}}
-                onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.transform='translateY(0)'}}
-              >
-                Get started free <Icon.Arrow />
-              </a>
-              <a href="#roles" style={{ display:'inline-flex', alignItems:'center', gap:8, height:52, padding:'0 28px', fontSize:15, fontWeight:700, borderRadius:12, background:'rgba(255,255,255,.10)', color:'#fff', textDecoration:'none', border:'1px solid rgba(255,255,255,.22)', transition:'transform .18s, background .18s' }}
-                onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.transform='translateY(-2px)';(e.currentTarget as HTMLElement).style.background='rgba(255,255,255,.16)'}}
-                onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.transform='translateY(0)';(e.currentTarget as HTMLElement).style.background='rgba(255,255,255,.10)'}}
-              >
-                Choose your role
-              </a>
-            </div>
-          </div>
-
-          {/* ── RIGHT: person + phone ── */}
-          <div className="nv-banner-visual" style={{ position:'relative', width:520, flexShrink:0, alignSelf:'flex-end' }}>
-
-            {/* Glow under person */}
-            <div aria-hidden style={{ position:'absolute', bottom:0, left:'50%', transform:'translateX(-50%)', width:420, height:80, borderRadius:'50%', background:'rgba(37,99,235,.45)', filter:'blur(32px)', pointerEvents:'none', zIndex:0 }} />
-
-            {/* SVG professional person */}
-            <svg viewBox="0 0 360 580" fill="none" xmlns="http://www.w3.org/2000/svg"
-              style={{ position:'relative', zIndex:1, width:'100%', maxWidth:360, display:'block', margin:'0 auto', filter:'drop-shadow(0 40px 60px rgba(0,0,0,.55))' }}
-            >
-              <defs>
-                <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#FDDBB4"/>
-                  <stop offset="100%" stopColor="#F0B880"/>
-                </linearGradient>
-                <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#1a2f6e"/>
-                  <stop offset="100%" stopColor="#0d1b47"/>
-                </linearGradient>
-                <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#ffffff"/>
-                  <stop offset="100%" stopColor="#e8eef8"/>
-                </linearGradient>
-                <linearGradient id="phoneGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#1C1C22"/>
-                  <stop offset="100%" stopColor="#08080E"/>
-                </linearGradient>
-                <linearGradient id="phoneScreen" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#1a3a8f"/>
-                  <stop offset="40%" stopColor="#0d1b47"/>
-                  <stop offset="100%" stopColor="#f0f4ff"/>
-                </linearGradient>
-                <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2d1a0e"/>
-                  <stop offset="100%" stopColor="#1a0e08"/>
-                </linearGradient>
-                <linearGradient id="shadowFloor" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2563EB" stopOpacity="0.5"/>
-                  <stop offset="100%" stopColor="#2563EB" stopOpacity="0"/>
-                </linearGradient>
-                <clipPath id="phoneClip">
-                  <rect x="222" y="258" width="108" height="200" rx="14"/>
-                </clipPath>
-                <filter id="personShadow" x="-20%" y="-5%" width="140%" height="120%">
-                  <feDropShadow dx="0" dy="8" stdDeviation="16" floodColor="#000" floodOpacity="0.4"/>
-                </filter>
-              </defs>
-
-              {/* Shadow on ground */}
-              <ellipse cx="175" cy="572" rx="130" ry="14" fill="url(#shadowFloor)" opacity="0.6"/>
-
-              {/* ── LEGS ── */}
-              {/* Left leg */}
-              <path d="M128 410 Q118 480 112 570 L142 570 Q148 485 155 415Z" fill="#0d1b47"/>
-              {/* Right leg */}
-              <path d="M172 410 Q178 480 182 570 L212 570 Q208 485 200 415Z" fill="#0d1b47"/>
-              {/* Shoes */}
-              <ellipse cx="127" cy="568" rx="22" ry="8" fill="#111"/>
-              <ellipse cx="197" cy="568" rx="22" ry="8" fill="#111"/>
-
-              {/* ── BODY / SUIT JACKET ── */}
-              <path d="M95 270 Q88 350 90 415 L215 415 Q217 350 215 270 Q195 245 175 250 Q155 245 125 250Z" fill="url(#suitGrad)"/>
-
-              {/* Suit lapels */}
-              <path d="M155 250 L142 290 L160 295Z" fill="#162660"/>
-              <path d="M195 250 L208 290 L190 295Z" fill="#162660"/>
-
-              {/* White shirt / tie */}
-              <path d="M155 250 L160 295 L170 295 L175 250Z" fill="url(#shirtGrad)"/>
-              <path d="M195 250 L190 295 L180 295 L175 250Z" fill="url(#shirtGrad)"/>
-              {/* Tie */}
-              <path d="M172 258 L168 310 L175 316 L182 310 L178 258Z" fill="#E53935"/>
-              <path d="M170 258 L175 272 L180 258Z" fill="#c62828"/>
-
-              {/* Suit buttons */}
-              <circle cx="175" cy="330" r="3" fill="#162660"/>
-              <circle cx="175" cy="350" r="3" fill="#162660"/>
-
-              {/* Pocket square */}
-              <path d="M200 280 L210 282 L208 292 L200 290Z" fill="#35BDE7" opacity="0.9"/>
-
-              {/* ── LEFT ARM (natural down) ── */}
-              <path d="M95 270 Q72 300 68 360 Q78 365 90 360 Q92 315 108 285Z" fill="url(#suitGrad)"/>
-              {/* Left hand */}
-              <ellipse cx="79" cy="370" rx="14" ry="12" fill="url(#skinGrad)"/>
-
-              {/* ── RIGHT ARM (raised, holding phone) ── */}
-              <path d="M215 270 Q235 290 248 310 Q255 335 252 365 Q242 368 234 362 Q234 340 225 305 Q218 290 205 280Z" fill="url(#suitGrad)"/>
-
-              {/* ── PHONE in right hand ── */}
-              {/* Phone body */}
-              <rect x="222" y="255" width="112" height="208" rx="16" fill="url(#phoneGrad)"/>
-              {/* Phone screen */}
-              <rect x="226" y="260" width="104" height="196" rx="13" fill="url(#phoneScreen)"/>
-              {/* Notch */}
-              <rect x="258" y="263" width="40" height="5" rx="3" fill="#2a2a32"/>
-
-              {/* ─ Tiny dashboard on phone ─ */}
-              {/* Header area */}
-              <rect x="226" y="260" width="104" height="80" rx="13" fill="#1a3a8f"/>
-              <text x="234" y="278" fill="rgba(255,255,255,.55)" fontSize="6" fontFamily="sans-serif">Good evening</text>
-              <text x="234" y="289" fill="#fff" fontSize="9" fontWeight="bold" fontFamily="sans-serif">Rakesh 🙌</text>
-              <text x="234" y="304" fill="#FCD34D" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" letterSpacing="1">REVENUE THIS MONTH</text>
-              <text x="234" y="318" fill="#fff" fontSize="12" fontWeight="bold" fontFamily="sans-serif">₹2,00,000</text>
-              {/* New badge */}
-              <rect x="286" y="311" width="30" height="11" rx="5.5" fill="#10b981"/>
-              <text x="300" y="320" fill="#fff" fontSize="5.5" fontFamily="sans-serif" textAnchor="middle">↑ New</text>
-
-              {/* Stats row */}
-              <rect x="229" y="326" width="29" height="20" rx="5" fill="rgba(255,255,255,.12)"/>
-              <rect x="262" y="326" width="29" height="20" rx="5" fill="rgba(255,255,255,.12)"/>
-              <rect x="295" y="326" width="29" height="20" rx="5" fill="rgba(255,255,255,.12)"/>
-              <text x="243" y="337" fill="#fff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">1</text>
-              <text x="243" y="344" fill="rgba(255,255,255,.55)" fontSize="4.5" fontFamily="sans-serif" textAnchor="middle">Today</text>
-              <text x="277" y="337" fill="#fff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">0</text>
-              <text x="277" y="344" fill="rgba(255,255,255,.55)" fontSize="4.5" fontFamily="sans-serif" textAnchor="middle">Upcoming</text>
-              <text x="310" y="337" fill="#fff" fontSize="7" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">1</text>
-              <text x="310" y="344" fill="rgba(255,255,255,.55)" fontSize="4.5" fontFamily="sans-serif" textAnchor="middle">Pending</text>
-
-              {/* Manage section */}
-              <rect x="226" y="350" width="104" height="106" rx="0" fill="#f0f4ff"/>
-              <text x="232" y="363" fill="#4B5675" fontSize="5" fontWeight="bold" fontFamily="sans-serif" letterSpacing="1">MANAGE</text>
-              {/* Icon grid */}
-              {[
-                { x:232, y:368, color:'#1D4FCE', bg:'#1D4FCE' },
-                { x:254, y:368, color:'#a855f7', bg:'#ede9fe' },
-                { x:276, y:368, color:'#10b981', bg:'#d1fae5' },
-                { x:298, y:368, color:'#ef4444', bg:'#fee2e2' },
-                { x:232, y:390, color:'#f59e0b', bg:'#fef3c7' },
-                { x:254, y:390, color:'#06b6d4', bg:'#cffafe' },
-                { x:276, y:390, color:'#6b7280', bg:'#f3f4f6' },
-                { x:298, y:390, color:'#2563EB', bg:'#dbeafe' },
-                { x:232, y:412, color:'#f59e0b', bg:'#fef3c7' },
-                { x:254, y:412, color:'#10b981', bg:'#d1fae5' },
-              ].map((ic, i) => (
-                <rect key={i} x={ic.x} y={ic.y} width="17" height="17" rx="5" fill={ic.bg} opacity="0.9"/>
-              ))}
-              {/* Icon labels */}
-              {[
-                { x:240, y:393, t:'New' }, { x:263, y:393, t:'Cal' }, { x:285, y:393, t:'Venue' }, { x:307, y:393, t:'Svc' },
-                { x:240, y:415, t:'Staff' }, { x:263, y:415, t:'Rep' }, { x:285, y:415, t:'Exp' }, { x:307, y:415, t:'Sub' },
-                { x:240, y:437, t:'Ads' }, { x:263, y:437, t:'Pay' },
-              ].map((lb, i) => (
-                <text key={i} x={lb.x} y={lb.y} fill="#4B5675" fontSize="4" fontFamily="sans-serif" textAnchor="middle">{lb.t}</text>
-              ))}
-
-              {/* Phone bottom bar */}
-              <rect x="226" y="448" width="104" height="8" rx="0" fill="#f0f4ff"/>
-              <rect x="226" y="448" width="104" height="8" fill="rgba(18,52,95,.04)"/>
-
-              {/* Right hand fingers wrapped around phone */}
-              <path d="M334 280 Q342 285 340 340 Q338 360 330 365 Q322 360 324 340 Q325 290 320 275Z" fill="url(#skinGrad)"/>
-              <path d="M328 264 Q336 265 338 285 Q328 288 322 282Z" fill="url(#skinGrad)"/>
-              <path d="M328 264 Q324 258 322 268 L322 282 Q328 288 338 285Z" fill="url(#skinGrad)" opacity="0.8"/>
-
-              {/* ── NECK ── */}
-              <rect x="163" y="220" width="24" height="38" rx="10" fill="url(#skinGrad)"/>
-
-              {/* ── HEAD ── */}
-              <ellipse cx="175" cy="195" rx="46" ry="52" fill="url(#skinGrad)"/>
-
-              {/* Hair */}
-              <path d="M129 185 Q130 140 175 135 Q220 140 221 185 Q215 155 175 150 Q135 155 129 185Z" fill="url(#hairGrad)"/>
-              <path d="M129 185 Q126 175 128 165 Q130 140 175 135 Q130 145 129 185Z" fill="url(#hairGrad)"/>
-              <path d="M221 185 Q224 175 222 165 Q220 140 175 135 Q220 145 221 185Z" fill="url(#hairGrad)"/>
-
-              {/* Ear */}
-              <ellipse cx="129" cy="200" rx="8" ry="11" fill="url(#skinGrad)"/>
-              <ellipse cx="221" cy="200" rx="8" ry="11" fill="url(#skinGrad)"/>
-
-              {/* Eyes */}
-              <ellipse cx="158" cy="198" rx="8" ry="7" fill="#fff"/>
-              <ellipse cx="192" cy="198" rx="8" ry="7" fill="#fff"/>
-              <ellipse cx="159" cy="199" rx="5" ry="5" fill="#2d1a0e"/>
-              <ellipse cx="193" cy="199" rx="5" ry="5" fill="#2d1a0e"/>
-              <ellipse cx="160" cy="198" rx="2" ry="2" fill="#000"/>
-              <ellipse cx="194" cy="198" rx="2" ry="2" fill="#000"/>
-              {/* Eye shine */}
-              <ellipse cx="161" cy="197" rx="1.2" ry="1.2" fill="#fff"/>
-              <ellipse cx="195" cy="197" rx="1.2" ry="1.2" fill="#fff"/>
-
-              {/* Eyebrows */}
-              <path d="M150 189 Q159 184 167 188" stroke="#2d1a0e" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-              <path d="M183 188 Q191 184 200 189" stroke="#2d1a0e" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-
-              {/* Smile */}
-              <path d="M158 218 Q175 232 192 218" stroke="#c97b4b" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-              <path d="M162 222 Q175 232 188 222" fill="rgba(0,0,0,.08)"/>
-
-              {/* Cheek blush */}
-              <ellipse cx="146" cy="214" rx="10" ry="6" fill="#ffb3a0" opacity="0.35"/>
-              <ellipse cx="204" cy="214" rx="10" ry="6" fill="#ffb3a0" opacity="0.35"/>
-
-              {/* Collar */}
-              <path d="M152 248 L163 268 L175 250 L187 268 L198 248 Q190 240 175 242 Q160 240 152 248Z" fill="url(#shirtGrad)"/>
-            </svg>
-
-            {/* Floating chips */}
-            <div style={{ position:'absolute', top:60, left:-20, zIndex:10, background:'#fff', borderRadius:16, padding:'10px 16px 10px 12px', boxShadow:'0 12px 36px -8px rgba(10,26,51,.35)', display:'flex', alignItems:'center', gap:10, animation:'floaty 6s ease-in-out infinite .3s', whiteSpace:'nowrap' }}>
-              <span style={{ width:32, height:32, borderRadius:10, background:'linear-gradient(135deg,#10b981,#34d399)', display:'inline-flex', alignItems:'center', justifyContent:'center', color:'#fff', flexShrink:0 }}>
-                <Icon.Check width={16} height={16}/>
-              </span>
-              <div>
-                <div style={{ fontSize:10.5, color:'#4B5675', fontWeight:500, lineHeight:1.3 }}>New booking</div>
-                <div style={{ fontSize:13, fontWeight:700, color:'#0A0F1E', lineHeight:1.4 }}>Grand Lawn · ₹3,20,000</div>
-              </div>
-            </div>
-
-            <div style={{ position:'absolute', bottom:90, left:-40, zIndex:10, background:'#0D1B35', borderRadius:16, padding:'12px 18px', boxShadow:'0 16px 48px -12px rgba(10,26,51,.7)', minWidth:170, animation:'floaty 8s ease-in-out infinite 1.2s' }}>
-              <div style={{ fontSize:10, color:'rgba(255,255,255,.50)', fontWeight:600, letterSpacing:'.06em', textTransform:'uppercase', marginBottom:3 }}>Revenue this month</div>
-              <div style={{ fontSize:20, fontWeight:800, color:'#fff', letterSpacing:'-.02em', lineHeight:1.2 }}>₹2,00,000</div>
-              <div style={{ marginTop:6, display:'flex', alignItems:'center', gap:5, color:'#35BDE7', fontSize:12, fontWeight:600 }}>
-                <Icon.Chart width={12} height={12}/> +New booking
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </NvContainer>
-    </section>
-  );
-}
-
-// ─── ROLES SECTION ────────────────────────────────────────────────────────────
-function RolesSection() {
-  const roles = [
-    {
-      id: 'venue',
-      icon: <Icon.Building />,
-      title: 'Venue Owner',
-      subtitle: 'Banquet halls, resorts & event spaces',
-      price: '₹9,999',
-      tagLabel: 'Live Now',
-      tagLive: true,
-      accentColor: C.venueBlue,
-      accentDark: C.venueBlueDark,
-      grad: 'linear-gradient(135deg,#1D4FCE 0%,#2563EB 60%,#35BDE7 130%)',
-      bgGrad: 'linear-gradient(160deg,#EEF4FF 0%,#E8F0FE 100%)',
-      glow: 'rgba(37,99,235,.25)',
-      border: 'rgba(37,99,235,.20)',
-      pillBg: 'rgba(37,99,235,.10)',
-      pillBd: 'rgba(37,99,235,.25)',
-      screenshot: '/images/app-dashboard-new.jpg',
-      desc: 'Complete venue management from one mobile-first dashboard. Manage bookings, staff, services, payments, and analytics for your marriage hall, banquet hall, or hotel.',
-      features: [
-        'Full booking & availability calendar',
-        'Staff roles & secure logins',
-        'Services & catering add-ons',
-        'PDF receipts & CSV tax exports',
-        'Revenue analytics dashboard',
-        'Subscriptions & sponsored ads',
-        'Live availability for customers',
-      ],
-    },
-    {
-      id: 'decorator',
-      icon: <Icon.Sparkles />,
-      title: 'Decorator',
-      subtitle: 'Showcase & grow your decoration business',
-      price: '₹4,999',
-      tagLabel: 'Live Now',
-      tagLive: true,
-      accentColor: C.decorPurple,
-      accentDark: C.decorPurpleDark,
-      grad: 'linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#ec4899 130%)',
-      bgGrad: 'linear-gradient(160deg,#FAF5FF 0%,#F3E8FF 100%)',
-      glow: 'rgba(168,85,247,.25)',
-      border: 'rgba(168,85,247,.20)',
-      pillBg: 'rgba(168,85,247,.10)',
-      pillBd: 'rgba(168,85,247,.25)',
-      screenshot: '/images/app-roles.jpg',
-      desc: 'Decorators get a dedicated login to manage their portfolio, view assigned venue bookings, update decoration packages, and track payments — all in one place.',
-      features: [
-        'View assigned venue bookings',
-        'Manage decor packages & pricing',
-        'Track payments & dues',
-        'Availability calendar',
-        'Direct venue communication',
-        'Portfolio showcase',
-      ],
-    },
-    {
-      id: 'caterer',
-      icon: <Icon.Fork />,
-      title: 'Caterer',
-      subtitle: 'List packages & get bookings from organizers',
-      price: '₹5,999',
-      tagLabel: 'Coming Soon',
-      tagLive: false,
-      accentColor: C.caterGreen,
-      accentDark: C.caterGreenDark,
-      grad: 'linear-gradient(135deg,#059669 0%,#10b981 60%,#34d399 130%)',
-      bgGrad: 'linear-gradient(160deg,#F0FDF9 0%,#D1FAE5 100%)',
-      glow: 'rgba(16,185,129,.25)',
-      border: 'rgba(16,185,129,.20)',
-      pillBg: 'rgba(16,185,129,.10)',
-      pillBd: 'rgba(16,185,129,.25)',
-      screenshot: '/images/app-roles.jpg',
-      desc: 'Caterers log in to see upcoming event menus, confirm catering orders linked to bookings, set per-head pricing, and communicate directly with venue owners.',
-      features: [
-        'View catering orders per booking',
-        'Set menu & per-head pricing',
-        'Confirm / decline catering orders',
-        'Direct venue communication',
-        'Revenue & order tracking',
-      ],
-    },
-  ];
-
-  return (
-    <section id="roles" style={{ padding: '120px 0', background: '#fff', width: '100%', overflow: 'hidden' }}>
-      <NvContainer>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 72 }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 999, fontSize: 11.5, fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', background: 'linear-gradient(135deg,rgba(37,99,235,.10),rgba(168,85,247,.10))', border: '1px solid rgba(37,99,235,.20)', color: C.blueDark, marginBottom: 20 }}>
-            <Icon.Users width={13} height={13} />
-            Three roles, one platform
-          </span>
-          <h2 style={{ margin: '0 0 18px', fontSize: 'clamp(32px,4.5vw,60px)', lineHeight: 1.04, letterSpacing: '-.04em', fontWeight: 800, color: C.ink900, maxWidth: 820 }}>
-            Every stakeholder gets their<br />
-            <span style={{ background: 'linear-gradient(100deg,#2563EB 0%,#a855f7 50%,#10b981 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>own dedicated workspace.</span>
-          </h2>
-          <p style={{ maxWidth: 620, color: C.ink500, fontSize: 17.5, lineHeight: 1.72, margin: 0 }}>
-            Choose your role when you sign up. Venue owners, decorators, and caterers each get purpose-built dashboards — tightly connected to every booking.
-          </p>
-        </div>
-
-        {/* Role cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
-          {roles.map((role, idx) => (
-            <div key={role.id} style={{
-              borderRadius: 32, overflow: 'hidden',
-              border: `1px solid ${role.border}`,
-              boxShadow: `0 24px 64px -24px ${role.glow}`,
-              background: role.bgGrad,
-              position: 'relative',
-            }}>
-              {/* Glow orb */}
-              <div aria-hidden style={{ position: 'absolute', top: -100, [idx % 2 === 0 ? 'right' : 'left']: -100, width: 400, height: 400, borderRadius: '50%', background: `radial-gradient(circle,${role.glow} 0%,transparent 65%)`, filter: 'blur(40px)', pointerEvents: 'none' }} />
-
-              <div className="nv-role-card-grid" style={{ display: 'grid', gap: 0, alignItems: 'center', position: 'relative' }}>
-                {/* Text side */}
-                <div style={{ padding: '56px 52px', order: idx % 2 === 0 ? 0 : 1 }}>
-                  {/* Icon + tag */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
-                    <div style={{ width: 60, height: 60, borderRadius: 18, background: role.grad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', boxShadow: `0 14px 32px -8px ${role.glow}` }}>
-                      {role.icon}
-                    </div>
-                    <span style={{ padding: '5px 14px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: role.pillBg, border: `1px solid ${role.pillBd}`, color: role.tagLive ? role.accentDark : '#666' }}>
-                      {role.tagLabel}
-                    </span>
-                    <span style={{ fontSize: 22, fontWeight: 800, color: role.accentColor, letterSpacing: '-.03em' }}>{role.price}<span style={{ fontSize: 13, fontWeight: 600, color: C.ink500 }}> /year</span></span>
-                  </div>
-
-                  <h3 style={{ margin: '0 0 6px', fontSize: 'clamp(26px,2.8vw,40px)', fontWeight: 800, letterSpacing: '-.04em', color: C.ink900, lineHeight: 1.05 }}>{role.title}</h3>
-                  <p style={{ margin: '0 0 20px', fontSize: 14, color: C.ink500, fontWeight: 500 }}>{role.subtitle}</p>
-                  <p style={{ margin: '0 0 28px', fontSize: 16, lineHeight: 1.75, color: C.ink700, maxWidth: 480 }}>{role.desc}</p>
-
-                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 36px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 20px' }}>
-                    {role.features.map(f => (
-                      <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13.5, color: C.ink700, fontWeight: 500 }}>
-                        <span style={{ width: 20, height: 20, borderRadius: 99, background: role.pillBg, border: `1px solid ${role.pillBd}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: role.accentColor }}>
-                          <Icon.Check width={11} height={11} />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <NvBtn
-                    variant={role.id === 'decorator' ? 'purple' : role.id === 'caterer' ? 'green' : 'primary'}
-                    size="md"
-                    as="a"
-                    href="#contact"
-                  >
-                    {role.tagLive ? `Get started as ${role.title}` : `Get early access`} <Icon.Arrow />
-                  </NvBtn>
-                </div>
-
-                {/* Phone visual side */}
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '48px 40px', order: idx % 2 === 0 ? 1 : 0, position: 'relative', minHeight: 500 }}>
-                  <div aria-hidden style={{ position: 'absolute', inset: '5%', borderRadius: 40, background: `radial-gradient(ellipse,${role.glow} 0%,transparent 65%)`, filter: 'blur(24px)', pointerEvents: 'none' }} />
-                  <div style={{
-                    position: 'relative', zIndex: 1,
-                    padding: 10, borderRadius: 46,
-                    background: 'linear-gradient(180deg, #1C1C22 0%, #08080E 100%)',
-                    boxShadow: `0 48px 96px -24px ${role.glow}, 0 0 0 1px rgba(255,255,255,.07) inset`,
-                    animation: `floaty ${6 + idx}s ease-in-out infinite ${idx * 0.5}s`,
-                  }}>
-                    <div style={{ position: 'absolute', top: 14, left: '50%', transform: 'translateX(-50%)', width: 80, height: 5, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
-                    <div style={{ borderRadius: 38, overflow: 'hidden', width: 260, height: 520, background: C.ink900 }}>
-                      <img src={role.screenshot} alt={`${role.title} screen`} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Role selection visual from app */}
-        <div style={{ marginTop: 72, borderRadius: 28, overflow: 'hidden', border: '1px solid rgba(18,52,95,.10)', boxShadow: '0 24px 64px -24px rgba(18,52,95,.12)', background: 'linear-gradient(160deg,#060D1F 0%,#0D1F4A 50%,#1A3A8F 100%)', padding: '56px 52px', position: 'relative' }}>
-          <div aria-hidden style={{ position: 'absolute', top: -120, right: -80, width: 500, height: 500, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.cyan,.30)},transparent 65%)`, filter: 'blur(40px)' }} />
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 40 }}>
-            <div style={{ color: '#fff', maxWidth: 520 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 44, width: 44, borderRadius: 12 }} />
-                <div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: '#fff' }}>Quickbuk</div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,.5)', fontWeight: 600, letterSpacing: '.04em', textTransform: 'uppercase' }}>Partner Platform</div>
-                </div>
-              </div>
-              <h3 style={{ margin: '0 0 14px', fontSize: 'clamp(24px,3vw,38px)', fontWeight: 800, letterSpacing: '-.04em', lineHeight: 1.1 }}>
-                Become a Partner<br />
-                <span style={{ background: 'linear-gradient(100deg,#fff 0%,#FCD34D 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>&amp; Grow Your Business.</span>
-              </h3>
-              <p style={{ margin: '0 0 28px', fontSize: 15.5, color: 'rgba(255,255,255,.65)', lineHeight: 1.7 }}>
-                Bookings · Payments · Reports — all in one app. Join as a Venue Owner, Decorator, or Caterer and take control of your business.
-              </p>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <NvBtn variant="invert" size="md" as="a" href="#contact" style={{ color: C.ink900 }}>Join now <Icon.Arrow /></NvBtn>
-                <NvBtn variant="ghost" size="md" as="a" href="#pricing" style={{ borderColor: 'rgba(255,255,255,.28)', color: '#fff', background: 'rgba(255,255,255,.05)' }}>See pricing</NvBtn>
-              </div>
-            </div>
-
-            {/* 3 role cards mini */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 280 }}>
-              {[
-                { icon: <Icon.Building width={20} height={20} />, title: 'Venue Owner', sub: 'Banquet halls, resorts & event spaces', price: '₹9,999/yr', color: '#2563EB', grad: 'linear-gradient(135deg,#1D4FCE,#2563EB)', live: true },
-                { icon: <Icon.Sparkles width={20} height={20} />, title: 'Decorator', sub: 'Showcase & grow your decoration business', price: '₹4,999/yr', color: '#a855f7', grad: 'linear-gradient(135deg,#7c3aed,#a855f7)', live: true },
-                { icon: <Icon.Fork width={20} height={20} />, title: 'Caterer', sub: 'List packages & get bookings from organizers', price: '₹5,999/yr', color: '#10b981', grad: 'linear-gradient(135deg,#059669,#10b981)', live: false },
-              ].map(r => (
-                <div key={r.title} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', borderRadius: 16, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(8px)' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: r.grad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>{r.icon}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>{r.title}</span>
-                      {!r.live && <span style={{ fontSize: 9, fontWeight: 700, padding: '2px 7px', borderRadius: 99, background: 'rgba(252,211,77,.15)', border: '1px solid rgba(252,211,77,.3)', color: '#FCD34D', letterSpacing: '.06em' }}>SOON</span>}
-                    </div>
-                    <div style={{ fontSize: 11.5, color: 'rgba(255,255,255,.5)', marginTop: 2 }}>{r.sub}</div>
-                  </div>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: r.color, flexShrink: 0 }}>{r.price}</div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </NvContainer>
     </section>
@@ -995,7 +483,7 @@ function Product() {
         <div className="noise" style={{ position: 'absolute', inset: 0, opacity: .4, pointerEvents: 'none' }} />
 
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '72px 48px', position: 'relative' }}>
-          <div className="nv-product-showcase-grid" style={{ display: 'grid', gap: 64, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 720, margin: '0 auto' }}>
             <div style={{ color: '#fff' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
                 <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 44, width: 44, borderRadius: 12, display: 'block' }} />
@@ -1038,22 +526,8 @@ function Product() {
                 <NvBtn variant="ghost" size="md" as="a" href="#contact" style={{ borderColor: 'rgba(255,255,255,.28)', color: '#fff', background: 'rgba(255,255,255,.05)' }}>Book a demo</NvBtn>
               </div>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 48 }}>
-                {[
-                  { label: 'Google Play', sub: 'Get it on', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20.5v-17c0-.83 1-.83 1.5-.5L19 12l-14.5 8.5c-.5.33-1.5.33-1.5-.5z" fill="#fff" opacity=".85"/><path d="M3 3.5 13.5 12 3 20.5" stroke="#34A853" strokeWidth="1.2"/><path d="M3 3.5l10.5 8.5H19" stroke="#FBBC04" strokeWidth="1.2"/><path d="M3 20.5 13.5 12H19" stroke="#EA4335" strokeWidth="1.2"/></svg> },
-                  { label: 'App Store', sub: 'Download on the', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,.9)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> },
-                ].map(b => (
-                  <button key={b.label} onClick={() => setShowModal(true)} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 18px', borderRadius: 12, cursor: 'pointer', background: 'rgba(255,255,255,.08)', color: '#fff', border: '1px solid rgba(255,255,255,.18)', fontFamily: 'inherit', transition: 'background .15s, transform .18s' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,.14)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,.08)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
-                  >
-                    {b.icon}
-                    <div style={{ textAlign: 'left' }}>
-                      <div style={{ fontSize: 9, fontWeight: 500, opacity: .65, textTransform: 'uppercase', letterSpacing: '.06em', lineHeight: 1.2 }}>{b.sub}</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.2 }}>{b.label}</div>
-                    </div>
-                  </button>
-                ))}
+              <div style={{ marginBottom: 48 }}>
+                <AppStoreBadges onOpen={() => setShowModal(true)} />
               </div>
               {showModal && <LaunchingSoonModal onClose={() => setShowModal(false)} />}
 
@@ -1071,38 +545,6 @@ function Product() {
                     <div style={{ fontSize: 14, color: '#fff', marginTop: 5, fontWeight: 600 }}>{s.v}</div>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* Phone visual */}
-            <div className="nv-product-visual" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-              <div aria-hidden style={{ position: 'absolute', inset: '10%', borderRadius: 32, background: `radial-gradient(ellipse,${hexA(C.cyan,.30)} 0%,transparent 65%)`, filter: 'blur(32px)', pointerEvents: 'none' }} />
-              <div style={{ position: 'relative', zIndex: 1, padding: 10, borderRadius: 48, background: 'linear-gradient(180deg, #1C1C22 0%, #08080E 100%)', boxShadow: '0 48px 96px -24px rgba(10,26,51,.8), 0 0 0 1px rgba(255,255,255,.07) inset', animation: 'floaty 6s ease-in-out infinite' }}>
-                <div style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', width: 80, height: 5, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
-                <div style={{ borderRadius: 38, overflow: 'hidden', width: 280, height: 560, background: C.ink900 }}>
-                  <img src="/images/app-dashboard-new.jpg" alt="Quickbuk dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-                </div>
-              </div>
-
-              <div style={{ position: 'absolute', top: 20, left: -20, zIndex: 3, padding: '10px 16px 10px 10px', background: '#fff', borderRadius: 16, boxShadow: '0 8px 32px -8px rgba(18,52,95,.28)', display: 'flex', alignItems: 'center', gap: 10, animation: 'floaty 7s ease-in-out infinite .5s' }}>
-                <span style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg,#19B6C8,#35BDE7)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}><Icon.Check /></span>
-                <div>
-                  <div style={{ fontSize: 10.5, color: C.ink500, fontWeight: 500, lineHeight: 1.3 }}>Booking confirmed</div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: C.ink900, lineHeight: 1.4 }}>Sat · 24 Aug · ₹2,40,000</div>
-                </div>
-              </div>
-
-              <div style={{ position: 'absolute', bottom: 40, right: -20, zIndex: 3, padding: '14px 18px', background: '#0D1B35', borderRadius: 18, boxShadow: '0 16px 48px -12px rgba(10,26,51,.7)', minWidth: 180, animation: 'floaty 8s ease-in-out infinite 1s' }}>
-                <div style={{ fontSize: 10.5, color: 'rgba(255,255,255,.5)', fontWeight: 500, letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: 4 }}>Revenue this month</div>
-                <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', letterSpacing: '-.02em', lineHeight: 1.2 }}>₹3,18,000</div>
-                <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 6, color: '#35BDE7', fontSize: 12.5, fontWeight: 600 }}>
-                  <Icon.Chart width={12} height={12} /> +New booking
-                </div>
-              </div>
-
-              <div style={{ position: 'absolute', bottom: 180, left: -30, zIndex: 3, padding: '10px 16px', background: '#0D1B35', borderRadius: 14, boxShadow: '0 8px 28px -8px rgba(10,26,51,.6)', animation: 'floaty 9s ease-in-out infinite 1.8s' }}>
-                <div style={{ fontSize: 10, color: 'rgba(255,255,255,.45)', textTransform: 'uppercase', letterSpacing: '.06em', fontWeight: 600 }}>This month</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-.02em' }}>48 bookings</div>
               </div>
             </div>
           </div>
@@ -1145,7 +587,6 @@ function Product() {
 
 // ─── SIGN-IN SHOWCASE ────────────────────────────────────────────────────────
 function SignInShowcase() {
-  const isMobile = useBreakpoint(860);
   return (
     <section style={{ position: 'relative', padding: '100px 0', background: '#fff', overflow: 'hidden', width: '100%' }}>
       {/* Subtle grid bg */}
@@ -1156,9 +597,9 @@ function SignInShowcase() {
       <div aria-hidden style={{ position: 'absolute', right: -120, top: '10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle,rgba(37,99,235,.10) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
       <NvContainer>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 56 : 80, alignItems: 'center' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto' }}>
 
-          {/* LEFT — copy */}
+          {/* Copy */}
           <div>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 999, fontSize: 11.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: 'rgba(37,99,235,.09)', border: '1px solid rgba(37,99,235,.22)', color: '#1D4FCE', marginBottom: 28 }}>
               <Icon.Lock width={12} height={12} /> No password needed
@@ -1206,50 +647,6 @@ function SignInShowcase() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* RIGHT — login screen phone mockup */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', minHeight: 640 }}>
-            {/* Glow */}
-            <div aria-hidden style={{ position: 'absolute', inset: '8%', borderRadius: 40, background: 'radial-gradient(ellipse,rgba(37,99,235,.18) 0%,transparent 65%)', filter: 'blur(28px)', pointerEvents: 'none' }} />
-
-            {/* Phone frame */}
-            <div style={{ position: 'relative', zIndex: 1, padding: 11, borderRadius: 50, background: 'linear-gradient(180deg,#1C1C22 0%,#08080E 100%)', boxShadow: '0 56px 100px -28px rgba(10,26,51,.55), 0 0 0 1px rgba(255,255,255,.07) inset', animation: 'floaty 7s ease-in-out infinite' }}>
-              <div style={{ position: 'absolute', top: 17, left: '50%', transform: 'translateX(-50%)', width: 88, height: 6, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
-              <div style={{ borderRadius: 40, overflow: 'hidden', width: 288, height: 578, background: '#0A0F1E' }}>
-                <img src="/images/app-roles.jpg" alt="Quickbuk sign-in screen" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-              </div>
-            </div>
-
-            {/* Floating — Welcome back chip */}
-            <div style={{ position: 'absolute', top: 30, right: -24, zIndex: 3, background: '#fff', borderRadius: 18, padding: '14px 18px', boxShadow: '0 12px 36px -8px rgba(18,52,95,.28)', animation: 'floaty 6s ease-in-out infinite .6s', maxWidth: 210 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg,#1D4FCE,#35BDE7)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#fff' }}>
-                  <Icon.Arrow width={16} height={16} />
-                </div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: '#0A0F1E' }}>Welcome back 👋</div>
-                  <div style={{ fontSize: 11, color: '#4B5675', fontWeight: 500, marginTop: 1 }}>No password needed</div>
-                </div>
-              </div>
-              <div style={{ background: '#F4F7FF', borderRadius: 10, padding: '8px 12px', fontSize: 12, color: '#4B5675', border: '1px solid rgba(18,52,95,.09)' }}>
-                your@business.com
-              </div>
-            </div>
-
-            {/* Floating — role picker chip */}
-            <div style={{ position: 'absolute', bottom: 80, left: -28, zIndex: 3, background: '#0D1B35', borderRadius: 16, padding: '14px 16px', boxShadow: '0 16px 48px -12px rgba(10,26,51,.65)', animation: 'floaty 9s ease-in-out infinite 1.4s', minWidth: 190 }}>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,.45)', textTransform: 'uppercase', letterSpacing: '.07em', fontWeight: 700, marginBottom: 10 }}>Choose your role</div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                {[
-                  { label: 'Venue', color: '#2563EB', bg: 'rgba(37,99,235,.25)' },
-                  { label: 'Decor', color: '#c084fc', bg: 'rgba(192,132,252,.25)' },
-                  { label: 'Cater', color: '#34d399', bg: 'rgba(52,211,153,.25)' },
-                ].map(r => (
-                  <div key={r.label} style={{ flex: 1, padding: '6px 4px', borderRadius: 8, background: r.bg, textAlign: 'center', fontSize: 10.5, fontWeight: 700, color: r.color }}>{r.label}</div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -1555,9 +952,9 @@ function Footer() {
           </div>
           <div className="nv-footer-links" style={{ display: 'flex', gap: 28, fontSize: 13.5 }}>
             {[
-              { h: '#roles', l: 'For You' }, { h: '#product', l: 'Product' },
+              { h: '#product', l: 'Product' },
               { h: '#pricing', l: 'Pricing' }, { h: '#faq', l: 'FAQ' },
-              { h: 'mailto:contact@nesved.com', l: 'contact@nesved.com' },
+              { h: '/privacy', l: 'Privacy Policy' }, { h: '/terms', l: 'Terms & Conditions' },
             ].map(lnk => (
               <a key={lnk.l} href={lnk.h} style={{ color: 'rgba(255,255,255,.50)', textDecoration: 'none', transition: 'color .18s', fontWeight: 500 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
@@ -1578,8 +975,6 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <PartnerBanner />
-        <RolesSection />
         <SignInShowcase />
         <Product />
         <Pricing />
