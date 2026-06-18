@@ -5,7 +5,11 @@ import App from './App.tsx'
 import PrivacyPage from './PrivacyPage.tsx'
 import TermsPage from './TermsPage.tsx'
 import DeleteAccountPage from './DeleteAccountPage.tsx'
+import './lib/firebase.ts'
+import { captureUtmParams } from './lib/utm.ts'
 import './index.css'
+
+captureUtmParams()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
