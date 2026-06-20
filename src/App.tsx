@@ -186,31 +186,6 @@ function AppStoreBadges({ onOpen }: { onOpen: () => void }) {
   );
 }
 
-// ─── PHONE FRAME (shared mockup wrapper) ───────────────────────────────────────
-function PhoneFrame({
-  src, alt, width = 280, height = 560, outerPadding = 10, outerRadius = 48, innerRadius = 38,
-  notchWidth = 80, notchHeight = 5, notchTop = 16,
-  boxShadow = '0 48px 96px -24px rgba(10,26,51,.8), 0 0 0 1px rgba(255,255,255,.07) inset',
-  animation = 'floaty 6s ease-in-out infinite',
-  style = {},
-}: {
-  src: string; alt: string; width?: number; height?: number; outerPadding?: number;
-  outerRadius?: number; innerRadius?: number; notchWidth?: number; notchHeight?: number; notchTop?: number;
-  boxShadow?: string; animation?: string; style?: React.CSSProperties;
-}) {
-  return (
-    <div style={{
-      position: 'relative', zIndex: 1, padding: outerPadding, borderRadius: outerRadius,
-      background: 'linear-gradient(180deg, #1C1C22 0%, #08080E 100%)', boxShadow, animation, ...style,
-    }}>
-      <div style={{ position: 'absolute', top: notchTop, left: '50%', transform: 'translateX(-50%)', width: notchWidth, height: notchHeight, borderRadius: 99, background: '#2a2a32', zIndex: 2 }} />
-      <div style={{ borderRadius: innerRadius, overflow: 'hidden', width, height, background: '#0A0F1E' }}>
-        <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-      </div>
-    </div>
-  );
-}
-
 // ─── HEADER ───────────────────────────────────────────────────────────────────
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -287,9 +262,9 @@ function Header() {
 
       {mobileOpen && (
         <div className="nv-mobile-drawer" style={{ background: 'rgba(10,26,51,.55)', backdropFilter: 'blur(4px)' }} onClick={() => setMobileOpen(false)}>
-          <div onClick={e => e.stopPropagation()} style={{
+          <div onClick={e => e.stopPropagation()} className="glass-card" style={{
             position: 'absolute', top: 0, right: 0, bottom: 0, width: '80%', maxWidth: 320,
-            background: '#fff', boxShadow: '-20px 0 60px rgba(10,26,51,.2)',
+            background: 'rgba(255,255,255,.85)', borderRadius: 0, boxShadow: '-20px 0 60px rgba(10,26,51,.2)',
             display: 'flex', flexDirection: 'column', padding: '0 0 32px',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid rgba(18,52,95,.08)' }}>
@@ -322,54 +297,110 @@ function Header() {
 }
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
+const SIGNIN_SCREEN = { src: '/images/app-partner-signin.jpg', label: 'Sign in', color: '#f59e0b', bg: 'rgba(245,158,11,.14)' };
+
+const SHOWCASE_SCREENS = [
+  { src: '/images/app-dashboard-new.jpg', label: 'Venue Owner', color: '#2563EB', bg: 'rgba(37,99,235,.14)' },
+  { src: '/images/app-decorator-dashboard.jpg', label: 'Decorator', color: '#a855f7', bg: 'rgba(168,85,247,.14)' },
+  { src: '/images/app-caterer-dashboard.jpg', label: 'Caterer', color: '#10b981', bg: 'rgba(16,185,129,.14)' },
+];
+
+const ACTIVITY_FEED = [
+  { icon: <Icon.Check />, title: 'Booking confirmed', sub: 'Sat · 24 Aug · ₹2,40,000', grad: 'linear-gradient(135deg,#19B6C8,#35BDE7)' },
+  { icon: <Icon.Chart />, title: 'Revenue this month', sub: '₹3,18,000 · +12% vs last', grad: 'linear-gradient(135deg,#1D4FCE,#2563EB)' },
+  { icon: <Icon.Sparkles />, title: 'Decor package booked', sub: 'Royal Floral Setup · ₹45,000', grad: 'linear-gradient(135deg,#7c3aed,#a855f7)' },
+  { icon: <Icon.Fork />, title: 'Catering order confirmed', sub: '250 plates · Veg + Non-veg', grad: 'linear-gradient(135deg,#059669,#10b981)' },
+];
+
 function HeroPhones() {
+  const [screen, setScreen] = useState(0);
+  const [activity, setActivity] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setScreen(s => (s + 1) % SHOWCASE_SCREENS.length), 3600);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => setActivity(a => (a + 1) % ACTIVITY_FEED.length), 3200);
+    return () => clearInterval(t);
+  }, []);
+
+  const active = SHOWCASE_SCREENS[screen];
+  const feed = ACTIVITY_FEED[activity];
+
   return (
     <div className="nv-hero-phone" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 640, padding: '40px 40px' }}>
-      {/* Back phone — partner sign-in screen */}
-      <div style={{
-        position: 'absolute', right: -56, top: 90, zIndex: 2,
+      {/* Glow behind the glass phone */}
+      <div aria-hidden style={{ position: 'absolute', width: 380, height: 380, borderRadius: '50%', background: `radial-gradient(circle, ${active.bg} 0%, transparent 70%)`, filter: 'blur(20px)', transition: 'background 1s ease', zIndex: 0 }} />
+
+      {/* Back phone — auto-cycling through role dashboards */}
+      <div className="glass-dark" style={{
+        position: 'absolute', right: -56, top: 90, zIndex: 0,
         padding: 10, borderRadius: 44,
-        background: 'linear-gradient(180deg, #2a2a32 0%, #08080E 100%)',
-        boxShadow: '0 40px 80px -24px rgba(10,26,51,.5), 0 0 0 1px rgba(255,255,255,.06) inset',
         transform: 'rotate(7deg)',
+        animation: 'floaty 8s ease-in-out infinite .3s',
       }}>
-        <div style={{ borderRadius: 36, overflow: 'hidden', width: 260, height: 520, background: C.ink900 }}>
-          <img src="/images/app-partner-signin.jpg" alt="Partner platform sign-in" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
+        <div style={{ borderRadius: 36, overflow: 'hidden', width: 260, height: 520, background: C.ink900, position: 'relative' }}>
+          {SHOWCASE_SCREENS.map((s, i) => (
+            <img key={s.src} src={s.src} alt={s.label} style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block',
+              opacity: i === screen ? 1 : 0, transition: 'opacity .6s ease',
+            }} />
+          ))}
+        </div>
+        {/* Role indicator pill, glass */}
+        <div className="glass-chip" style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', padding: '6px 14px', borderRadius: 999, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 6, height: 6, borderRadius: 99, background: active.color, transition: 'background .4s ease' }} />
+          <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '-.01em' }}>{active.label} dashboard</span>
+        </div>
+        {/* Dots */}
+        <div style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 5 }}>
+          {SHOWCASE_SCREENS.map((s, i) => (
+            <span key={s.label} style={{ width: i === screen ? 16 : 5, height: 5, borderRadius: 99, background: i === screen ? s.color : 'rgba(255,255,255,.25)', transition: 'all .35s ease' }} />
+          ))}
         </div>
       </div>
 
-      {/* Front phone — dashboard */}
-      <PhoneFrame
-        src="/images/app-dashboard-new.jpg" alt="Quickbuk dashboard"
-        width={290} height={580} outerPadding={12} outerRadius={50} innerRadius={40}
-        notchWidth={90} notchHeight={6} notchTop={18}
-        boxShadow="0 56px 100px -28px rgba(10,26,51,.65), 0 0 0 1px rgba(255,255,255,.07) inset"
-      />
-
-      {/* Chip — Booking confirmed */}
-      <div className="nv-hero-chips" style={{
-        position: 'absolute', top: 48, left: 0, zIndex: 3,
-        padding: '10px 16px 10px 10px',
-        background: '#fff', borderRadius: 16,
-        boxShadow: '0 8px 32px -8px rgba(18,52,95,.22), 0 1px 4px rgba(18,52,95,.08)',
-        display: 'flex', alignItems: 'center', gap: 10,
-        animation: 'floaty 7s ease-in-out infinite .5s',
+      {/* Front phone — static sign-in screen */}
+      <div className="glass-dark" style={{
+        position: 'relative', zIndex: 1, padding: 14, borderRadius: 52,
+        animation: 'floaty 7s ease-in-out infinite',
       }}>
-        <span style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg,#19B6C8,#35BDE7)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
-          <Icon.Check />
+        <div style={{ position: 'absolute', top: 22, left: '50%', transform: 'translateX(-50%)', width: 90, height: 6, borderRadius: 99, background: 'rgba(255,255,255,.18)', zIndex: 2 }} />
+        <div style={{ borderRadius: 40, overflow: 'hidden', width: 290, height: 580, background: C.ink900, position: 'relative' }}>
+          <img src={SIGNIN_SCREEN.src} alt={SIGNIN_SCREEN.label} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
+        </div>
+        {/* Sign-in pill, glass */}
+        <div className="glass-chip" style={{ position: 'absolute', bottom: 26, left: '50%', transform: 'translateX(-50%)', padding: '7px 18px', borderRadius: 999, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ width: 7, height: 7, borderRadius: 99, background: SIGNIN_SCREEN.color }} />
+          <span style={{ fontSize: 12.5, fontWeight: 700, color: '#fff', letterSpacing: '-.01em' }}>One-tap sign in</span>
+        </div>
+      </div>
+
+      {/* Floating activity feed — glass chip, cycles through live events */}
+      <div key={activity} className="nv-hero-chips glass-chip" style={{
+        position: 'absolute', top: 56, left: 0, zIndex: 3,
+        padding: '10px 16px 10px 10px',
+        borderRadius: 16,
+        display: 'flex', alignItems: 'center', gap: 10,
+        animation: 'activityIn .5s cubic-bezier(.2,.8,.3,1), floaty 7s ease-in-out infinite .5s',
+        minWidth: 220,
+      }}>
+        <span style={{ width: 32, height: 32, borderRadius: 10, background: feed.grad, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
+          {feed.icon}
         </span>
         <div>
-          <div style={{ fontSize: 11, color: C.ink500, fontWeight: 500, lineHeight: 1.3 }}>Booking confirmed</div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: C.ink900, lineHeight: 1.4 }}>Sat · 24 Aug · ₹2,40,000</div>
+          <div style={{ fontSize: 11, color: C.ink500, fontWeight: 500, lineHeight: 1.3 }}>{feed.title}</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.ink900, lineHeight: 1.4 }}>{feed.sub}</div>
         </div>
       </div>
 
-      {/* Chip — Revenue */}
-      <div className="nv-hero-chips" style={{
-        position: 'absolute', bottom: 60, right: 0, zIndex: 3,
+      {/* Chip — Revenue, glass+neumorphic */}
+      <div className="nv-hero-chips glass-dark" style={{
+        position: 'absolute', bottom: 70, right: -4, zIndex: 3,
         padding: '14px 18px',
-        background: '#0D1B35', borderRadius: 18,
-        boxShadow: '0 16px 48px -12px rgba(10,26,51,.65)',
+        borderRadius: 18,
         minWidth: 190,
         animation: 'floaty 8s ease-in-out infinite 1s',
       }}>
@@ -388,7 +419,8 @@ function Hero() {
   return (
     <section id="home" style={{ position: 'relative', overflow: 'hidden', paddingTop: 64, paddingBottom: 120, width: '100%', background: 'linear-gradient(160deg, #F8FAFF 0%, #EEF4FF 60%, #F0F7FF 100%)' }}>
       <div aria-hidden style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
-        <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: .65, maskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)' } as React.CSSProperties} />
+        <div className="mesh-bg" style={{ position: 'absolute', inset: 0, opacity: 1 }} />
+        <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: .5, maskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)' } as React.CSSProperties} />
         <div style={{ position: 'absolute', top: -240, right: -80, width: 780, height: 780, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.cyan,.28)} 0%,${hexA(C.cyan,0)} 60%)`, filter: 'blur(40px)', animation: 'blobShift 18s ease-in-out infinite' }} />
         <div style={{ position: 'absolute', bottom: -260, left: -140, width: 680, height: 680, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.blue,.22)} 0%,${hexA(C.blue,0)} 60%)`, filter: 'blur(40px)', animation: 'blobShift 22s ease-in-out infinite reverse' }} />
       </div>
@@ -398,20 +430,20 @@ function Hero() {
           <div className="nv-hero-left">
             {/* Badge with 3 role pills */}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, background: 'rgba(37,99,235,.12)', border: '1px solid rgba(37,99,235,.25)', color: C.blueDark }}>
+              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blueDark }}>
                 <Icon.Building width={13} height={13} /> Venue Owner
               </span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, background: 'rgba(168,85,247,.12)', border: '1px solid rgba(168,85,247,.25)', color: C.decorPurpleDark }}>
+              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.decorPurpleDark }}>
                 <Icon.Sparkles width={13} height={13} /> Decorator
               </span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, background: 'rgba(16,185,129,.12)', border: '1px solid rgba(16,185,129,.25)', color: C.caterGreenDark }}>
+              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.caterGreenDark }}>
                 <Icon.Fork width={13} height={13} /> Caterer
               </span>
             </div>
 
             <h1 style={{ margin: '0 0 0', fontSize: 'clamp(44px, 5.5vw, 82px)', lineHeight: 1.0, fontWeight: 800, letterSpacing: '-0.04em', color: C.ink900 }}>
               One app for<br />
-              <span className="grad-text">venues, decorators</span><br />
+              <span className="grad-text-tri">venues, decorators</span><br />
               <span style={{ fontWeight: 800, color: C.ink900 }}>&amp; caterers.</span>
             </h1>
 
@@ -434,7 +466,7 @@ function Hero() {
                 { color: '#a855f7', bg: 'rgba(168,85,247,.08)', bd: 'rgba(168,85,247,.18)', icon: <Icon.Sparkles width={13} height={13} />, text: 'Decorator Portal' },
                 { color: '#10b981', bg: 'rgba(16,185,129,.08)', bd: 'rgba(16,185,129,.18)', icon: <Icon.Fork width={13} height={13} />, text: 'Caterer Portal' },
               ].map(s => (
-                <span key={s.text} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '7px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600, color: s.color, background: s.bg, border: `1px solid ${s.bd}`, backdropFilter: 'blur(8px)' }}>
+                <span key={s.text} className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '7px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600, color: s.color }}>
                   {s.icon}{s.text}
                 </span>
               ))}
@@ -452,12 +484,14 @@ function Hero() {
 function Product() {
   const [showModal, setShowModal] = useState(false);
   const features = [
-    { icon: <Icon.Cal />,    title: 'Smart Booking Calendar',     text: 'Visualise availability across all your venues. No double-bookings, no missed slots — ever.' },
-    { icon: <Icon.Card />,   title: 'Payments, Dues & Tax Exports', text: 'Record advances, collect balances, issue refunds and export clean tax-ready sheets with one click.' },
-    { icon: <Icon.Users />,  title: 'Staff & Role Management',    text: 'Add staff members, assign roles, and control who can see bookings, payments, or reports — fully login-protected.' },
-    { icon: <Icon.Chart />,  title: 'Full Analytics Dashboard',   text: 'Live revenue trends, booking activity charts, occupancy rates and month-on-month comparisons — all in one dashboard.' },
-    { icon: <Icon.Shield />, title: 'Services & Customisation',   text: 'Add decoration, catering, and other services to any booking. Customise service packages and pricing per venue.' },
-    { icon: <Icon.Globe />,  title: 'Live Availability View',     text: 'Customers can check live availability and slot status of your venue in real time — no calls, no confusion.' },
+    { icon: <Icon.Cal />,     title: 'Smart Booking Calendar',     text: 'Visualise availability across all your venues. No double-bookings, no missed slots — ever.', color: C.blueDark, glow: hexA(C.blue,.16) },
+    { icon: <Icon.Card />,    title: 'Payments, Dues & UPI QR',     text: 'Record advances, collect balances via UPI QR, issue refunds and export clean tax-ready CSV/PDF sheets.', color: C.blueDark, glow: hexA(C.cyan,.18) },
+    { icon: <Icon.Building />,title: 'Multi-Venue Management',     text: 'Run multiple halls, lawns or properties from one account — each with its own calendar and bookings.', color: C.blueDark, glow: hexA(C.blue,.16) },
+    { icon: <Icon.Users />,   title: 'Staff & Role Management',    text: 'Add staff members, assign roles, and control who can see bookings, payments, or reports — fully login-protected.', color: C.decorPurpleDark, glow: hexA(C.decorPurple,.18) },
+    { icon: <Icon.Chart />,   title: 'Revenue & Profit Reports',   text: 'Collection rate, gross & cash profit, refunds, and 30-day or weekly trends — built for real accounting.', color: C.caterGreenDark, glow: hexA(C.caterGreen,.18) },
+    { icon: <Icon.Mail />,    title: 'Enquiries & Lead Inbox',     text: 'Every customer enquiry lands in one inbox with read/unread tracking — never miss a lead again.', color: C.decorPurpleDark, glow: hexA(C.decorPurple,.18) },
+    { icon: <Icon.Sparkles />,title: 'Vendor Sponsored Listings',  text: 'Decorators & caterers can boost visibility with paid placements and track impressions, clicks & profile views.', color: C.decorPurpleDark, glow: hexA(C.decorPurple,.20) },
+    { icon: <Icon.Shield />,  title: 'Services & Customisation',   text: 'Add decoration, catering, and other services to any booking. Customise packages and pricing per venue.', color: C.caterGreenDark, glow: hexA(C.caterGreen,.18) },
   ];
 
   return (
@@ -508,12 +542,12 @@ function Product() {
                   { label: 'Venue Booking', live: true },
                   { label: 'Calendar View', live: true },
                   { label: 'Staff Login', live: true },
-                  { label: 'Services & Catering', live: true },
-                  { label: 'PDF Receipts', live: true },
-                  { label: 'Revenue Analytics', live: true },
-                  { label: 'Live Availability', live: true },
+                  { label: 'UPI QR Payments', live: true },
+                  { label: 'PDF & CSV Exports', live: true },
+                  { label: 'Revenue & Profit Reports', live: true },
+                  { label: 'Multi-Venue Support', live: true },
                   { label: '🎨 Decorator Portal', live: true },
-                  { label: '🍽️ Caterer Portal', live: false },
+                  { label: '🍽️ Caterer Portal', live: true },
                 ].map(t => (
                   <span key={t.label} style={{ padding: '6px 14px', borderRadius: 999, fontSize: 12.5, fontWeight: 500, background: t.live ? 'rgba(255,255,255,.10)' : 'rgba(168,85,247,.15)', color: t.live ? 'rgba(255,255,255,.88)' : '#d8b4fe', border: `1px solid ${t.live ? 'rgba(255,255,255,.18)' : 'rgba(168,85,247,.35)'}` }}>
                     {t.label}{!t.live && <span style={{ marginLeft: 6, fontSize: 10, fontWeight: 700, letterSpacing: '.05em', opacity: .8 }}>SOON</span>}
@@ -570,11 +604,8 @@ function Product() {
       <NvContainer>
         <div className="nv-feature-grid" style={{ marginTop: 72, display: 'grid', gap: 20 }}>
           {features.map(f => (
-            <div key={f.title} style={{ padding: 28, borderRadius: 20, background: '#fff', border: '1px solid #E8EDF5', transition: 'transform .22s ease,box-shadow .22s ease,border-color .22s ease', cursor: 'default' }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(-5px)'; el.style.boxShadow = '0 20px 48px -16px rgba(18,52,95,.22), 0 0 0 1.5px rgba(37,99,235,.30)'; el.style.borderColor = 'rgba(37,99,235,.28)'; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none'; el.style.borderColor = '#E8EDF5'; }}
-            >
-              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, borderRadius: 12, background: `linear-gradient(135deg,${hexA(C.blue,.12)},${hexA(C.cyan,.14)})`, color: C.blueDark, flexShrink: 0 }}>{f.icon}</div>
+            <div key={f.title} className="glass-card" style={{ padding: 28, cursor: 'default', borderTop: `3px solid ${f.color}` }}>
+              <div className="neu-icon" style={{ width: 48, height: 48, color: f.color, flexShrink: 0, boxShadow: `6px 6px 14px ${f.glow}, -6px -6px 14px rgba(255,255,255,.9), inset 0 1px 0 rgba(255,255,255,.6)` }}>{f.icon}</div>
               <h4 style={{ margin: '18px 0 8px', fontSize: 16, fontWeight: 700, color: C.ink900, letterSpacing: '-.02em' }}>{f.title}</h4>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: C.ink500 }}>{f.text}</p>
             </div>
@@ -597,7 +628,7 @@ function SignInShowcase() {
       <div aria-hidden style={{ position: 'absolute', right: -120, top: '10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle,rgba(37,99,235,.10) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
       <NvContainer>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64, alignItems: 'start', width: '100%' }} className="signin-grid">
 
           {/* Copy */}
           <div>
@@ -615,14 +646,14 @@ function SignInShowcase() {
             </p>
 
             {/* Steps */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 44 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {[
                 { n: '01', title: 'Choose your role', desc: 'Venue Owner, Decorator, or Caterer — pick what fits your business.', color: '#2563EB', bg: 'rgba(37,99,235,.09)', bd: 'rgba(37,99,235,.20)' },
                 { n: '02', title: 'Enter your email', desc: 'Your business email is all you need — no password setup required.', color: '#a855f7', bg: 'rgba(168,85,247,.09)', bd: 'rgba(168,85,247,.20)' },
                 { n: '03', title: 'Tap the sign-in code', desc: 'We send a code instantly. Tap it and you\'re inside your dashboard.', color: '#10b981', bg: 'rgba(16,185,129,.09)', bd: 'rgba(16,185,129,.20)' },
               ].map(s => (
                 <div key={s.n} style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 12, background: s.bg, border: `1px solid ${s.bd}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 800, fontSize: 13, color: s.color, letterSpacing: '-.01em' }}>{s.n}</div>
+                  <div className="neu-icon" style={{ width: 40, height: 40, flexShrink: 0, fontWeight: 800, fontSize: 13, color: s.color, letterSpacing: '-.01em' }}>{s.n}</div>
                   <div>
                     <div style={{ fontSize: 15.5, fontWeight: 700, color: '#0A0F1E', marginBottom: 4, letterSpacing: '-.02em' }}>{s.title}</div>
                     <div style={{ fontSize: 14, color: '#4B5675', lineHeight: 1.6 }}>{s.desc}</div>
@@ -630,27 +661,32 @@ function SignInShowcase() {
                 </div>
               ))}
             </div>
+          </div>
 
-            {/* Live stats strip */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, maxWidth: 440 }}>
-              {[
-                { icon: <Icon.Cal />, label: "Today's Bookings", val: '12 Events', color: '#2563EB', bg: 'rgba(37,99,235,.07)', bd: 'rgba(37,99,235,.15)' },
-                { icon: <Icon.Card />, label: 'Monthly Revenue', val: '₹1,24,500', color: '#10b981', bg: 'rgba(16,185,129,.07)', bd: 'rgba(16,185,129,.15)' },
-                { icon: <Icon.Chart />, label: 'Collection Rate', val: '94% done', color: '#a855f7', bg: 'rgba(168,85,247,.07)', bd: 'rgba(168,85,247,.15)' },
-                { icon: <Icon.Building />, label: 'Active Listings', val: '3 Venues', color: '#f59e0b', bg: 'rgba(245,158,11,.07)', bd: 'rgba(245,158,11,.15)' },
-              ].map(stat => (
-                <div key={stat.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', borderRadius: 14, background: stat.bg, border: `1px solid ${stat.bd}` }}>
-                  <span style={{ color: stat.color, flexShrink: 0 }}>{stat.icon}</span>
-                  <div>
-                    <div style={{ fontSize: 10.5, color: '#4B5675', fontWeight: 500, lineHeight: 1.2 }}>{stat.label}</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: '#0A0F1E', lineHeight: 1.3 }}>{stat.val}</div>
-                  </div>
+          {/* Live stats strip */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16 }}>
+            {[
+              { icon: <Icon.Cal />, label: "Today's Bookings", val: '12 Events', color: '#2563EB', bg: 'rgba(37,99,235,.07)', bd: 'rgba(37,99,235,.15)' },
+              { icon: <Icon.Card />, label: 'Monthly Revenue', val: '₹1,24,500', color: '#10b981', bg: 'rgba(16,185,129,.07)', bd: 'rgba(16,185,129,.15)' },
+              { icon: <Icon.Chart />, label: 'Collection Rate', val: '94% done', color: '#a855f7', bg: 'rgba(168,85,247,.07)', bd: 'rgba(168,85,247,.15)' },
+              { icon: <Icon.Building />, label: 'Active Listings', val: '3 Venues', color: '#f59e0b', bg: 'rgba(245,158,11,.07)', bd: 'rgba(245,158,11,.15)' },
+            ].map(stat => (
+              <div key={stat.label} className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '16px 18px', borderRadius: 14 }}>
+                <span style={{ color: stat.color, flexShrink: 0 }}>{stat.icon}</span>
+                <div>
+                  <div style={{ fontSize: 10.5, color: '#4B5675', fontWeight: 500, lineHeight: 1.2 }}>{stat.label}</div>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: '#0A0F1E', lineHeight: 1.3 }}>{stat.val}</div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </NvContainer>
+      <style>{`
+        @media (max-width: 860px) {
+          .signin-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -691,15 +727,15 @@ function Pricing() {
       iconGrad: 'linear-gradient(135deg,#059669,#10b981)',
       accentColor: '#10b981',
       accentBg: 'rgba(16,185,129,.08)',
-      comingSoon: true,
       points: ['Dedicated caterer login', 'View catering orders per booking', 'Set menu & per-head pricing', 'Confirm / decline orders', 'Direct venue communication', 'Revenue & order tracking'],
       featured: false,
     },
   ];
 
   return (
-    <section id="pricing" style={{ padding: '120px 0', position: 'relative', width: '100%', background: C.paper }}>
-      <NvContainer>
+    <section id="pricing" style={{ padding: '120px 0', position: 'relative', width: '100%', background: C.paper, overflow: 'hidden' }}>
+      <div aria-hidden className="mesh-bg" style={{ position: 'absolute', inset: 0, opacity: .5, pointerEvents: 'none', zIndex: 0 }} />
+      <NvContainer style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 64 }}>
           <NvPill tone="ink">Pricing</NvPill>
           <h2 style={{ margin: '20px 0 16px', fontSize: 'clamp(32px,4.5vw,60px)', lineHeight: 1.04, letterSpacing: '-.04em', fontWeight: 800, color: C.ink900, maxWidth: 760 }}>
@@ -712,7 +748,7 @@ function Pricing() {
 
         <div className="nv-pricing-grid" style={{ display: 'grid', gap: 20, alignItems: 'start' }}>
           {plans.map(p => (
-            <div key={p.name} style={{ position: 'relative', borderRadius: 24, padding: 36, background: p.featured ? 'linear-gradient(160deg,#060D1F 0%,#0D1F4A 55%,#1A3A8F 100%)' : '#fff', color: p.featured ? '#fff' : C.ink900, border: p.featured ? '1px solid rgba(255,255,255,.14)' : '1px solid rgba(18,52,95,.10)', boxShadow: p.featured ? '0 48px 96px -30px rgba(10,26,51,.65), 0 0 0 1px rgba(53,189,231,.10)' : '0 2px 12px rgba(10,15,30,.05)', transform: p.featured ? 'translateY(-12px)' : 'none', overflow: 'hidden' }}>
+            <div key={p.name} className={p.featured ? 'glass-dark' : 'glass-card'} style={{ position: 'relative', borderRadius: 24, padding: 36, background: p.featured ? 'linear-gradient(160deg,rgba(6,13,31,.65) 0%,rgba(13,31,74,.65) 55%,rgba(26,58,143,.65) 100%)' : undefined, color: p.featured ? '#fff' : C.ink900, transform: p.featured ? 'translateY(-12px)' : 'none', overflow: 'hidden' }}>
               {p.featured && <div aria-hidden style={{ position: 'absolute', top: -80, right: -80, width: 300, height: 300, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.cyan,.45)},transparent 65%)`, filter: 'blur(30px)', pointerEvents: 'none' }} />}
               <div style={{ position: 'relative' }}>
                 {/* Role icon */}
@@ -765,15 +801,15 @@ function Pricing() {
 // ─── FAQ ──────────────────────────────────────────────────────────────────────
 function FAQ() {
   const items = [
-    { q: 'What is Quickbuk?', a: 'Quickbuk is a booking and management platform by NesVed, purpose-built for the event industry. It provides separate logins for Venue Owners, Decorators, and Caterers — all connected to the same booking ecosystem.' },
-    { q: 'Who can use Quickbuk?', a: 'Quickbuk is built for three types of partners: Venue Owners (marriage halls, banquet halls, lawns, hotels), Decorators, and Caterers. Each gets their own dedicated dashboard and login.' },
-    { q: 'What can Venue Owners do?', a: 'Venue owners get full control over bookings, staff management, services, payments, PDF receipts, CSV tax exports, analytics dashboard, live availability for customers, subscriptions, and sponsored ads.' },
-    { q: 'What can Decorators do?', a: 'Decorators log in to view assigned venue bookings, manage their decoration packages and pricing, track payments and dues, manage their availability calendar, and communicate directly with venue owners.' },
-    { q: 'What can Caterers do?', a: 'Caterers see upcoming event menus linked to bookings, confirm or decline catering orders, set per-head pricing, track revenue, and communicate with venue owners. The Caterer portal is coming soon.' },
-    { q: 'Can I manage multiple venues?', a: 'Yes. You can add and manage multiple venues — each with its own availability, calendar, and booking list — all from one account.' },
-    { q: 'How does the analytics dashboard work?', a: 'The dashboard shows revenue trends, booking activity, occupancy, pending dues, and month-on-month comparisons — updated in real time so you always know how your business is performing.' },
-    { q: 'Can customers see live venue availability?', a: 'Yes. End users can view the live booking status and availability of your venue in real time — reducing calls and making it easy for customers to check open slots.' },
-    { q: 'How do I get started?', a: 'Book a quick demo from this page. We will walk you through the product, set up your account, and get your team onboarded within a day.' },
+    { q: 'What is Quickbuk?', a: 'Quickbuk is a booking and management platform by NesVed, purpose-built for the event industry. It provides separate logins for Venue Owners, Decorators, and Caterers — all connected to the same booking ecosystem.', color: C.blue },
+    { q: 'Who can use Quickbuk?', a: 'Quickbuk is built for three types of partners: Venue Owners (marriage halls, banquet halls, lawns, hotels), Decorators, and Caterers. Each gets their own dedicated dashboard and login.', color: C.blue },
+    { q: 'What can Venue Owners do?', a: 'Venue owners get full control over bookings, staff management, services, payments, PDF receipts, CSV tax exports, analytics dashboard, live availability for customers, subscriptions, and sponsored ads.', color: C.blue },
+    { q: 'What can Decorators do?', a: 'Decorators log in to view assigned venue bookings, manage their decoration packages and pricing, track payments and dues, manage their availability calendar, and communicate directly with venue owners.', color: C.decorPurple },
+    { q: 'What can Caterers do?', a: 'Caterers see upcoming event menus linked to bookings, confirm or decline catering orders, set per-head pricing, track revenue, and communicate with venue owners.', color: C.caterGreen },
+    { q: 'Can I manage multiple venues?', a: 'Yes. You can add and manage multiple venues — each with its own availability, calendar, and booking list — all from one account.', color: C.blue },
+    { q: 'How does the analytics dashboard work?', a: 'The dashboard shows revenue trends, booking activity, occupancy, pending dues, and month-on-month comparisons — updated in real time so you always know how your business is performing.', color: C.caterGreen },
+    { q: 'Can customers see live venue availability?', a: 'Yes. End users can view the live booking status and availability of your venue in real time — reducing calls and making it easy for customers to check open slots.', color: C.decorPurple },
+    { q: 'How do I get started?', a: 'Book a quick demo from this page. We will walk you through the product, set up your account, and get your team onboarded within a day.', color: C.blue },
   ];
   const [open, setOpen] = useState(0);
   return (
@@ -794,10 +830,10 @@ function FAQ() {
             {items.map((it, i) => {
               const isOpen = open === i;
               return (
-                <div key={it.q} style={{ background: C.paper, borderRadius: 18, border: `1px solid ${isOpen ? 'rgba(37,99,235,.28)' : 'rgba(18,52,95,.08)'}`, borderLeft: isOpen ? '4px solid #2563EB' : '4px solid transparent', boxShadow: isOpen ? '0 16px 40px -20px rgba(18,52,95,.22)' : 'none', transition: 'all .22s ease', overflow: 'hidden' }}>
+                <div key={it.q} className="glass-card" style={{ borderRadius: 18, borderLeft: isOpen ? `4px solid ${it.color}` : '4px solid transparent', transition: 'all .22s ease', overflow: 'hidden' }}>
                   <button onClick={() => setOpen(isOpen ? -1 : i)} style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '20px 24px 20px 20px', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', fontSize: 15.5, fontWeight: 700, color: C.ink900, letterSpacing: '-.02em' }}>
                     <span>{it.q}</span>
-                    <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: 99, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isOpen ? 'linear-gradient(135deg,#1D4FCE,#35BDE7)' : 'rgba(18,52,95,.06)', color: isOpen ? '#fff' : C.ink800, transition: 'all .22s ease', transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}>
+                    <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: 99, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isOpen ? `linear-gradient(135deg,${it.color},${hexA(it.color,.7)})` : 'rgba(18,52,95,.06)', color: isOpen ? '#fff' : C.ink800, transition: 'all .22s ease', transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}>
                       <Icon.Plus />
                     </span>
                   </button>
@@ -857,17 +893,18 @@ function Contact() {
   const lbl: React.CSSProperties = { display: 'block', fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,.80)', marginBottom: 8, letterSpacing: '.03em', textTransform: 'uppercase' };
 
   const contacts = [
-    { icon: <Icon.Mail />,  label: 'Email',    value: 'contact@nesved.com', href: 'mailto:contact@nesved.com' },
-    { icon: <Icon.Phone />, label: 'WhatsApp', value: '+91 88060 12475',    href: 'https://wa.me/918806012475' },
-    { icon: <Icon.Globe />, label: 'Website',  value: 'nesved.com',         href: 'https://nesved.com' },
+    { icon: <Icon.Mail />,  label: 'Email',    value: 'contact@nesved.com', href: 'mailto:contact@nesved.com', color: C.cyan },
+    { icon: <Icon.Phone />, label: 'WhatsApp', value: '+91 88060 12475',    href: 'https://wa.me/918806012475', color: C.caterGreen },
+    { icon: <Icon.Globe />, label: 'Website',  value: 'nesved.com',         href: 'https://nesved.com', color: C.decorPurple },
   ];
 
   return (
     <section id="contact" style={{ position: 'relative', padding: '120px 0', overflow: 'hidden', background: 'linear-gradient(150deg,#040B1C 0%,#091840 40%,#0D2460 70%,#132F7A 100%)', color: '#fff', width: '100%' }}>
+      <div aria-hidden className="mesh-bg-dark" style={{ position: 'absolute', inset: 0, opacity: .8 }} />
       <div aria-hidden style={{ position: 'absolute', top: -220, right: -180, width: 800, height: 800, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.cyan,.30)},transparent 60%)`, filter: 'blur(50px)', animation: 'blobShift 20s ease-in-out infinite' }} />
-      <div aria-hidden style={{ position: 'absolute', bottom: -280, left: -160, width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.blue,.38)},transparent 60%)`, filter: 'blur(50px)', animation: 'blobShift 24s ease-in-out infinite reverse' }} />
+      <div aria-hidden style={{ position: 'absolute', bottom: -280, left: -160, width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle,${hexA(C.caterGreen,.30)},transparent 60%)`, filter: 'blur(50px)', animation: 'blobShift 24s ease-in-out infinite reverse' }} />
       <div className="noise" />
-      <NvContainer>
+      <NvContainer style={{ position: 'relative', zIndex: 1 }}>
         <div className="nv-contact-grid" style={{ display: 'grid', gap: 72, alignItems: 'center', position: 'relative' }}>
           <div>
             <NvPill tone="invert" icon={<Icon.Spark />}>Contact NesVed</NvPill>
@@ -884,7 +921,7 @@ function Contact() {
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,.11)'; el.style.borderColor = 'rgba(255,255,255,.24)'; el.style.transform = 'translateX(4px)'; }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,.06)'; el.style.borderColor = 'rgba(255,255,255,.11)'; el.style.transform = 'translateX(0)'; }}
                 >
-                  <span style={{ width: 40, height: 40, borderRadius: 11, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: hexA(C.cyan,.16), color: '#7DD7F3', flexShrink: 0 }}>{c.icon}</span>
+                  <span style={{ width: 40, height: 40, borderRadius: 11, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: hexA(c.color,.18), color: c.color, flexShrink: 0 }}>{c.icon}</span>
                   <span style={{ flex: 1 }}>
                     <span style={{ display: 'block', fontSize: 10.5, color: 'rgba(255,255,255,.50)', textTransform: 'uppercase', letterSpacing: '.09em', fontWeight: 700 }}>{c.label}</span>
                     <span style={{ display: 'block', fontSize: 15.5, fontWeight: 600, marginTop: 3 }}>{c.value}</span>
@@ -940,7 +977,7 @@ function Contact() {
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{ padding: '48px 0 36px', background: '#040B1C', borderTop: '1px solid rgba(255,255,255,.06)', color: 'rgba(255,255,255,.55)', width: '100%' }}>
+    <footer style={{ padding: '48px 0 36px', background: '#040B1C', borderTop: '3px solid transparent', borderImage: 'linear-gradient(90deg,#2563EB,#a855f7,#10b981) 1', color: 'rgba(255,255,255,.55)', width: '100%' }}>
       <NvContainer>
         <div className="nv-footer-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

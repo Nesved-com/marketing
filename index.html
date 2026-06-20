@@ -73,6 +73,7 @@
       .mono  { font-family: 'JetBrains Mono', ui-monospace, monospace; }
       ::selection { background: #2563EB; color: #fff; }
       .grad-text { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .grad-text-tri { background: linear-gradient(95deg, #2563EB 0%, #a855f7 50%, #10b981 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
       /* Grid background */
       .grid-bg {
@@ -98,6 +99,78 @@
       @keyframes slideDown { from{ opacity:0; transform:translateY(-8px) } to{ opacity:1; transform:translateY(0) } }
       @keyframes fadeIn  { from{ opacity:0 } to{ opacity:1 } }
       @keyframes popIn   { from{ opacity:0; transform:scale(.92) translateY(12px) } to{ opacity:1; transform:scale(1) translateY(0) } }
+      @keyframes screenFade { 0%{ opacity:0; transform:scale(1.02) } 8%{ opacity:1; transform:scale(1) } 92%{ opacity:1; transform:scale(1) } 100%{ opacity:0; transform:scale(1.02) } }
+      @keyframes activityIn { from{ opacity:0; transform:translateY(10px) scale(.96) } to{ opacity:1; transform:translateY(0) scale(1) } }
+      @keyframes meshDrift { 0%,100%{ background-position:0% 0%, 100% 0%, 50% 100%, 100% 100% } 50%{ background-position:20% 10%, 80% 20%, 40% 80%, 70% 70% } }
+
+      /* ── Glassmorphism / Neumorphism design system ─────── */
+      /* Tri-color mesh — blue (venue), purple (decorator), green (caterer) */
+      .mesh-bg {
+        background-image:
+          radial-gradient(circle at 0% 0%, rgba(37,99,235,.22), transparent 45%),
+          radial-gradient(circle at 100% 0%, rgba(168,85,247,.20), transparent 45%),
+          radial-gradient(circle at 30% 100%, rgba(16,185,129,.18), transparent 50%),
+          radial-gradient(circle at 100% 100%, rgba(53,189,231,.16), transparent 45%);
+        background-size: 150% 150%;
+        animation: meshDrift 24s ease-in-out infinite;
+      }
+      .mesh-bg-dark {
+        background-image:
+          radial-gradient(circle at 0% 0%, rgba(37,99,235,.35), transparent 45%),
+          radial-gradient(circle at 100% 0%, rgba(168,85,247,.30), transparent 45%),
+          radial-gradient(circle at 50% 100%, rgba(16,185,129,.28), transparent 55%);
+        background-size: 150% 150%;
+        animation: meshDrift 26s ease-in-out infinite;
+      }
+      .glass-card {
+        position: relative;
+        background: rgba(255,255,255,.55);
+        border: 1px solid rgba(255,255,255,.6);
+        border-radius: 22px;
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        box-shadow: 0 8px 30px -12px rgba(18,52,95,.16), inset 0 1px 0 rgba(255,255,255,.7);
+        transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 24px 48px -16px rgba(18,52,95,.24), inset 0 1px 0 rgba(255,255,255,.8);
+        border-color: rgba(37,99,235,.30);
+      }
+      .glass-dark {
+        background: rgba(13,27,53,.55);
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 22px;
+        backdrop-filter: blur(22px) saturate(160%);
+        -webkit-backdrop-filter: blur(22px) saturate(160%);
+        box-shadow: 0 30px 60px -20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08);
+      }
+      .neu-surface {
+        background: linear-gradient(145deg, #f4f8ff, #e8eef9);
+        border-radius: 18px;
+        box-shadow: 8px 8px 18px rgba(18,52,95,.10), -8px -8px 18px rgba(255,255,255,.85);
+      }
+      .neu-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: linear-gradient(145deg, #ffffff, #e6edf9);
+        border-radius: 16px;
+        box-shadow: 6px 6px 14px rgba(18,52,95,.12), -6px -6px 14px rgba(255,255,255,.9), inset 0 1px 0 rgba(255,255,255,.6);
+      }
+      .neu-btn {
+        background: linear-gradient(145deg, #ffffff, #eef2fb);
+        box-shadow: 6px 6px 16px rgba(18,52,95,.14), -6px -6px 16px rgba(255,255,255,.9);
+        transition: box-shadow .18s ease, transform .18s ease;
+      }
+      .neu-btn:hover { transform: translateY(-2px); box-shadow: 8px 8px 20px rgba(18,52,95,.16), -8px -8px 20px rgba(255,255,255,.95); }
+      .neu-btn:active { box-shadow: inset 4px 4px 10px rgba(18,52,95,.16), inset -4px -4px 10px rgba(255,255,255,.7); transform: translateY(0); }
+      .glass-chip {
+        background: rgba(255,255,255,.65);
+        border: 1px solid rgba(255,255,255,.75);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        box-shadow: 0 10px 30px -10px rgba(18,52,95,.22), inset 0 1px 0 rgba(255,255,255,.8);
+        animation: activityIn .5s cubic-bezier(.2,.8,.3,1);
+      }
 
       /* Focus rings */
       button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
@@ -203,6 +276,13 @@
         .nv-product-stats { grid-template-columns: 1fr !important; gap: 16px !important; }
         .nv-pricing-grid  { padding: 0 4px; }
         .nv-contact-form-grid { grid-template-columns: 1fr !important; }
+        .glass-card, .glass-dark { border-radius: 16px !important; }
+        .glass-card:hover { transform: none; }
+      }
+
+      /* ── Small phones (≤400px) ─────────────────────────── */
+      @media (max-width: 400px) {
+        .nv-hero-phone { transform: scale(0.56); min-height: 360px !important; }
       }
 
       /* Mobile drawer */

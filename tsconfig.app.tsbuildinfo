@@ -1,1 +1,1 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/ui/button.tsx","./src/lib/utils.ts"],"version":"5.9.3"}
+{"root":["./src/App.tsx","./src/DeleteAccountPage.tsx","./src/LegalLayout.tsx","./src/PrivacyPage.tsx","./src/TermsPage.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/ui/button.tsx","./src/lib/firebase.ts","./src/lib/utils.ts","./src/lib/utm.ts"],"version":"5.9.3"}
