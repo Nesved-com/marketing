@@ -186,6 +186,52 @@ function AppStoreBadges({ onOpen }: { onOpen: () => void }) {
   );
 }
 
+// ─── DESKTOP DOWNLOAD BADGES (Invobuk) ────────────────────────────────────────
+const INVOBUK_RELEASES = 'https://github.com/Nesved-com/invobuk/releases/latest/download';
+function DesktopDownloadBadges() {
+  const badgeStyle: React.CSSProperties = {
+    display: 'inline-flex', alignItems: 'center', gap: 10,
+    padding: '10px 18px', borderRadius: 12, cursor: 'pointer',
+    background: '#0A0F1E', color: '#fff', border: '1px solid rgba(255,255,255,.12)',
+    boxShadow: '0 4px 16px -4px rgba(10,15,30,.3)',
+    transition: 'transform .18s ease, box-shadow .18s ease',
+    textDecoration: 'none', fontFamily: 'inherit',
+  };
+  const hover = {
+    onMouseEnter: (e: React.MouseEvent) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; },
+    onMouseLeave: (e: React.MouseEvent) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; },
+  };
+  const platforms = [
+    {
+      name: 'Windows', sub: '.exe installer', href: `${INVOBUK_RELEASES}/Invobuk-Setup.exe`, live: true,
+      glyph: <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M3 5.5 11 4.4v7.1H3V5.5Zm8.99-1.27L21 3v8.5h-9.01V4.23ZM3 12.5h8v7.1l-8-1.1v-6ZM11.99 12.5H21V21l-9.01-1.27V12.5Z"/></svg>,
+    },
+    {
+      name: 'macOS', sub: 'Coming soon', href: '#', live: false,
+      glyph: <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 3c.1 1.1-.3 2.2-1 3-.7.8-1.9 1.5-3 1.4-.1-1.1.4-2.2 1-3 .7-.8 1.9-1.4 3-1.4Zm3.4 14.7c-.6 1.3-.9 1.9-1.7 3-1.1 1.6-2.7 3.6-4.6 3.6-1.7 0-2.1-1.1-4.4-1.1-2.3 0-2.8 1.1-4.5 1.1-1.9 0-3.4-1.8-4.5-3.4C-1.4 17.5-.8 11.4 2.8 9c1-.6 2.1-1 3.2-1 1.4 0 2.7.9 3.6.9.8 0 2.4-1.1 4-.9.9.1 2.6.5 3.7 2.2-.1.1-2.2 1.3-2.2 3.9 0 3 2.6 4 2.8 4.1-.1.2-.4.9-1 1.5Z"/></svg>,
+    },
+    {
+      name: 'Linux', sub: '.AppImage / .deb', href: `${INVOBUK_RELEASES}/Invobuk.AppImage`, live: true,
+      glyph: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="9" r="4.5"/><path d="M8.5 13.5c-1 1.5-2 4-1 6.5 1.5 1 5 1.5 9 0 1-2.5 0-5-1-6.5"/><path d="M9.5 8h0M14.5 8h0"/></svg>,
+    },
+  ];
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 20 }}>
+      {platforms.map(p => (
+        <a key={p.name} href={p.live ? p.href : undefined} {...(p.live ? hover : {})}
+          style={{ ...badgeStyle, opacity: p.live ? 1 : 0.5, cursor: p.live ? 'pointer' : 'default', pointerEvents: p.live ? 'auto' : 'none' }}
+        >
+          {p.glyph}
+          <div style={{ textAlign: 'left' }}>
+            <div style={{ fontSize: 9, fontWeight: 500, opacity: .7, textTransform: 'uppercase', letterSpacing: '.06em', lineHeight: 1.2 }}>{p.sub}</div>
+            <div style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.2 }}>{p.name}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 // ─── HEADER ───────────────────────────────────────────────────────────────────
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -206,7 +252,8 @@ function Header() {
 
   const links = [
     { h: '#home', l: 'Home' },
-    { h: '#product', l: 'Product' },
+    { h: '#product', l: 'Quickbuk' },
+    { h: '#invobuk', l: 'Invobuk' },
     { h: '#pricing', l: 'Pricing' },
     { h: '#faq', l: 'FAQ' },
     { h: '#contact', l: 'Contact' },
@@ -296,128 +343,80 @@ function Header() {
   );
 }
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
-const SIGNIN_SCREEN = { src: '/images/app-partner-signin.jpg', label: 'Sign in', color: '#f59e0b', bg: 'rgba(245,158,11,.14)' };
-
-const SHOWCASE_SCREENS = [
-  { src: '/images/app-dashboard-new.jpg', label: 'Venue Owner', color: '#2563EB', bg: 'rgba(37,99,235,.14)' },
-  { src: '/images/app-decorator-dashboard.jpg', label: 'Decorator', color: '#a855f7', bg: 'rgba(168,85,247,.14)' },
-  { src: '/images/app-caterer-dashboard.jpg', label: 'Caterer', color: '#10b981', bg: 'rgba(16,185,129,.14)' },
-];
-
-const ACTIVITY_FEED = [
-  { icon: <Icon.Check />, title: 'Booking confirmed', sub: 'Sat · 24 Aug · ₹2,40,000', grad: 'linear-gradient(135deg,#19B6C8,#35BDE7)' },
-  { icon: <Icon.Chart />, title: 'Revenue this month', sub: '₹3,18,000 · +12% vs last', grad: 'linear-gradient(135deg,#1D4FCE,#2563EB)' },
-  { icon: <Icon.Sparkles />, title: 'Decor package booked', sub: 'Royal Floral Setup · ₹45,000', grad: 'linear-gradient(135deg,#7c3aed,#a855f7)' },
-  { icon: <Icon.Fork />, title: 'Catering order confirmed', sub: '250 plates · Veg + Non-veg', grad: 'linear-gradient(135deg,#059669,#10b981)' },
-];
-
-function HeroPhones() {
-  const [screen, setScreen] = useState(0);
-  const [activity, setActivity] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setScreen(s => (s + 1) % SHOWCASE_SCREENS.length), 3600);
-    return () => clearInterval(t);
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setActivity(a => (a + 1) % ACTIVITY_FEED.length), 3200);
-    return () => clearInterval(t);
-  }, []);
-
-  const active = SHOWCASE_SCREENS[screen];
-  const feed = ACTIVITY_FEED[activity];
+// ─── HERO (dual product banner) ───────────────────────────────────────────────
+function ProductHeroCard({ tone, device, logo, name, tagline, desc, chips, screenshot, screenshotAlt, href }: {
+  tone: 'quickbuk' | 'invobuk';
+  device: 'mobile' | 'desktop';
+  logo: string; name: string; tagline: string; desc: string;
+  chips: string[]; screenshot: string; screenshotAlt: string; href: string;
+}) {
+  const isQuickbuk = tone === 'quickbuk';
+  const grad = isQuickbuk
+    ? 'linear-gradient(135deg,#0A1530 0%,#0D1F4A 45%,#1D4FCE 130%)'
+    : `linear-gradient(135deg,#00150F 0%,${INVOBUK_GREEN_DARK} 45%,${INVOBUK_GREEN} 130%)`;
+  const accent = isQuickbuk ? '#35BDE7' : INVOBUK_AMBER;
+  const liveBg = isQuickbuk ? 'rgba(53,189,231,.18)' : 'rgba(245,158,11,.18)';
+  const liveBd = isQuickbuk ? 'rgba(53,189,231,.35)' : hexA(INVOBUK_AMBER, .35);
+  const liveFg = isQuickbuk ? '#7DD7F3' : '#FFD899';
 
   return (
-    <div className="nv-hero-phone" style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 640, padding: '40px 40px' }}>
-      {/* Glow behind the glass phone */}
-      <div aria-hidden style={{ position: 'absolute', width: 380, height: 380, borderRadius: '50%', background: `radial-gradient(circle, ${active.bg} 0%, transparent 70%)`, filter: 'blur(20px)', transition: 'background 1s ease', zIndex: 0 }} />
+    <a href={href} className="glass-dark nv-product-hero-card" style={{
+      position: 'relative', display: 'flex', flexDirection: 'column', textDecoration: 'none', borderRadius: 24,
+      background: grad, overflow: 'hidden', padding: '28px 28px 0', height: 540,
+      transition: 'transform .25s ease, box-shadow .25s ease',
+    }}>
+      <div aria-hidden style={{ position: 'absolute', top: -100, right: -80, width: 320, height: 320, borderRadius: '50%', background: `radial-gradient(circle,${hexA(accent,.30)} 0%,transparent 60%)`, filter: 'blur(40px)', pointerEvents: 'none' }} />
+      <div className="noise" style={{ position: 'absolute', inset: 0, opacity: .3, pointerEvents: 'none' }} />
 
-      {/* Back phone — auto-cycling through role dashboards */}
-      <div className="glass-dark" style={{
-        position: 'absolute', right: -56, top: 90, zIndex: 0,
-        padding: 10, borderRadius: 44,
-        transform: 'rotate(7deg)',
-        animation: 'floaty 8s ease-in-out infinite .3s',
-      }}>
-        <div style={{ borderRadius: 36, overflow: 'hidden', width: 260, height: 520, background: C.ink900, position: 'relative' }}>
-          {SHOWCASE_SCREENS.map((s, i) => (
-            <img key={s.src} src={s.src} alt={s.label} style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block',
-              opacity: i === screen ? 1 : 0, transition: 'opacity .6s ease',
-            }} />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+          <img src={logo} alt={name} style={{ height: 34, width: 34, borderRadius: 9, display: 'block' }} />
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#fff', letterSpacing: '-.02em' }}>{name}</div>
+          <span style={{ marginLeft: 'auto', padding: '4px 11px', borderRadius: 999, fontSize: 10.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: liveBg, border: `1px solid ${liveBd}`, color: liveFg }}>Live now</span>
+        </div>
+
+        <h3 style={{ fontSize: 'clamp(20px,2.2vw,25px)', fontWeight: 800, letterSpacing: '-.03em', margin: '0 0 8px', lineHeight: 1.15, color: '#fff' }}>{tagline}</h3>
+        <p style={{ margin: '0 0 16px', color: 'rgba(255,255,255,.68)', fontSize: 13.5, lineHeight: 1.6, maxWidth: 400 }}>{desc}</p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+          {chips.map(c => (
+            <span key={c} style={{ padding: '4px 11px', borderRadius: 999, fontSize: 11, fontWeight: 500, background: 'rgba(255,255,255,.10)', color: 'rgba(255,255,255,.85)', border: '1px solid rgba(255,255,255,.16)' }}>{c}</span>
           ))}
         </div>
-        {/* Role indicator pill, glass */}
-        <div className="glass-chip" style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', padding: '6px 14px', borderRadius: 999, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ width: 6, height: 6, borderRadius: 99, background: active.color, transition: 'background .4s ease' }} />
-          <span style={{ fontSize: 11, fontWeight: 700, color: '#fff', letterSpacing: '-.01em' }}>{active.label} dashboard</span>
-        </div>
-        {/* Dots */}
-        <div style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 5 }}>
-          {SHOWCASE_SCREENS.map((s, i) => (
-            <span key={s.label} style={{ width: i === screen ? 16 : 5, height: 5, borderRadius: 99, background: i === screen ? s.color : 'rgba(255,255,255,.25)', transition: 'all .35s ease' }} />
-          ))}
-        </div>
-      </div>
 
-      {/* Front phone — static sign-in screen */}
-      <div className="glass-dark" style={{
-        position: 'relative', zIndex: 1, padding: 14, borderRadius: 52,
-        animation: 'floaty 7s ease-in-out infinite',
-      }}>
-        <div style={{ position: 'absolute', top: 22, left: '50%', transform: 'translateX(-50%)', width: 90, height: 6, borderRadius: 99, background: 'rgba(255,255,255,.18)', zIndex: 2 }} />
-        <div style={{ borderRadius: 40, overflow: 'hidden', width: 290, height: 580, background: C.ink900, position: 'relative' }}>
-          <img src={SIGNIN_SCREEN.src} alt={SIGNIN_SCREEN.label} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', display: 'block' }} />
-        </div>
-        {/* Sign-in pill, glass */}
-        <div className="glass-chip" style={{ position: 'absolute', bottom: 26, left: '50%', transform: 'translateX(-50%)', padding: '7px 18px', borderRadius: 999, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ width: 7, height: 7, borderRadius: 99, background: SIGNIN_SCREEN.color }} />
-          <span style={{ fontSize: 12.5, fontWeight: 700, color: '#fff', letterSpacing: '-.01em' }}>One-tap sign in</span>
-        </div>
-      </div>
-
-      {/* Floating activity feed — glass chip, cycles through live events */}
-      <div key={activity} className="nv-hero-chips glass-chip" style={{
-        position: 'absolute', top: 56, left: 0, zIndex: 3,
-        padding: '10px 16px 10px 10px',
-        borderRadius: 16,
-        display: 'flex', alignItems: 'center', gap: 10,
-        animation: 'activityIn .5s cubic-bezier(.2,.8,.3,1), floaty 7s ease-in-out infinite .5s',
-        minWidth: 220,
-      }}>
-        <span style={{ width: 32, height: 32, borderRadius: 10, background: feed.grad, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
-          {feed.icon}
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13.5, fontWeight: 700, color: '#fff', marginBottom: 14 }}>
+          Explore {name} <Icon.Arrow width={14} height={14} />
         </span>
-        <div>
-          <div style={{ fontSize: 11, color: C.ink500, fontWeight: 500, lineHeight: 1.3 }}>{feed.title}</div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: C.ink900, lineHeight: 1.4 }}>{feed.sub}</div>
-        </div>
       </div>
 
-      {/* Chip — Revenue, glass+neumorphic */}
-      <div className="nv-hero-chips glass-dark" style={{
-        position: 'absolute', bottom: 70, right: -4, zIndex: 3,
-        padding: '14px 18px',
-        borderRadius: 18,
-        minWidth: 190,
-        animation: 'floaty 8s ease-in-out infinite 1s',
-      }}>
-        <div style={{ fontSize: 11, color: 'rgba(255,255,255,.5)', fontWeight: 500, letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: 4 }}>Revenue this month</div>
-        <div style={{ fontSize: 24, fontWeight: 800, color: '#fff', letterSpacing: '-.02em', lineHeight: 1.2 }}>₹3,18,000</div>
-        <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6, color: '#35BDE7', fontSize: 13, fontWeight: 600 }}>
-          <Icon.Chart width={13} height={13} /> +New booking
+      {/* Device-specific screenshot framing — phone mockup for the mobile app, browser-window mockup for the desktop app. */}
+      {device === 'mobile' ? (
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', minHeight: 0 }}>
+          <div style={{ width: 210, height: 320, borderRadius: '22px 22px 0 0', overflow: 'hidden', boxShadow: '0 -10px 30px -8px rgba(0,0,0,.5)', border: '1px solid rgba(255,255,255,.16)', borderBottom: 'none', flexShrink: 0 }}>
+            <img src={screenshot} alt={screenshotAlt} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', alignItems: 'flex-end', minHeight: 0 }}>
+          <div style={{ width: '100%', height: 260, borderRadius: '10px 10px 0 0', overflow: 'hidden', boxShadow: '0 -10px 30px -8px rgba(0,0,0,.5)', border: '1px solid rgba(255,255,255,.16)', borderBottom: 'none', background: '#fff', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ height: 18, background: 'rgba(0,0,0,.25)', display: 'flex', alignItems: 'center', gap: 5, padding: '0 8px', flexShrink: 0 }}>
+              <span style={{ width: 6, height: 6, borderRadius: 99, background: '#ff5f57' }} />
+              <span style={{ width: 6, height: 6, borderRadius: 99, background: '#febc2e' }} />
+              <span style={{ width: 6, height: 6, borderRadius: 99, background: '#28c840' }} />
+            </div>
+            <div style={{ flex: 1, overflow: 'hidden' }}>
+              <img src={screenshot} alt={screenshotAlt} style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'top center' }} />
+            </div>
+          </div>
+        </div>
+      )}
+    </a>
   );
 }
 
 function Hero() {
-  const [showModal, setShowModal] = useState(false);
   return (
-    <section id="home" style={{ position: 'relative', overflow: 'hidden', paddingTop: 64, paddingBottom: 120, width: '100%', background: 'linear-gradient(160deg, #F8FAFF 0%, #EEF4FF 60%, #F0F7FF 100%)' }}>
+    <section id="home" style={{ position: 'relative', overflow: 'hidden', paddingTop: 64, paddingBottom: 110, width: '100%', background: 'linear-gradient(160deg, #F8FAFF 0%, #EEF4FF 60%, #F0F7FF 100%)' }}>
       <div aria-hidden style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
         <div className="mesh-bg" style={{ position: 'absolute', inset: 0, opacity: 1 }} />
         <div className="grid-bg" style={{ position: 'absolute', inset: 0, opacity: .5, maskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%)' } as React.CSSProperties} />
@@ -426,56 +425,58 @@ function Hero() {
       </div>
 
       <NvContainer>
-        <div className="nv-hero-grid" style={{ position: 'relative', zIndex: 1, display: 'grid', gap: 56, alignItems: 'center' }}>
-          <div className="nv-hero-left">
-            {/* Badge with 3 role pills */}
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
-              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.blueDark }}>
-                <Icon.Building width={13} height={13} /> Venue Owner
-              </span>
-              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.decorPurpleDark }}>
-                <Icon.Sparkles width={13} height={13} /> Decorator
-              </span>
-              <span className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, color: C.caterGreenDark }}>
-                <Icon.Fork width={13} height={13} /> Caterer
-              </span>
-            </div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 56 }}>
+            <NvPill tone="ink" icon={<Icon.Sparkles width={13} height={13} />}>Two products, one mission</NvPill>
 
-            <h1 style={{ margin: '0 0 0', fontSize: 'clamp(44px, 5.5vw, 82px)', lineHeight: 1.0, fontWeight: 800, letterSpacing: '-0.04em', color: C.ink900 }}>
-              One app for<br />
-              <span className="grad-text-tri">venues, decorators</span><br />
-              <span style={{ fontWeight: 800, color: C.ink900 }}>&amp; caterers.</span>
+            <h1 style={{ margin: '20px 0 0', fontSize: 'clamp(38px, 5vw, 68px)', lineHeight: 1.05, fontWeight: 800, letterSpacing: '-0.04em', color: C.ink900, maxWidth: 840 }}>
+              Software that makes<br />
+              <span className="grad-text-tri">running your business</span> simple.
             </h1>
 
-            <p style={{ marginTop: 28, maxWidth: 530, fontSize: 18.5, lineHeight: 1.72, color: C.ink500, fontWeight: 400 }}>
-              <strong style={{ color: C.ink900, fontWeight: 600 }}>Quickbuk</strong> by NesVed — an all-in-one booking &amp; management platform. Separate logins and dashboards for Venue Owners, Decorators, and Caterers. Bookings · Payments · Reports, all in one app.
+            <p style={{ marginTop: 24, maxWidth: 600, fontSize: 17.5, lineHeight: 1.7, color: C.ink500, fontWeight: 400 }}>
+              <strong style={{ color: C.ink900, fontWeight: 700 }}>NesVed</strong> builds two products: <strong style={{ color: C.blueDark, fontWeight: 700 }}>Quickbuk</strong> for event bookings, and <strong style={{ color: INVOBUK_GREEN_DARK, fontWeight: 700 }}>Invobuk</strong> for billing &amp; invoicing. Pick what your business needs below.
             </p>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 40 }}>
-              <NvBtn variant="primary" size="lg" as="a" href="#product">Explore product <Icon.Arrow /></NvBtn>
-              <NvBtn variant="light" size="lg" as="a" href="#contact"><Icon.Mail /> Talk to us</NvBtn>
-            </div>
-
-            <AppStoreBadges onOpen={() => setShowModal(true)} />
-            {showModal && <LaunchingSoonModal onClose={() => setShowModal(false)} />}
-
-            {/* 3-role stat strip */}
-            <div className="nv-hero-chips" style={{ marginTop: 44, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              {[
-                { color: '#2563EB', bg: 'rgba(37,99,235,.08)', bd: 'rgba(37,99,235,.18)', icon: <Icon.Building width={13} height={13} />, text: 'Venue Management' },
-                { color: '#a855f7', bg: 'rgba(168,85,247,.08)', bd: 'rgba(168,85,247,.18)', icon: <Icon.Sparkles width={13} height={13} />, text: 'Decorator Portal' },
-                { color: '#10b981', bg: 'rgba(16,185,129,.08)', bd: 'rgba(16,185,129,.18)', icon: <Icon.Fork width={13} height={13} />, text: 'Caterer Portal' },
-              ].map(s => (
-                <span key={s.text} className="glass-chip" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '7px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600, color: s.color }}>
-                  {s.icon}{s.text}
-                </span>
-              ))}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 36 }}>
+              <NvBtn variant="dark" size="lg" as="a" href="#contact"><Icon.Mail /> Talk to us</NvBtn>
             </div>
           </div>
 
-          <HeroPhones />
+          <div className="nv-product-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+            <ProductHeroCard
+              tone="quickbuk"
+              device="mobile"
+              logo="/images/quickbuk-logo-new.png"
+              name="Quickbuk"
+              tagline="Event booking, simplified."
+              desc="All-in-one platform for venues, decorators &amp; caterers — bookings, payments, staff and reports in one app."
+              chips={['Venue Booking', 'UPI QR Payments', 'Multi-Venue', 'Decorator & Caterer Portals']}
+              screenshot="/images/app-partner-signin.jpg"
+              screenshotAlt="Quickbuk sign-in screen"
+              href="#product"
+            />
+            <ProductHeroCard
+              tone="invobuk"
+              device="desktop"
+              logo="/images/invobuk-logo.png"
+              name="Invobuk"
+              tagline="Billing &amp; invoicing, simplified."
+              desc="A desktop app for invoices, quotations, purchase orders and delivery challans — fully offline, one-time license."
+              chips={['GST Invoicing', 'Offline-First', 'Windows & Linux', 'One-Time License']}
+              screenshot="/images/invobuk-login-screenshot.png"
+              screenshotAlt="Invobuk sign-in screen"
+              href="#invobuk"
+            />
+          </div>
         </div>
       </NvContainer>
+      <style>{`
+        .nv-product-hero-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -20px rgba(10,15,30,.35); }
+        @media (max-width: 760px) {
+          .nv-product-hero-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
@@ -517,7 +518,7 @@ function Product() {
         <div className="noise" style={{ position: 'absolute', inset: 0, opacity: .4, pointerEvents: 'none' }} />
 
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '72px 48px', position: 'relative' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', maxWidth: 720, margin: '0 auto' }}>
+          <div className="quickbuk-showcase-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
             <div style={{ color: '#fff' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
                 <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 44, width: 44, borderRadius: 12, display: 'block' }} />
@@ -581,6 +582,27 @@ function Product() {
                 ))}
               </div>
             </div>
+
+            <div style={{ position: 'relative', height: 640, borderRadius: 16, overflow: 'hidden', boxShadow: '0 30px 70px -20px rgba(0,0,0,.5)', border: '1px solid rgba(255,255,255,.12)', background: 'radial-gradient(circle at 50% 50%, #14296B 0%, #060D1F 75%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Decorative glow filling the space either side of the phone, so it reads as designed rather than empty */}
+              <div aria-hidden style={{ position: 'absolute', width: 420, height: 420, borderRadius: '50%', background: `radial-gradient(circle, ${hexA(C.cyan,.28)} 0%, transparent 70%)`, filter: 'blur(20px)' }} />
+              <div aria-hidden className="glass-chip" style={{ position: 'absolute', top: 48, left: 40, padding: '10px 16px', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Icon.Chart width={14} height={14} style={{ color: '#35BDE7' }} />
+                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#fff' }}>₹2,00,000 this month</span>
+              </div>
+              <div aria-hidden className="glass-chip" style={{ position: 'absolute', bottom: 56, right: 36, padding: '10px 16px', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Icon.Cal width={14} height={14} style={{ color: '#a855f7' }} />
+                <span style={{ fontSize: 12.5, fontWeight: 700, color: '#fff' }}>1 booking today</span>
+              </div>
+
+              {/* Phone bezel mockup */}
+              <div style={{ position: 'relative', zIndex: 1, padding: 12, borderRadius: 44, background: '#0A0F1E', border: '1px solid rgba(255,255,255,.14)', boxShadow: '0 20px 50px -16px rgba(0,0,0,.6)' }}>
+                <div style={{ position: 'absolute', top: 26, left: '50%', transform: 'translateX(-50%)', width: 70, height: 5, borderRadius: 99, background: 'rgba(255,255,255,.18)', zIndex: 2 }} />
+                <div style={{ width: 230, height: 498, borderRadius: 32, overflow: 'hidden' }}>
+                  <img src="/images/quickbuk-dashboard-mobile.jpg" alt="Quickbuk dashboard" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Feature strip */}
@@ -612,79 +634,118 @@ function Product() {
           ))}
         </div>
       </NvContainer>
+      <style>{`
+        @media (max-width: 860px) {
+          .quickbuk-showcase-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }
 
-// ─── SIGN-IN SHOWCASE ────────────────────────────────────────────────────────
-function SignInShowcase() {
+// ─── INVOBUK (Second product) ─────────────────────────────────────────────────
+const INVOBUK_GREEN = '#005A40';
+const INVOBUK_GREEN_DARK = '#003D2B';
+const INVOBUK_AMBER = '#F59E0B';
+
+function Invobuk() {
+  const features = [
+    { icon: <Icon.Card />,     title: 'GST Invoicing & Quotations',  text: 'Create GST-compliant invoices, quotations, purchase orders and delivery challans in seconds.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_GREEN, .16) },
+    { icon: <Icon.Building />, title: 'Customers & Products',        text: 'Manage your full customer and product catalog, with bulk CSV import for fast onboarding.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_GREEN, .16) },
+    { icon: <Icon.Lock />,     title: 'Fully Offline & Private',     text: 'All your data stays on your own computer in a local database — no internet connection required to work.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_AMBER, .18) },
+    { icon: <Icon.Chart />,    title: 'Dashboard & Reports',         text: 'Track total sales, invoices, customers and purchase orders with a live sales overview chart.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_GREEN, .16) },
+    { icon: <Icon.Shield />,   title: 'One-Time License, No Subscription', text: 'A single license key activates the app on one computer — no recurring fees, no surprises.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_AMBER, .18) },
+    { icon: <Icon.Globe />,    title: 'Optional Google Drive Backup', text: 'Connect your Google Drive to back up and restore your data whenever you want — entirely opt-in.', color: INVOBUK_GREEN_DARK, glow: hexA(INVOBUK_GREEN, .16) },
+  ];
+
   return (
-    <section style={{ position: 'relative', padding: '100px 0', background: '#fff', overflow: 'hidden', width: '100%' }}>
-      {/* Subtle grid bg */}
-      <div aria-hidden style={{ position: 'absolute', inset: 0, opacity: .35, maskImage: 'radial-gradient(ellipse at 60% 50%, black 20%, transparent 70%)', WebkitMaskImage: 'radial-gradient(ellipse at 60% 50%, black 20%, transparent 70%)' } as React.CSSProperties}>
-        <div className="grid-bg" style={{ position: 'absolute', inset: 0 }} />
-      </div>
-      {/* Orb */}
-      <div aria-hidden style={{ position: 'absolute', right: -120, top: '10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle,rgba(37,99,235,.10) 0%,transparent 65%)', filter: 'blur(40px)', pointerEvents: 'none' }} />
-
+    <section id="invobuk" style={{ position: 'relative', padding: '120px 0', background: '#fff', width: '100%' }}>
       <NvContainer>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64, alignItems: 'start', width: '100%' }} className="signin-grid">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: 64 }}>
+          <NvPill tone="green">Product — Live now</NvPill>
+          <h2 style={{ margin: '20px 0 16px', fontSize: 'clamp(32px,4.5vw,60px)', lineHeight: 1.04, letterSpacing: '-.04em', fontWeight: 800, color: C.ink900, maxWidth: 780 }}>
+            <span style={{ background: `linear-gradient(100deg, ${INVOBUK_GREEN_DARK} 0%, ${INVOBUK_GREEN} 55%, ${INVOBUK_AMBER} 130%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Invobuk</span> — smart billing,<br />
+            simple business.
+          </h2>
+          <p style={{ maxWidth: 640, color: C.ink500, fontSize: 17.5, lineHeight: 1.7, margin: 0 }}>
+            A desktop billing and invoicing app for small businesses — invoices, purchase orders, and delivery challans, all in one place, fully offline.
+          </p>
+        </div>
+      </NvContainer>
 
-          {/* Copy */}
-          <div>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 999, fontSize: 11.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: 'rgba(37,99,235,.09)', border: '1px solid rgba(37,99,235,.22)', color: '#1D4FCE', marginBottom: 28 }}>
-              <Icon.Lock width={12} height={12} /> No password needed
-            </span>
+      {/* Full-bleed showcase */}
+      <div style={{ width: '100%', background: `linear-gradient(135deg, #00150F 0%, ${INVOBUK_GREEN_DARK} 45%, ${INVOBUK_GREEN} 100%)`, position: 'relative', overflow: 'hidden' }}>
+        <div aria-hidden style={{ position: 'absolute', top: -160, right: -100, width: 700, height: 700, borderRadius: '50%', background: `radial-gradient(circle,${hexA(INVOBUK_AMBER,.30)} 0%,transparent 55%)`, filter: 'blur(60px)', pointerEvents: 'none' }} />
+        <div aria-hidden style={{ position: 'absolute', bottom: -180, left: -120, width: 600, height: 600, borderRadius: '50%', background: `radial-gradient(circle,${hexA(INVOBUK_GREEN,.45)} 0%,transparent 55%)`, filter: 'blur(50px)', pointerEvents: 'none' }} />
+        <div className="noise" style={{ position: 'absolute', inset: 0, opacity: .4, pointerEvents: 'none' }} />
 
-            <h2 style={{ margin: '0 0 20px', fontSize: 'clamp(32px,4vw,56px)', fontWeight: 800, letterSpacing: '-.045em', lineHeight: 1.04, color: '#0A0F1E' }}>
-              Sign in takes<br />
-              <span className="grad-text">under 10 seconds.</span>
-            </h2>
-
-            <p style={{ margin: '0 0 36px', maxWidth: 480, fontSize: 17.5, lineHeight: 1.75, color: '#4B5675' }}>
-              No passwords to remember. Just enter your business email and we'll send you a one-tap sign-in code. Choose your role — Venue Owner, Decorator, or Caterer — and you're in.
-            </p>
-
-            {/* Steps */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {[
-                { n: '01', title: 'Choose your role', desc: 'Venue Owner, Decorator, or Caterer — pick what fits your business.', color: '#2563EB', bg: 'rgba(37,99,235,.09)', bd: 'rgba(37,99,235,.20)' },
-                { n: '02', title: 'Enter your email', desc: 'Your business email is all you need — no password setup required.', color: '#a855f7', bg: 'rgba(168,85,247,.09)', bd: 'rgba(168,85,247,.20)' },
-                { n: '03', title: 'Tap the sign-in code', desc: 'We send a code instantly. Tap it and you\'re inside your dashboard.', color: '#10b981', bg: 'rgba(16,185,129,.09)', bd: 'rgba(16,185,129,.20)' },
-              ].map(s => (
-                <div key={s.n} style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-                  <div className="neu-icon" style={{ width: 40, height: 40, flexShrink: 0, fontWeight: 800, fontSize: 13, color: s.color, letterSpacing: '-.01em' }}>{s.n}</div>
-                  <div>
-                    <div style={{ fontSize: 15.5, fontWeight: 700, color: '#0A0F1E', marginBottom: 4, letterSpacing: '-.02em' }}>{s.title}</div>
-                    <div style={{ fontSize: 14, color: '#4B5675', lineHeight: 1.6 }}>{s.desc}</div>
-                  </div>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '72px 48px', position: 'relative' }}>
+          <div className="invobuk-showcase-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+            <div style={{ color: '#fff' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                <img src="/images/invobuk-logo.png" alt="Invobuk" style={{ height: 44, width: 44, borderRadius: 12, display: 'block' }} />
+                <div>
+                  <div style={{ fontSize: 19, fontWeight: 800, color: '#fff', letterSpacing: '-.02em', lineHeight: 1.1 }}>Invobuk</div>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,.50)', letterSpacing: '.03em' }}>by NesVed</div>
                 </div>
-              ))}
+                <span style={{ marginLeft: 8, padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: 'rgba(245,158,11,.18)', border: `1px solid ${hexA(INVOBUK_AMBER,.35)}`, color: '#FFD899' }}>Live now</span>
+              </div>
+
+              <h3 style={{ fontSize: 'clamp(28px,3.2vw,46px)', fontWeight: 800, letterSpacing: '-.04em', margin: '0 0 20px', lineHeight: 1.1 }}>
+                Desktop billing,<br />
+                <span style={{ background: 'linear-gradient(100deg,#fff 0%,#FFE7B8 40%,#F59E0B 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>built for your business.</span>
+              </h3>
+
+              <p style={{ margin: '0 0 28px', color: 'rgba(255,255,255,.72)', fontSize: 16, lineHeight: 1.75, maxWidth: 460 }}>
+                Invoicing, quotations, purchase orders and delivery challans — a complete billing workflow that runs entirely on your computer, with your data stored locally and privately.
+              </p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 32 }}>
+                {['GST Invoices', 'Quotations', 'Purchase Orders', 'Delivery Challans', 'Customer & Product CRM', 'CSV Import', 'Offline-First', 'License Protected'].map(t => (
+                  <span key={t} style={{ padding: '6px 14px', borderRadius: 999, fontSize: 12.5, fontWeight: 500, background: 'rgba(255,255,255,.10)', color: 'rgba(255,255,255,.88)', border: '1px solid rgba(255,255,255,.18)' }}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 8 }}>
+                <NvBtn variant="invert" size="md" as="a" href="#contact" style={{ color: INVOBUK_GREEN_DARK }}>Get a license <Icon.Arrow /></NvBtn>
+                <NvBtn variant="ghost" size="md" as="a" href="#contact" style={{ borderColor: 'rgba(255,255,255,.28)', color: '#fff', background: 'rgba(255,255,255,.05)' }}>Book a demo</NvBtn>
+              </div>
+
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,.55)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 4 }}>Download for desktop</div>
+                <DesktopDownloadBadges />
+                <p style={{ fontSize: 11.5, color: 'rgba(255,255,255,.4)', marginTop: 10 }}>macOS build is in progress — Windows &amp; Linux are ready today.</p>
+              </div>
+            </div>
+
+            <div style={{ height: 640, display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <div style={{ flex: 1, minHeight: 0, borderRadius: 16, overflow: 'hidden', boxShadow: '0 30px 70px -20px rgba(0,0,0,.5)', border: '1px solid rgba(255,255,255,.12)' }}>
+                <img src="/images/invobuk-login-screenshot.png" alt="Invobuk sign-in screen" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+              </div>
+              <div style={{ flex: 1, minHeight: 0, borderRadius: 16, overflow: 'hidden', boxShadow: '0 30px 70px -20px rgba(0,0,0,.5)', border: '1px solid rgba(255,255,255,.12)' }}>
+                <img src="/images/invobuk-dashboard-screenshot.png" alt="Invobuk dashboard" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Live stats strip */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 16 }}>
-            {[
-              { icon: <Icon.Cal />, label: "Today's Bookings", val: '12 Events', color: '#2563EB', bg: 'rgba(37,99,235,.07)', bd: 'rgba(37,99,235,.15)' },
-              { icon: <Icon.Card />, label: 'Monthly Revenue', val: '₹1,24,500', color: '#10b981', bg: 'rgba(16,185,129,.07)', bd: 'rgba(16,185,129,.15)' },
-              { icon: <Icon.Chart />, label: 'Collection Rate', val: '94% done', color: '#a855f7', bg: 'rgba(168,85,247,.07)', bd: 'rgba(168,85,247,.15)' },
-              { icon: <Icon.Building />, label: 'Active Listings', val: '3 Venues', color: '#f59e0b', bg: 'rgba(245,158,11,.07)', bd: 'rgba(245,158,11,.15)' },
-            ].map(stat => (
-              <div key={stat.label} className="glass-card" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '16px 18px', borderRadius: 14 }}>
-                <span style={{ color: stat.color, flexShrink: 0 }}>{stat.icon}</span>
-                <div>
-                  <div style={{ fontSize: 10.5, color: '#4B5675', fontWeight: 500, lineHeight: 1.2 }}>{stat.label}</div>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: '#0A0F1E', lineHeight: 1.3 }}>{stat.val}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+      <NvContainer>
+        <div className="nv-feature-grid" style={{ marginTop: 72, display: 'grid', gap: 20 }}>
+          {features.map(f => (
+            <div key={f.title} className="glass-card" style={{ padding: 28, cursor: 'default', borderTop: `3px solid ${f.color}` }}>
+              <div className="neu-icon" style={{ width: 48, height: 48, color: f.color, flexShrink: 0, boxShadow: `6px 6px 14px ${f.glow}, -6px -6px 14px rgba(255,255,255,.9), inset 0 1px 0 rgba(255,255,255,.6)` }}>{f.icon}</div>
+              <h4 style={{ margin: '18px 0 8px', fontSize: 16, fontWeight: 700, color: C.ink900, letterSpacing: '-.02em' }}>{f.title}</h4>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: C.ink500 }}>{f.text}</p>
+            </div>
+          ))}
         </div>
       </NvContainer>
       <style>{`
         @media (max-width: 860px) {
-          .signin-grid { grid-template-columns: 1fr !important; }
+          .invobuk-showcase-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -732,6 +793,16 @@ function Pricing() {
     },
   ];
 
+  const invobukPlan = {
+    name: 'Invobuk Desktop License',
+    price: '₹4,999',
+    cadence: '/ year',
+    desc: 'For businesses that need GST billing, invoicing & purchase orders on their own computer.',
+    icon: <Icon.Lock />,
+    iconGrad: `linear-gradient(135deg,${INVOBUK_GREEN_DARK},${INVOBUK_GREEN})`,
+    points: ['GST invoices, quotations, purchase orders & delivery challans', 'Customer & product CRM with CSV import', 'Fully offline — your data stays on your computer', 'Windows & Linux desktop app (macOS coming soon)', 'Free updates for the license term', 'Optional Google Drive backup'],
+  };
+
   return (
     <section id="pricing" style={{ padding: '120px 0', position: 'relative', width: '100%', background: C.paper, overflow: 'hidden' }}>
       <div aria-hidden className="mesh-bg" style={{ position: 'absolute', inset: 0, opacity: .5, pointerEvents: 'none', zIndex: 0 }} />
@@ -742,8 +813,14 @@ function Pricing() {
             Honest pricing,<br />no surprises.
           </h2>
           <p style={{ maxWidth: 560, color: C.ink500, fontSize: 17.5, lineHeight: 1.7, margin: 0 }}>
-            One plan per role. Venue Owners, Decorators, and Caterers each get a plan built for their needs.
+            Two products, two simple pricing models — pick the one that fits your business.
           </p>
+        </div>
+
+        {/* ── Quickbuk pricing ── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
+          <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 28, width: 28, borderRadius: 8 }} />
+          <h3 style={{ fontSize: 18, fontWeight: 800, color: C.ink900, letterSpacing: '-.02em', margin: 0 }}>Quickbuk — choose your role</h3>
         </div>
 
         <div className="nv-pricing-grid" style={{ display: 'grid', gap: 20, alignItems: 'start' }}>
@@ -788,11 +865,51 @@ function Pricing() {
         <div style={{ marginTop: 32, padding: '18px 28px', borderRadius: 16, background: 'linear-gradient(135deg, rgba(37,99,235,.08), rgba(53,189,231,.10))', border: '1px solid rgba(37,99,235,.20)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap', textAlign: 'center' }}>
           <span style={{ fontSize: 18 }}>🎉</span>
           <p style={{ margin: 0, fontSize: 14.5, color: C.ink800, fontWeight: 600 }}>
-            Early access members get <span style={{ color: C.blue }}>1 month free</span> on any plan.{' '}
+            Early access members get <span style={{ color: C.blue }}>1 month free</span> on any Quickbuk plan.{' '}
             <a href="#contact" style={{ color: C.blue, fontWeight: 700, textDecoration: 'none' }}>Claim your spot →</a>
           </p>
         </div>
-        <p style={{ marginTop: 16, textAlign: 'center', fontSize: 13.5, color: C.ink500 }}>All plans billed annually. Includes unlimited bookings and free updates.</p>
+        <p style={{ marginTop: 16, marginBottom: 72, textAlign: 'center', fontSize: 13.5, color: C.ink500 }}>All Quickbuk plans billed annually. Includes unlimited bookings and free updates.</p>
+
+        {/* ── Invobuk pricing ── */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
+          <img src="/images/invobuk-logo.png" alt="Invobuk" style={{ height: 28, width: 28, borderRadius: 8 }} />
+          <h3 style={{ fontSize: 18, fontWeight: 800, color: C.ink900, letterSpacing: '-.02em', margin: 0 }}>Invobuk — one simple plan</h3>
+        </div>
+
+        <div style={{ maxWidth: 460 }}>
+          <div className="glass-dark" style={{ position: 'relative', borderRadius: 24, padding: 36, background: `linear-gradient(160deg,#00150F 0%,${INVOBUK_GREEN_DARK} 55%,${INVOBUK_GREEN} 130%)`, color: '#fff', overflow: 'hidden' }}>
+            <div aria-hidden style={{ position: 'absolute', top: -80, right: -80, width: 300, height: 300, borderRadius: '50%', background: `radial-gradient(circle,${hexA(INVOBUK_AMBER,.40)},transparent 65%)`, filter: 'blur(30px)', pointerEvents: 'none' }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                <div style={{ width: 48, height: 48, borderRadius: 14, background: invobukPlan.iconGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>{invobukPlan.icon}</div>
+                <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '.07em', textTransform: 'uppercase', padding: '5px 12px', borderRadius: 999, background: 'rgba(245,158,11,.18)', color: '#FFD899', border: `1px solid ${hexA(INVOBUK_AMBER,.35)}` }}>One-time, per year</span>
+              </div>
+
+              <h3 style={{ margin: '0 0 4px', fontSize: 19, fontWeight: 800, letterSpacing: '-.025em' }}>{invobukPlan.name}</h3>
+              <p style={{ margin: '0 0 24px', fontSize: 13.5, color: 'rgba(255,255,255,.68)', lineHeight: 1.6 }}>{invobukPlan.desc}</p>
+
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 28 }}>
+                <span style={{ fontSize: 46, fontWeight: 800, letterSpacing: '-.04em' }}>{invobukPlan.price}</span>
+                <span style={{ fontSize: 13, color: 'rgba(255,255,255,.50)' }}>{invobukPlan.cadence}</span>
+              </div>
+
+              <NvBtn variant="invert" size="md" as="a" href="#contact" style={{ width: '100%', color: INVOBUK_GREEN_DARK }}>Get a license <Icon.Arrow /></NvBtn>
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: '28px 0 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {invobukPlan.points.map(pt => (
+                  <li key={pt} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14.5, color: 'rgba(255,255,255,.85)' }}>
+                    <span style={{ marginTop: 2, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, borderRadius: 99, background: hexA(INVOBUK_AMBER,.22), color: '#FFD899' }}>
+                      <Icon.Check width={11} height={11} />
+                    </span>
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style={{ marginTop: 16, textAlign: 'center', fontSize: 13.5, color: C.ink500 }}>One license activates the app on one computer. No subscriptions, no per-user fees.</p>
       </NvContainer>
     </section>
   );
@@ -980,16 +1097,27 @@ function Footer() {
     <footer style={{ padding: '48px 0 36px', background: '#040B1C', borderTop: '3px solid transparent', borderImage: 'linear-gradient(90deg,#2563EB,#a855f7,#10b981) 1', color: 'rgba(255,255,255,.55)', width: '100%' }}>
       <NvContainer>
         <div className="nv-footer-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 36, width: 36, borderRadius: 10, display: 'block' }} />
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 800, color: 'rgba(255,255,255,.85)' }}>Quickbuk</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', fontWeight: 500 }}>by NesVed · © {new Date().getFullYear()}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <img src="/images/quickbuk-logo-new.png" alt="Quickbuk" style={{ height: 36, width: 36, borderRadius: 10, display: 'block' }} />
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'rgba(255,255,255,.85)' }}>Quickbuk</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', fontWeight: 500 }}>by NesVed · © {new Date().getFullYear()}</div>
+              </div>
+            </div>
+            <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,.12)' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <img src="/images/invobuk-logo.png" alt="Invobuk" style={{ height: 36, width: 36, borderRadius: 10, display: 'block' }} />
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'rgba(255,255,255,.85)' }}>Invobuk</div>
+                <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', fontWeight: 500 }}>by NesVed · © {new Date().getFullYear()}</div>
+              </div>
             </div>
           </div>
           <div className="nv-footer-links" style={{ display: 'flex', gap: 28, fontSize: 13.5 }}>
             {[
-              { h: '#product', l: 'Product' },
+              { h: '#product', l: 'Quickbuk' },
+              { h: '#invobuk', l: 'Invobuk' },
               { h: '#pricing', l: 'Pricing' }, { h: '#faq', l: 'FAQ' },
               { h: '/privacy', l: 'Privacy Policy' }, { h: '/terms', l: 'Terms & Conditions' },
             ].map(lnk => (
@@ -999,6 +1127,11 @@ function Footer() {
               >{lnk.l}</a>
             ))}
           </div>
+        </div>
+        <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,.08)', textAlign: 'center' }}>
+          <p style={{ margin: 0, fontSize: 12.5, color: 'rgba(255,255,255,.35)' }}>
+            © {new Date().getFullYear()} NesVed. All rights reserved. Quickbuk and Invobuk are products of NesVed.
+          </p>
         </div>
       </NvContainer>
     </footer>
@@ -1012,8 +1145,8 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <SignInShowcase />
         <Product />
+        <Invobuk />
         <Pricing />
         <FAQ />
         <Contact />
