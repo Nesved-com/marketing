@@ -15,7 +15,8 @@ interface Particle {
 /**
  * Lightweight canvas2D particle field — deliberately not WebGL/R3F so the
  * hero keeps a small first-load bundle and a clean Lighthouse score.
- * Pauses automatically when the tab is hidden or the user prefers reduced motion.
+ * Pauses automatically when the tab is hidden, the canvas scrolls out of
+ * view, or the user prefers reduced motion.
  */
 export function ParticleField({
   className,
@@ -42,7 +43,8 @@ export function ParticleField({
     let height = 0;
     let particles: Particle[] = [];
     let rafId = 0;
-    let visible = true;
+    let tabVisible = true;
+    let inViewport = true;
 
     function resize() {
       const parent = canvas!.parentElement;
@@ -82,7 +84,15 @@ export function ParticleField({
         ctx!.fillStyle = `rgba(${color}, ${p.alpha})`;
         ctx!.fill();
       }
-      if (visible && !prefersReducedMotion) rafId = requestAnimationFrame(draw);
+      if (tabVisible && inViewport && !prefersReducedMotion) {
+        rafId = requestAnimationFrame(draw);
+      }
+    }
+
+    function maybeStart() {
+      if (tabVisible && inViewport && !prefersReducedMotion && !rafId) {
+        rafId = requestAnimationFrame(draw);
+      }
     }
 
     resize();
@@ -91,15 +101,30 @@ export function ParticleField({
 
     const onResize = () => resize();
     const onVisibility = () => {
-      visible = document.visibilityState === "visible";
-      if (visible && !prefersReducedMotion) rafId = requestAnimationFrame(draw);
+      tabVisible = document.visibilityState === "visible";
+      maybeStart();
     };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inViewport = entry.isIntersecting;
+        if (inViewport) {
+          maybeStart();
+        } else {
+          cancelAnimationFrame(rafId);
+          rafId = 0;
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(rafId);
+      observer.disconnect();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
     };

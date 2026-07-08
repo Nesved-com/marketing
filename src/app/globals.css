@@ -168,6 +168,7 @@
   --animate-float: float 6s var(--ease-out-quart) infinite;
   --animate-float-slow: float 10s var(--ease-out-quart) infinite;
   --animate-gradient-shift: gradient-shift 12s ease infinite;
+  --animate-mesh-drift: mesh-drift 14s ease-in-out infinite;
   --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-marquee: marquee 30s linear infinite;
@@ -190,6 +191,13 @@
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* Compositor-only alternative to gradient-shift — animates transform instead
+   of background-position, which avoids forcing a full repaint every frame. */
+@keyframes mesh-drift {
+  0%, 100% { transform: translate3d(-2%, -2%, 0) scale(1.1); }
+  50% { transform: translate3d(2%, 2%, 0) scale(1.1); }
 }
 
 @keyframes glow-pulse {
@@ -330,16 +338,16 @@ body {
 
 @utility glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-glass);
 }
 
 @utility glass-strong {
   background: var(--glass-bg-strong);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
   border: 1px solid var(--glass-border-strong);
   box-shadow: var(--shadow-glass);
 }

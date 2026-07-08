@@ -13,7 +13,7 @@ export function GradientBeams({ className }: { className?: string }) {
       )}
       aria-hidden
     >
-      <div className="bg-mesh absolute inset-0 animate-gradient-shift bg-[length:200%_200%]" />
+      <div className="bg-mesh absolute inset-0 animate-mesh-drift will-change-transform" />
 
       <div className="absolute left-1/2 top-[-20%] h-[140%] w-[60%] -translate-x-1/2 animate-beam bg-gradient-to-b from-brand-400/25 via-brand-500/10 to-transparent blur-3xl" />
 

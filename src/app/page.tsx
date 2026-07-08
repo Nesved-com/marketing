@@ -1,17 +1,30 @@
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { TrustedBy } from "@/components/sections/trusted-by";
 import { ProductsShowcase } from "@/components/sections/products-showcase";
 import { QuickbukShowcase } from "@/components/sections/quickbuk-showcase";
-import { ScrollStory } from "@/components/sections/scroll-story";
 import { InvobukShowcase } from "@/components/sections/invobuk-showcase";
-import { ScreenshotGallery, type GalleryItem } from "@/components/sections/screenshot-gallery";
-import { Testimonials } from "@/components/sections/testimonials";
-import { CinematicDemo } from "@/components/sections/cinematic-demo";
 import { FaqSection } from "@/components/sections/faq-section";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { allFaq } from "@/config/faq";
+import type { GalleryItem } from "@/components/sections/screenshot-gallery";
+
+// Below-the-fold, JS-heavy sections — code-split so they don't compete with
+// the hero/above-the-fold sections for parse/hydration time on first load.
+const ScrollStory = dynamic(() =>
+  import("@/components/sections/scroll-story").then((m) => m.ScrollStory)
+);
+const ScreenshotGallery = dynamic(() =>
+  import("@/components/sections/screenshot-gallery").then((m) => m.ScreenshotGallery)
+);
+const Testimonials = dynamic(() =>
+  import("@/components/sections/testimonials").then((m) => m.Testimonials)
+);
+const CinematicDemo = dynamic(() =>
+  import("@/components/sections/cinematic-demo").then((m) => m.CinematicDemo)
+);
 
 const galleryItems: GalleryItem[] = [
   { label: "Dashboard", description: "Quickbuk · Mobile", accent: "var(--brand-400)", src: "/screenshots/quickbuk-venue-owner-dashboard.jpg" },
