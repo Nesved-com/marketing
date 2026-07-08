@@ -8,17 +8,17 @@
    ========================================================================== */
 
 :root {
-  /* ---- Brand: blue gradient system ---- */
+  /* ---- Brand: blue gradient system (matched to the Quickbuk logo blue) ---- */
   --brand-950: #020617;
-  --brand-900: #060b1a;
-  --brand-800: #0a1128;
-  --brand-700: #0f1c3d;
-  --brand-600: #14285c;
-  --brand-500: #1d4ed8;
-  --brand-400: #3b82f6;
-  --brand-300: #60a5fa;
-  --brand-200: #93c5fd;
-  --brand-100: #bfdbfe;
+  --brand-900: #050b1f;
+  --brand-800: #081548;
+  --brand-700: #0a1e6e;
+  --brand-600: #072ea3;
+  --brand-500: #0040dd;
+  --brand-400: #0066ff;
+  --brand-300: #1997fd;
+  --brand-200: #7ec0fe;
+  --brand-100: #cfe6ff;
   --accent-cyan: #22d3ee;
   --accent-indigo: #6366f1;
   --accent-violet: #8b5cf6;
