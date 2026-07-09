@@ -209,7 +209,7 @@ export default function AboutPage() {
                   hover
                   className="group flex flex-col gap-4 p-6"
                 >
-                  <span className="flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] text-brand-300 transition-transform duration-300 group-hover:scale-110">
+                  <span className="flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] text-brand-300 transition-transform duration-300 group-hover:scale-110">
                     <value.icon className="size-5" />
                   </span>
                   <div className="flex flex-col gap-1.5">

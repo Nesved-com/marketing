@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const topics = ["Quickbuk", "Invobuk", "Pricing", "Support", "Something else"];
 
 const fieldClass =
-  "w-full rounded-xl border border-glass-border bg-white/[0.03] px-4 py-3 text-sm text-fg-primary placeholder:text-fg-subtle transition-colors focus:border-brand-400/50 focus:outline-none focus:ring-2 focus:ring-brand-400/30";
+  "w-full rounded-xl border border-glass-border bg-black/[0.03] px-4 py-3 text-sm text-fg-primary placeholder:text-fg-subtle transition-colors focus:border-brand-400/50 focus:outline-none focus:ring-2 focus:ring-brand-400/30";
 
 // Web3Forms access key — delivers submissions to contact@nesved.com.
 // Same key used by the Nesved marketing site's own contact form.

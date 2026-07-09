@@ -3,7 +3,7 @@
 
 /* ==========================================================================
    NESVED DESIGN SYSTEM
-   Premium dark-first SaaS visual language — Apple / Stripe / Linear / Vercel
+   Premium light-first SaaS visual language — Apple / Stripe / Linear / Vercel
    inspired. Blue-gradient brand identity, glassmorphism, rich motion.
    ========================================================================== */
 
@@ -19,33 +19,33 @@
   --brand-300: #1997fd;
   --brand-200: #7ec0fe;
   --brand-100: #cfe6ff;
-  --accent-cyan: #22d3ee;
-  --accent-indigo: #6366f1;
-  --accent-violet: #8b5cf6;
+  --accent-cyan: #0891b2;
+  --accent-indigo: #4f46e5;
+  --accent-violet: #7c3aed;
 
-  /* ---- Surface (dark-first) ---- */
-  --bg-base: #05070d;
-  --bg-raised: #0a0e1a;
-  --bg-elevated: #0d1220;
-  --bg-overlay: #10162a;
+  /* ---- Surface (light-first) ---- */
+  --bg-base: #ffffff;
+  --bg-raised: #f6f8fb;
+  --bg-elevated: #eef2f7;
+  --bg-overlay: #e4e9f1;
 
   /* ---- Foreground ---- */
-  --fg-primary: #f8fafc;
-  --fg-secondary: #cbd5e1;
-  --fg-muted: #8b98b3;
-  --fg-subtle: #5b6789;
+  --fg-primary: #0b1220;
+  --fg-secondary: #33415c;
+  --fg-muted: #5b6a85;
+  --fg-subtle: #8b96ab;
 
   /* ---- Glass ---- */
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-bg-strong: rgba(255, 255, 255, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.09);
-  --glass-border-strong: rgba(255, 255, 255, 0.16);
-  --glass-highlight: rgba(255, 255, 255, 0.5);
+  --glass-bg: rgba(11, 18, 32, 0.035);
+  --glass-bg-strong: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(11, 18, 32, 0.08);
+  --glass-border-strong: rgba(11, 18, 32, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
 
   /* ---- Semantic ---- */
-  --success: #34d399;
-  --warning: #fbbf24;
-  --danger: #f87171;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
 
   /* ---- Radii ---- */
   --radius-sm: 0.5rem;
@@ -56,10 +56,10 @@
   --radius-full: 9999px;
 
   /* ---- Shadows / glow ---- */
-  --shadow-glass: 0 1px 1px rgba(255, 255, 255, 0.06) inset, 0 8px 32px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
-  --shadow-glow-blue: 0 0 60px rgba(59, 130, 246, 0.35);
-  --shadow-glow-cyan: 0 0 60px rgba(34, 211, 238, 0.28);
+  --shadow-glass: 0 1px 1px rgba(255, 255, 255, 0.6) inset, 0 8px 32px rgba(15, 23, 42, 0.1);
+  --shadow-card: 0 20px 60px -20px rgba(15, 23, 42, 0.25);
+  --shadow-glow-blue: 0 0 60px rgba(0, 102, 255, 0.25);
+  --shadow-glow-cyan: 0 0 60px rgba(8, 145, 178, 0.2);
 
   /* ---- Easing ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -272,7 +272,7 @@
    ========================================================================== */
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {

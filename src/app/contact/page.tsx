@@ -64,9 +64,9 @@ export default function ContactPage() {
                 <div className="flex flex-col gap-4">
                   <a
                     href={`mailto:${siteConfig.contact.email}`}
-                    className="group flex items-center gap-4 rounded-xl p-2 transition-colors hover:bg-white/5"
+                    className="group flex items-center gap-4 rounded-xl p-2 transition-colors hover:bg-black/5"
                   >
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] text-brand-300">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] text-brand-300">
                       <Mail className="size-5" />
                     </span>
                     <div className="flex flex-col">
@@ -79,9 +79,9 @@ export default function ContactPage() {
 
                   <a
                     href="tel:+918806012475"
-                    className="group flex items-center gap-4 rounded-xl p-2 transition-colors hover:bg-white/5"
+                    className="group flex items-center gap-4 rounded-xl p-2 transition-colors hover:bg-black/5"
                   >
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] text-brand-300">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] text-brand-300">
                       <Phone className="size-5" />
                     </span>
                     <div className="flex flex-col">
@@ -93,7 +93,7 @@ export default function ContactPage() {
                   </a>
 
                   <div className="flex items-center gap-4 rounded-xl p-2">
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] text-brand-300">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] text-brand-300">
                       <MapPin className="size-5" />
                     </span>
                     <div className="flex flex-col">
@@ -131,7 +131,7 @@ export default function ContactPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
-                        className="flex size-10 items-center justify-center rounded-full border border-glass-border-strong bg-white/[0.04] text-fg-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-brand-300 hover:shadow-glow-blue"
+                        className="flex size-10 items-center justify-center rounded-full border border-glass-border-strong bg-black/[0.04] text-fg-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-brand-300 hover:shadow-glow-blue"
                       >
                         <social.icon className="size-4" />
                       </a>

@@ -137,7 +137,7 @@ export function Testimonials() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between rounded-xl bg-white/[0.04] px-4 py-3 text-xs">
+              <div className="flex items-center justify-between rounded-xl bg-black/[0.04] px-4 py-3 text-xs">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-fg-subtle">Before</span>
                   <span className="font-medium text-fg-muted">{t.before}</span>

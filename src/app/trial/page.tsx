@@ -43,14 +43,14 @@ export default function TrialPage() {
               <div className="flex flex-col gap-3">
                 {highlights.map((item) => (
                   <div key={item.label} className="flex items-center gap-3">
-                    <span className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04] text-brand-300">
+                    <span className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04] text-brand-300">
                       <item.icon className="size-4" />
                     </span>
                     <span className="text-sm text-fg-secondary">{item.label}</span>
                   </div>
                 ))}
                 <div className="flex items-center gap-3">
-                  <span className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04] text-brand-300">
+                  <span className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04] text-brand-300">
                     <CheckCircle2 className="size-4" />
                   </span>
                   <span className="text-sm text-fg-secondary">

@@ -119,7 +119,7 @@ function ProductCard({
           {product.highlights.map((highlight) => (
             <div key={highlight.label} className="flex items-center gap-3">
               <span
-                className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04]"
+                className="flex size-8 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04]"
                 style={{ color: product.accent }}
               >
                 <highlight.icon className="size-4" />

@@ -160,7 +160,7 @@ function IndustryCard({ icon: Icon, title, description, accent }: Industry) {
         />
 
         <div
-          className="relative flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+          className="relative flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
           style={{ boxShadow: `0 0 0 1px ${accent}22` }}
         >
           <Icon className="size-5" style={{ color: accent }} />

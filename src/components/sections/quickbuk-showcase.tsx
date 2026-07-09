@@ -64,7 +64,7 @@ export function QuickbukShowcase() {
               <motion.div key={feature.label} variants={fadeInUp}>
                 <GlassCard hover className="group flex flex-col gap-3 p-5">
                   <span
-                    className="flex size-9 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04] transition-transform duration-300 group-hover:scale-110"
+                    className="flex size-9 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04] transition-transform duration-300 group-hover:scale-110"
                     style={{ color: ACCENT }}
                   >
                     <feature.icon className="size-4" />

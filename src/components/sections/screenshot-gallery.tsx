@@ -54,10 +54,10 @@ function GalleryCard({ item, index }: { item: GalleryItem; index: number }) {
             <div className="bg-mesh absolute inset-0 opacity-60" aria-hidden />
             <div className="relative h-16 w-full rounded-lg" style={{ background: `linear-gradient(135deg, ${item.accent}33, transparent)` }} />
             <div className="relative h-2.5 w-2/3 rounded-full bg-white/10" />
-            <div className="relative h-2.5 w-1/2 rounded-full bg-white/[0.06]" />
+            <div className="relative h-2.5 w-1/2 rounded-full bg-black/[0.06]" />
             <div className="relative mt-auto grid grid-cols-3 gap-2">
-              <div className="h-10 rounded-md bg-white/[0.06]" />
-              <div className="h-10 rounded-md bg-white/[0.06]" />
+              <div className="h-10 rounded-md bg-black/[0.06]" />
+              <div className="h-10 rounded-md bg-black/[0.06]" />
               <div className="h-10 rounded-md" style={{ backgroundColor: `${item.accent}40` }} />
             </div>
           </div>

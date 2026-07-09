@@ -120,7 +120,9 @@ export function DeviceCarousel({
           >
             <div
               className={cn(
-                "glass-strong relative w-full overflow-hidden rounded-[1.75rem] shadow-card",
+                // Device bezel is intentionally always dark, like a real phone/laptop chassis —
+                // it doesn't follow the page's light/dark theme tokens.
+                "relative w-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0b1220] shadow-card",
                 isPhone
                   ? "aspect-[9/19] rounded-[2.25rem] p-3"
                   : "aspect-[1535/780] p-2"
@@ -223,7 +225,7 @@ export function DeviceCarousel({
               aria-label={`Show ${screen.label}`}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                i === active ? "w-6" : "w-1.5 bg-white/15 hover:bg-white/30"
+                i === active ? "w-6" : "w-1.5 bg-white/15 hover:bg-black/30"
               )}
               style={i === active ? { backgroundColor: accent } : undefined}
             />

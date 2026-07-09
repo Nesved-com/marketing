@@ -42,7 +42,7 @@ export function FeatureGrid({
             <motion.div key={feature.label} variants={fadeInUp}>
               <GlassCard hover className="group flex h-full flex-col gap-3 p-6">
                 <span
-                  className="flex size-10 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04] transition-transform duration-300 group-hover:scale-110"
+                  className="flex size-10 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04] transition-transform duration-300 group-hover:scale-110"
                   style={{ color: accent }}
                 >
                   <feature.icon className="size-5" />

@@ -119,7 +119,7 @@ export default function DownloadPage() {
                   className="flex flex-col gap-6 p-8"
                 >
                   <span
-                    className="flex size-12 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04]"
+                    className="flex size-12 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04]"
                     style={{ color: platform.accent }}
                   >
                     <platform.icon className="size-6" />
@@ -170,7 +170,7 @@ export default function DownloadPage() {
               {resources.map((resource) => (
                 <Link key={resource.title} href={resource.href}>
                   <GlassCard hover className="group flex h-full flex-col gap-3 p-6">
-                    <span className="flex size-10 items-center justify-center rounded-lg border border-glass-border-strong bg-white/[0.04] text-brand-300 transition-transform duration-300 group-hover:scale-110">
+                    <span className="flex size-10 items-center justify-center rounded-lg border border-glass-border-strong bg-black/[0.04] text-brand-300 transition-transform duration-300 group-hover:scale-110">
                       <resource.icon className="size-5" />
                     </span>
                     <div className="flex flex-col gap-1">

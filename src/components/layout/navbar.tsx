@@ -45,7 +45,7 @@ export function Navbar() {
               >
                 <Link
                   href={item.href ?? "#"}
-                  className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-fg-secondary transition-colors hover:bg-white/5 hover:text-fg-primary"
+                  className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-fg-secondary transition-colors hover:bg-black/5 hover:text-fg-primary"
                 >
                   {item.label}
                   {item.children && (
@@ -71,7 +71,7 @@ export function Navbar() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="flex flex-col gap-0.5 rounded-xl px-3.5 py-2.5 transition-colors hover:bg-white/5"
+                          className="flex flex-col gap-0.5 rounded-xl px-3.5 py-2.5 transition-colors hover:bg-black/5"
                         >
                           <span className="text-sm font-medium text-fg-primary">
                             {child.label}
@@ -97,7 +97,7 @@ export function Navbar() {
           </div>
 
           <button
-            className="flex size-10 items-center justify-center rounded-full text-fg-primary transition-colors hover:bg-white/5 lg:hidden"
+            className="flex size-10 items-center justify-center rounded-full text-fg-primary transition-colors hover:bg-black/5 lg:hidden"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -120,7 +120,7 @@ export function Navbar() {
                 <div key={item.label}>
                   <Link
                     href={item.href ?? "#"}
-                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-fg-secondary hover:bg-white/5 hover:text-fg-primary"
+                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-fg-secondary hover:bg-black/5 hover:text-fg-primary"
                     onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
@@ -131,7 +131,7 @@ export function Navbar() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="rounded-lg px-3 py-2 text-sm text-fg-muted hover:bg-white/5 hover:text-fg-primary"
+                          className="rounded-lg px-3 py-2 text-sm text-fg-muted hover:bg-black/5 hover:text-fg-primary"
                           onClick={() => setMobileOpen(false)}
                         >
                           {child.label}

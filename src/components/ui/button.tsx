@@ -13,8 +13,8 @@ const buttonVariants = cva(
         secondary:
           "glass text-fg-primary hover:glass-strong hover:-translate-y-0.5",
         outline:
-          "border border-glass-border-strong text-fg-primary bg-transparent hover:bg-white/5 hover:-translate-y-0.5",
-        ghost: "text-fg-secondary hover:text-fg-primary hover:bg-white/5",
+          "border border-glass-border-strong text-fg-primary bg-transparent hover:bg-black/5 hover:-translate-y-0.5",
+        ghost: "text-fg-secondary hover:text-fg-primary hover:bg-black/5",
         link: "text-brand-300 underline-offset-4 hover:underline",
       },
       size: {

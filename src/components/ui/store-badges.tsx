@@ -24,7 +24,7 @@ function StoreBadge({ icon: Icon, eyebrow, label, href }: StoreBadgeProps) {
   );
 
   const className = cn(
-    "flex items-center gap-2.5 rounded-xl border border-glass-border-strong bg-white/[0.04] px-4 py-2.5 transition-all duration-300",
+    "flex items-center gap-2.5 rounded-xl border border-glass-border-strong bg-black/[0.04] px-4 py-2.5 transition-all duration-300",
     available
       ? "hover:-translate-y-0.5 hover:border-brand-400/40 hover:shadow-glow-blue"
       : "cursor-not-allowed opacity-60"

@@ -50,8 +50,8 @@ export function CinematicDemo() {
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="relative flex items-center justify-center">
                   <span className="absolute size-24 animate-ping rounded-full bg-brand-400/20" />
-                  <span className="glass-strong flex size-20 items-center justify-center rounded-full border-2 border-white/20 shadow-glow-blue transition-transform duration-300 group-hover:scale-110">
-                    <Play className="size-7 translate-x-0.5 fill-white text-white" />
+                  <span className="glass-strong flex size-20 items-center justify-center rounded-full border-2 border-glass-border-strong shadow-glow-blue transition-transform duration-300 group-hover:scale-110">
+                    <Play className="size-7 translate-x-0.5 fill-brand-500 text-brand-500" />
                   </span>
                 </span>
               </span>
@@ -96,7 +96,7 @@ export function CinematicDemo() {
                     <Dialog.Close asChild>
                       <button
                         aria-label="Close demo"
-                        className="absolute -top-12 right-0 flex size-9 items-center justify-center rounded-full glass text-fg-primary transition-colors hover:bg-white/10"
+                        className="absolute -top-12 right-0 flex size-9 items-center justify-center rounded-full glass text-fg-primary transition-colors hover:bg-black/10"
                       >
                         <X className="size-4" />
                       </button>

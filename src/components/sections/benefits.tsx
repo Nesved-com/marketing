@@ -49,7 +49,7 @@ export function Benefits({
             <motion.div key={item.title} variants={fadeInUp}>
               <GlassCard hover className="group flex h-full flex-col gap-4 p-6">
                 <span
-                  className="flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-white/[0.04] transition-transform duration-300 group-hover:scale-110"
+                  className="flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] transition-transform duration-300 group-hover:scale-110"
                   style={{ color: accent }}
                 >
                   <item.icon className="size-5" />
