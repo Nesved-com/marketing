@@ -8,10 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { GradientText } from "@/components/ui/gradient-text";
 import { StatCounter } from "@/components/ui/stat-counter";
+import { StoreBadges } from "@/components/ui/store-badges";
 import { GradientBeams } from "@/components/effects/gradient-beams";
 import { ParticleField } from "@/components/effects/particle-field";
 import { VideoBackground } from "@/components/effects/video-background";
 import { fadeInUp, staggerContainer, EASE_OUT_EXPO } from "@/lib/motion";
+import { siteConfig } from "@/config/site";
 
 const stats = [
   { value: 500, suffix: "+", label: "Businesses" },
@@ -84,6 +86,10 @@ export function Hero() {
                 Watch Demo
               </Link>
             </Button>
+          </motion.div>
+
+          <motion.div variants={fadeInUp}>
+            <StoreBadges googlePlayHref={siteConfig.links.quickbukGooglePlay} />
           </motion.div>
         </motion.div>
 

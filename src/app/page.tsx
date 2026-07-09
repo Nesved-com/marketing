@@ -13,9 +13,6 @@ import type { GalleryItem } from "@/components/sections/screenshot-gallery";
 
 // Below-the-fold, JS-heavy sections — code-split so they don't compete with
 // the hero/above-the-fold sections for parse/hydration time on first load.
-const ScrollStory = dynamic(() =>
-  import("@/components/sections/scroll-story").then((m) => m.ScrollStory)
-);
 const ScreenshotGallery = dynamic(() =>
   import("@/components/sections/screenshot-gallery").then((m) => m.ScreenshotGallery)
 );
@@ -43,7 +40,6 @@ export default function Home() {
         <TrustedBy />
         <ProductsShowcase />
         <QuickbukShowcase />
-        <ScrollStory />
         <InvobukShowcase />
         <ScreenshotGallery items={galleryItems} />
         <Testimonials />
