@@ -23,14 +23,13 @@ const nesvedBuilds: PlatformBuild[] = [
   {
     os: "Windows",
     detail: "10 / 11 · x64 · 104 MB",
-    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/KitoosAppe-win.exe",
+    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/Nesved-win.exe",
   },
   {
-    os: "Linux",
-    detail: "deb",
-    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/KitoosAppe-linux.deb",
+    os: "macOS",
+    detail: "Apple Silicon · unsigned",
+    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/Nesved-mac.dmg",
   },
-  { os: "macOS", detail: "universal — coming soon" },
 ];
 
 const invobukBuilds: PlatformBuild[] = [
@@ -38,11 +37,6 @@ const invobukBuilds: PlatformBuild[] = [
     os: "Windows",
     detail: "10 / 11 · x64 · 128 MB",
     href: "https://github.com/Nesved-com/invobuk/releases/latest/download/Invobuk-Setup.exe",
-  },
-  {
-    os: "Linux",
-    detail: "AppImage · 151 MB",
-    href: "https://github.com/Nesved-com/invobuk/releases/latest/download/Invobuk.AppImage",
   },
   { os: "macOS", detail: "Apple Silicon & Intel — coming soon" },
 ];
@@ -64,7 +58,7 @@ function ProductDownloads({
         <h2 className="text-3xl font-black">{name}</h2>
         <span className="font-mono text-xs text-fg-subtle">{version}</span>
       </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {builds.map((b) => (
           <GlassCard
             key={b.os}
@@ -113,11 +107,16 @@ export default function DownloadPage() {
         <section className="border-b-2 border-line bg-bg-raised">
           <Container className="py-14">
             <ProductDownloads
-              name="Nesved"
+              name="Nesved POS"
               version="v1.0.3 · released 29 Jul 2026"
               builds={nesvedBuilds}
               featured
             />
+            <p className="-mt-8 mb-14 max-w-[56ch] text-sm text-fg-subtle">
+              The macOS build isn&apos;t notarized yet, so Gatekeeper will flag it as from an
+              unidentified developer. Right-click the app → Open (or allow it under System
+              Settings → Privacy &amp; Security) the first time.
+            </p>
             <ProductDownloads
               name="Invobuk"
               version="v1.2.1 · released 08 Jul 2026"
