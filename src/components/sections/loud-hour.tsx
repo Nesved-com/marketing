@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -33,16 +34,14 @@ export function LoudHour() {
           viewport={viewportOnce}
           className="relative"
         >
-          <div
-            className="flex h-[420px] items-start justify-start border-2 border-line p-6 font-mono text-[12.5px] leading-loose text-fg-subtle grayscale"
-            style={{
-              background:
-                "repeating-linear-gradient(135deg,#e3e1e1 0 12px,#eae9e9 12px 24px)",
-            }}
-          >
-            photograph: counter during service
-            <br />
-            drop image here
+          <div className="relative h-[420px] overflow-hidden border-2 border-line shadow-card">
+            <Image
+              src="/screenshots/nesved-pos-tables.png"
+              alt="Nesved POS table map — live occupancy, guest counts and running totals for every table"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 560px"
+            />
           </div>
           <div className="absolute -bottom-6 -right-6 max-w-[220px] bg-brand-500 px-7 py-6 text-fg-on-ink shadow-card-lg">
             <div className="text-[2.1rem] font-black leading-none tracking-tighter">

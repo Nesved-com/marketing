@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { FileText, CreditCard, TrendingUp } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -10,28 +12,40 @@ import { CtaBanner } from "@/components/sections/cta-banner";
 import { invobukFaq } from "@/config/faq";
 
 export const metadata: Metadata = {
-  title: "Invobuk — Quotations, Orders & Invoices",
+  title: "Invobuk — Smart Billing, Simple Business",
   description:
-    "Quote it, order it, invoice it, then forget it. Invobuk is Nesved's desktop invoicing and inventory platform for SMEs — quotations, purchase orders, sales orders and invoices on Windows, Linux and macOS.",
+    "The smarter way to run your business. Invobuk is Nesved's offline-first invoicing app — invoices, purchase orders and delivery challans, all in one place.",
   alternates: { canonical: "/products/invobuk" },
   openGraph: {
     title: "Invobuk by Nesved",
-    description: "Quote it, order it, invoice it. Then forget it.",
+    description: "Smart Billing, Simple Business.",
     url: "/products/invobuk",
   },
 };
 
-const invoiceLines = [
-  { item: "Banquet package — silver", qty: "180", amount: "1,62,000" },
-  { item: "Hall rent — evening slot", qty: "1", amount: "45,000" },
-  { item: "Décor — mandap", qty: "1", amount: "28,500" },
+const valueProps = [
+  {
+    icon: FileText,
+    title: "Create Professional Invoices",
+    description: "Generate in seconds, send instantly.",
+  },
+  {
+    icon: CreditCard,
+    title: "Track Payments Easily",
+    description: "Get paid faster with smart reminders.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Business Reports & Insights",
+    description: "Grow confidently with real-time data.",
+  },
 ];
 
 const features = [
-  { title: "Quotations", description: "Versioned, comparable, convertible to an order without retyping." },
+  { title: "Invoicing", description: "Professional, GST-ready invoices generated and sent in seconds." },
   { title: "Purchase orders", description: "Vendor rate history, partial receipts, three-way matching." },
-  { title: "Sales orders", description: "Order to dispatch to invoice, with pending-quantity views." },
-  { title: "Invoices", description: "Tax-ready formats, recurring runs, receipts and ageing." },
+  { title: "Delivery challans", description: "Track goods out the door, linked back to the original order." },
+  { title: "Reports & insights", description: "Real-time payment tracking and business reports." },
 ];
 
 export default function InvobukPage() {
@@ -39,64 +53,62 @@ export default function InvobukPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-ink text-fg-on-ink">
+        <section
+          className="relative overflow-hidden text-fg-on-ink"
+          style={{ background: "linear-gradient(160deg, #003828 0%, #0a2b22 60%, #131a24 100%)" }}
+        >
           <div
-            className="diagonal-accent pointer-events-none absolute -left-24 -top-24 size-[340px]"
+            className="pointer-events-none absolute -right-20 top-10 size-72 rounded-full bg-white/5"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -bottom-24 -left-10 size-64 rounded-full bg-white/5"
             aria-hidden
           />
           <Container className="relative grid grid-cols-1 items-center gap-14 py-18 lg:grid-cols-2">
             <div>
-              <span className="label-mono mb-5 block text-accent-soft">Invobuk</span>
+              <div className="mb-6 flex items-center gap-3">
+                <Image
+                  src="/brand/invobuk-logo.png"
+                  alt="Invobuk"
+                  width={44}
+                  height={44}
+                  className="size-11 rounded-xl"
+                />
+                <div>
+                  <div className="text-lg font-black leading-tight">Invobuk</div>
+                  <div className="text-xs text-fg-on-ink-muted">Smart Billing, Simple Business</div>
+                </div>
+              </div>
               <h1 className="mb-5 text-4xl font-black leading-[1.03] tracking-tighter sm:text-5xl">
-                Quote it, order it, invoice it. Then forget it.
+                The smarter way to run your business.
               </h1>
               <p className="mb-7.5 max-w-[46ch] text-lg text-fg-on-ink-muted">
-                The paperwork half of the business: quotations, purchase orders, sales orders
-                and invoices that all reference the same customers and items.
+                Invoicing, purchase orders, and delivery challans — all in one place, fully
+                offline.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button variant="primary" size="md" asChild>
+                <Button variant="primary" size="md" className="bg-[#0c6b4a] hover:bg-[#003828]" asChild>
                   <Link href="/download">Download Invobuk</Link>
                 </Button>
                 <Button variant="secondary" size="md" asChild>
-                  <Link href="/pricing">See pricing</Link>
+                  <Link href="/contact">Talk to us</Link>
                 </Button>
               </div>
             </div>
 
-            <div className="bg-white text-fg-primary shadow-deep">
-              <div className="border-b-2 border-line-soft px-4.5 py-3.5 font-mono text-[11px] text-fg-subtle">
-                INVOICE · INV-2026-0418
-              </div>
-              <div className="px-4.5 py-5.5">
-                <div className="grid grid-cols-[1fr_70px_100px] gap-2 border-b-2 border-line-soft pb-2.5 font-mono text-[11px] text-fg-subtle">
-                  <span>ITEM</span>
-                  <span>QTY</span>
-                  <span className="text-right">AMOUNT</span>
-                </div>
-                {invoiceLines.map((line) => (
-                  <div
-                    key={line.item}
-                    className="grid grid-cols-[1fr_70px_100px] gap-2 border-b border-line-soft py-2.5 text-[14.5px]"
-                  >
-                    <span>{line.item}</span>
-                    <span className="font-mono">{line.qty}</span>
-                    <span className="text-right font-mono">{line.amount}</span>
+            <div className="flex flex-col gap-4">
+              {valueProps.map((v) => (
+                <div key={v.title} className="flex items-start gap-4 bg-white/5 p-5">
+                  <span className="flex size-10 shrink-0 items-center justify-center bg-[#0c6b4a]">
+                    <v.icon className="size-5 text-white" />
+                  </span>
+                  <div>
+                    <div className="font-extrabold">{v.title}</div>
+                    <div className="text-sm text-fg-on-ink-muted">{v.description}</div>
                   </div>
-                ))}
-                <div className="flex justify-between pt-4 text-lg font-black">
-                  <span>Payable</span>
-                  <span className="font-mono">₹2,63,700</span>
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-px bg-line">
-                <button className="bg-bg-overlay py-3.5 text-sm font-extrabold hover:bg-line-soft">
-                  Export PDF
-                </button>
-                <button className="bg-brand-500 py-3.5 text-sm font-extrabold text-white hover:bg-brand-700">
-                  Send
-                </button>
-              </div>
+              ))}
             </div>
           </Container>
         </section>
@@ -104,7 +116,7 @@ export default function InvobukPage() {
         <section className="border-b-2 border-line bg-bg-base">
           <Container className="grid grid-cols-1 gap-6 py-17.5 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((f) => (
-              <GlassCard key={f.title} hover className="p-7.5">
+              <GlassCard key={f.title} hover className="border-t-[#0c6b4a] p-7.5">
                 <h3 className="mb-2 text-lg font-extrabold">{f.title}</h3>
                 <p className="text-sm text-fg-muted">{f.description}</p>
               </GlassCard>

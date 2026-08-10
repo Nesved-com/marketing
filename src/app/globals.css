@@ -221,56 +221,62 @@
 
 /* ==========================================================================
    Base layer
+   Explicitly placed in Tailwind's `base` cascade layer — anything left
+   unlayered here would outrank every utility class (including on Button/
+   Link components), regardless of specificity, per the CSS cascade-layers
+   spec that `@import "tailwindcss"` sets up.
    ========================================================================== */
 
-html {
-  color-scheme: light;
-}
+@layer base {
+  html {
+    color-scheme: light;
+  }
 
-body {
-  background: var(--bg-base);
-  color: var(--fg-primary);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    background: var(--bg-base);
+    color: var(--fg-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-::selection {
-  background: rgba(168, 19, 31, 0.22);
-  color: var(--fg-primary);
-}
+  ::selection {
+    background: rgba(168, 19, 31, 0.22);
+    color: var(--fg-primary);
+  }
 
-::-moz-selection {
-  background: rgba(168, 19, 31, 0.22);
-  color: var(--fg-primary);
-}
+  ::-moz-selection {
+    background: rgba(168, 19, 31, 0.22);
+    color: var(--fg-primary);
+  }
 
-a {
-  color: var(--accent);
-  text-underline-offset: 3px;
-}
-a:hover {
-  color: var(--accent-deep);
-}
+  a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--accent-deep);
+  }
 
-:focus {
-  outline: none;
-}
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border: 2px solid var(--bg-base);
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border: 2px solid var(--bg-base);
+  }
 }
 
 /* ==========================================================================

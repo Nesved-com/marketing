@@ -8,20 +8,20 @@ const testimonials = [
   {
     quote:
       "The guest screen ended the \"how long more?\" queue at the counter. Staff finally get to serve instead of explain.",
-    name: "Owner name",
+    name: "Kartik G",
     context: "Restaurant · city",
   },
   {
     quote:
       "Closing stock used to be a Sunday job. Now it's a screen — the recipes take it out as we bill.",
-    name: "Owner name",
-    context: "Chain · 4 outlets",
+    name: "Pravin Ghatge",
+    context: "Rajureshwar Lawn",
   },
   {
     quote:
       "One wedding, one file: hall, rooms, banquet menu and catering. The accountant stopped calling me.",
-    name: "Owner name",
-    context: "Hotel & banquet",
+    name: "Deepak Jagdale",
+    context: "Hotel & Banquet",
   },
 ];
 

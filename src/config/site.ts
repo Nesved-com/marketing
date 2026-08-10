@@ -26,7 +26,6 @@ export const navConfig: NavItem[] = [
   { label: "Nesved Live", href: "/live" },
   { label: "RoomAndDine", href: "/roomanddine" },
   { label: "Invobuk", href: "/products/invobuk" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Downloads", href: "/download" },
 ];
 
@@ -53,7 +52,6 @@ export const footerConfig = {
     {
       title: "Company",
       links: [
-        { label: "Pricing", href: "/pricing" },
         { label: "Downloads", href: "/download" },
         { label: "Book a demo", href: "/contact" },
         { label: "About", href: "/about" },
