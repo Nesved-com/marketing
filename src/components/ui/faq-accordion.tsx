@@ -2,7 +2,6 @@
 
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
@@ -37,7 +36,7 @@ export function FaqAccordion({
   };
 
   return (
-    <div className={cn("mx-auto w-full max-w-3xl", className)}>
+    <div className={cn("w-full", className)}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -48,22 +47,23 @@ export function FaqAccordion({
         initial="hidden"
         whileInView="show"
         viewport={viewportOnce}
+        className="flex flex-col gap-0.5 bg-line"
       >
-        <Accordion.Root type="single" collapsible className="flex flex-col gap-3">
+        <Accordion.Root type="single" collapsible className="contents">
           {items.map((item, index) => (
             <motion.div key={item.question} variants={fadeInUp}>
-              <Accordion.Item
-                value={`item-${index}`}
-                className="glass overflow-hidden rounded-2xl"
-              >
+              <Accordion.Item value={`item-${index}`} className="bg-bg-raised">
                 <Accordion.Header>
-                  <Accordion.Trigger className="group flex w-full items-center justify-between gap-4 px-6 py-5 text-left text-sm font-medium text-fg-primary transition-colors hover:text-brand-200 sm:text-base">
+                  <Accordion.Trigger className="group flex w-full items-center justify-between gap-4 px-6 py-5 text-left text-lg font-extrabold text-fg-primary transition-colors hover:text-brand-500 data-[state=open]:text-brand-500">
                     {item.question}
-                    <ChevronDown className="size-4 shrink-0 text-fg-muted transition-transform duration-300 group-data-[state=open]:rotate-180 group-data-[state=open]:text-brand-300" />
+                    <span className="relative size-5 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-45">
+                      <span className="absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-current" />
+                      <span className="absolute left-1/2 top-0 h-5 w-0.5 -translate-x-1/2 bg-current" />
+                    </span>
                   </Accordion.Trigger>
                 </Accordion.Header>
-                <Accordion.Content className="overflow-hidden px-6 text-sm leading-relaxed text-fg-muted data-[state=closed]:animate-[accordion-up_0.25s_ease] data-[state=open]:animate-[accordion-down_0.25s_ease]">
-                  <div className="pb-5">{item.answer}</div>
+                <Accordion.Content className="overflow-hidden px-6 text-[15.5px] leading-relaxed text-fg-muted data-[state=closed]:animate-[accordion-up_0.25s_ease] data-[state=open]:animate-[accordion-down_0.25s_ease]">
+                  <div className="max-w-[62ch] pb-6">{item.answer}</div>
                 </Accordion.Content>
               </Accordion.Item>
             </motion.div>

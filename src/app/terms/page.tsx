@@ -6,21 +6,21 @@ import { LegalPage, type LegalSection } from "@/components/sections/legal-page";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Nesved's Terms & Conditions governing use of Quickbuk and Invobuk — bookings, payments, tenant and vendor obligations, and liability.",
+    "Nesved's Terms & Conditions governing use of our applications, including Invobuk and Room&Dine — bookings, payments, tenant and vendor obligations, and liability.",
   alternates: { canonical: "/terms" },
 };
 
 const sections: LegalSection[] = [
   {
-    heading: "1. About Quickbuk",
+    heading: "1. About Nesved",
     body: [
-      "Quickbuk is a platform that connects customers with venues for events such as weddings, banquets, lawn parties, rooftop events, resort gatherings, conferences, and more. It provides venue owners (\"Tenants\") and event service businesses (\"Vendors\") with tools to manage bookings, staff, payments, catering, enquiries, and sponsorship. Quickbuk acts as a technology intermediary and does not own, operate, or manage any venue or vendor service listed on the platform.",
+      "Nesved operates a family of platforms, including Invobuk (invoicing & inventory) and Room&Dine (hospitality management), that connect customers with businesses such as venues, hotels, and restaurants for bookings and events. It provides venue/property owners (\"Tenants\") and service businesses (\"Vendors\") with tools to manage bookings, staff, payments, catering, enquiries, and sponsorship. Nesved acts as a technology intermediary and does not own, operate, or manage any venue, property, or vendor service listed on our platforms.",
     ],
   },
   {
     heading: "2. Eligibility",
     body: [
-      "You must be at least 18 years of age to use Quickbuk. By using this app, you represent and warrant that you are 18 or older and have the legal capacity to enter into these Terms.",
+      "You must be at least 18 years of age to use any Nesved application. By using our apps, you represent and warrant that you are 18 or older and have the legal capacity to enter into these Terms.",
     ],
   },
   {
@@ -34,46 +34,46 @@ const sections: LegalSection[] = [
     heading: "4. Tenant (Venue Owner) Terms",
     body: [
       "By registering as a Tenant, you agree to:\n• Provide accurate venue details, pricing, and availability.\n• Honour confirmed bookings made through the platform.\n• Maintain appropriate licences and permissions to operate your venue.\n• Ensure your venue complies with all applicable local laws and safety regulations.\n• Provide your GSTIN (GST Identification Number) if you are a GST-registered business. This field is optional but, when filled, it will appear on all booking receipts issued through the platform.\n• Be solely responsible for your refund and cancellation policies communicated to customers.",
-      "Quickbuk is not responsible for disputes between Tenants and their customers. By listing on Quickbuk, you grant us a non-exclusive licence to display your venue information within the app.",
+      "Nesved is not responsible for disputes between Tenants and their customers. By listing on a Nesved platform, you grant us a non-exclusive licence to display your venue information within the app.",
     ],
   },
   {
     heading: "5. Vendor (Decorator & Caterer) Terms",
     body: [
-      "Vendors are service providers (decorators, caterers, and similar) assigned by Tenants to their service catalogue on Quickbuk. By being assigned as a Vendor, you agree to:\n• Provide accurate service details and pricing to the assigning Tenant.\n• Honour service commitments for confirmed bookings.\n• Maintain all professional licences, FSSAI registration (for caterers), and any other permits applicable to your trade.\n• Provide your GSTIN if you are a GST-registered business. This field is optional but, when filled, it will appear on booking receipts that include your services.\n• Comply with applicable GST filing and invoicing obligations independently — Quickbuk does not file GST on your behalf.",
-      "The contractual relationship for vendor services is between the Vendor and the Tenant or customer. Quickbuk is not a party to that agreement.",
+      "Vendors are service providers (decorators, caterers, and similar) assigned by Tenants to their service catalogue on a Nesved platform. By being assigned as a Vendor, you agree to:\n• Provide accurate service details and pricing to the assigning Tenant.\n• Honour service commitments for confirmed bookings.\n• Maintain all professional licences, FSSAI registration (for caterers), and any other permits applicable to your trade.\n• Provide your GSTIN if you are a GST-registered business. This field is optional but, when filled, it will appear on booking receipts that include your services.\n• Comply with applicable GST filing and invoicing obligations independently — Nesved does not file GST on your behalf.",
+      "The contractual relationship for vendor services is between the Vendor and the Tenant or customer. Nesved is not a party to that agreement.",
     ],
   },
   {
     heading: "6. GST & Tax Compliance",
     body: [
-      "Quickbuk provides optional GSTIN fields for Tenants and Vendors to display their GST registration numbers on digital receipts. The platform does not compute, collect, remit, or file Goods and Services Tax on behalf of any user. All tax obligations under the Goods and Services Tax Act, 2017 remain solely with the respective Tenant or Vendor. The GSTIN shown on a receipt is self-declared by the user; Quickbuk does not verify its accuracy or validity. Users are advised to consult a qualified tax professional for compliance guidance.",
+      "Nesved provides optional GSTIN fields for Tenants and Vendors to display their GST registration numbers on digital receipts. The platform does not compute, collect, remit, or file Goods and Services Tax on behalf of any user. All tax obligations under the Goods and Services Tax Act, 2017 remain solely with the respective Tenant or Vendor. The GSTIN shown on a receipt is self-declared by the user; Nesved does not verify its accuracy or validity. Users are advised to consult a qualified tax professional for compliance guidance.",
     ],
   },
   {
     heading: "7. Bookings",
     body: [
-      "All bookings are subject to venue availability and the Tenant's policies. A booking is confirmed once the advance or deposit payment is recorded — either online via Razorpay or as a manual cash entry by the Tenant. Quickbuk generates a digital receipt for every booking as a record of the transaction. Quickbuk is not responsible for disputes, cancellations, or service quality issues between customers and Tenants or Vendors.",
+      "All bookings are subject to venue availability and the Tenant's policies. A booking is confirmed once the advance or deposit payment is recorded — either online via Razorpay or as a manual cash entry by the Tenant. Nesved generates a digital receipt for every booking as a record of the transaction. Nesved is not responsible for disputes, cancellations, or service quality issues between customers and Tenants or Vendors.",
     ],
   },
   {
     heading: "8. Payments",
     body: [
-      "Online payments on Quickbuk are processed securely via Razorpay, a Reserve Bank of India (RBI) licensed payment aggregator. By making a payment, you also agree to Razorpay's Terms of Service available at razorpay.com/terms.",
-      "• Quickbuk does not store your card number, CVV, net-banking credentials, or UPI PIN.\n• We only store transaction references, amounts, payment method type, and payment status for booking records.\n• Cash payments are recorded manually by the Tenant and are not processed through Razorpay.\n• Quickbuk is not liable for payment failures caused by your bank, card issuer, UPI app, or the Razorpay gateway.\n• If a payment is debited but the booking is not confirmed due to a gateway error, the amount will be automatically reversed by Razorpay within 5–7 business days per their refund policy.",
+      "Online payments on Nesved platforms are processed securely via Razorpay, a Reserve Bank of India (RBI) licensed payment aggregator. By making a payment, you also agree to Razorpay's Terms of Service available at razorpay.com/terms.",
+      "• Nesved does not store your card number, CVV, net-banking credentials, or UPI PIN.\n• We only store transaction references, amounts, payment method type, and payment status for booking records.\n• Cash payments are recorded manually by the Tenant and are not processed through Razorpay.\n• Nesved is not liable for payment failures caused by your bank, card issuer, UPI app, or the Razorpay gateway.\n• If a payment is debited but the booking is not confirmed due to a gateway error, the amount will be automatically reversed by Razorpay within 5–7 business days per their refund policy.",
     ],
   },
   {
     heading: "9. Cancellations & Refunds",
     body: [
-      "Cancellation and refund policies are set independently by each Tenant (venue owner). Quickbuk does not enforce a universal refund policy across all venues.",
-      "• When a Tenant records a cancellation in Quickbuk, any associated refund amount is recorded in the system.\n• For online payments made via Razorpay: refunds are initiated through Razorpay back to the original payment method. Credits typically appear within 5–7 business days depending on your bank.\n• For cash payments: refunds are handled directly between the customer and the Tenant.\n• Quickbuk is not liable for any Tenant's failure to issue a refund or for delays in processing by Razorpay or your bank.\n• In case of an unresolved refund dispute, you may contact us at contact@nesved.com and we will attempt to mediate in good faith.",
+      "Cancellation and refund policies are set independently by each Tenant (venue owner). Nesved does not enforce a universal refund policy across all venues.",
+      "• When a Tenant records a cancellation on a Nesved platform, any associated refund amount is recorded in the system.\n• For online payments made via Razorpay: refunds are initiated through Razorpay back to the original payment method. Credits typically appear within 5–7 business days depending on your bank.\n• For cash payments: refunds are handled directly between the customer and the Tenant.\n• Nesved is not liable for any Tenant's failure to issue a refund or for delays in processing by Razorpay or your bank.\n• In case of an unresolved refund dispute, you may contact us at contact@nesved.com and we will attempt to mediate in good faith.",
     ],
   },
   {
     heading: "10. Sponsored Listings",
     body: [
-      "Venues may pay to appear as sponsored listings in the Explore section. Sponsored placement is paid advertising and does not imply any endorsement, guarantee of quality, or partnership with Quickbuk beyond the advertising arrangement. Sponsorship fees are non-refundable once the campaign period has begun.",
+      "Venues may pay to appear as sponsored listings in the Explore section. Sponsored placement is paid advertising and does not imply any endorsement, guarantee of quality, or partnership with Nesved beyond the advertising arrangement. Sponsorship fees are non-refundable once the campaign period has begun.",
     ],
   },
   {
@@ -91,7 +91,7 @@ const sections: LegalSection[] = [
   {
     heading: "13. Intellectual Property",
     body: [
-      "All content, branding, logos, UI designs, and software within Quickbuk are the intellectual property of NesVed and its licensors. You may not copy, reproduce, distribute, or create derivative works without our explicit written permission.",
+      "All content, branding, logos, UI designs, and software within Nesved's applications are the intellectual property of Nesved and its licensors. You may not copy, reproduce, distribute, or create derivative works without our explicit written permission.",
     ],
   },
   {
@@ -103,7 +103,7 @@ const sections: LegalSection[] = [
   {
     heading: "15. Limitation of Liability",
     body: [
-      "To the maximum extent permitted by applicable law, Quickbuk and NesVed shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of revenue, data, or goodwill, arising from your use of or inability to use the platform. Our aggregate liability for any claim shall not exceed the amount you paid to Quickbuk (if any) in the three months preceding the claim.",
+      "To the maximum extent permitted by applicable law, Nesved shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of revenue, data, or goodwill, arising from your use of or inability to use the platform. Our aggregate liability for any claim shall not exceed the amount you paid to Nesved (if any) in the three months preceding the claim.",
     ],
   },
   {
@@ -141,7 +141,7 @@ export default function TermsPage() {
           eyebrow="Legal"
           title="Terms & Conditions"
           effectiveDate="17 June 2026"
-          intro={`Welcome to Quickbuk ("we", "our", "us"), a Venue & Event Operations Platform developed by NesVed. By downloading, installing, or using the Quickbuk mobile application, you agree to be bound by these Terms & Conditions. Please read them carefully before use.`}
+          intro={`Welcome to Nesved ("we", "our", "us"), developer of Invobuk, Room&Dine, and a growing family of business software. By downloading, installing, or using any Nesved application, you agree to be bound by these Terms & Conditions. Please read them carefully before use.`}
           sections={sections}
         />
       </main>

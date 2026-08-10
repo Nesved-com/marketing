@@ -3,13 +3,12 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
-import { Badge } from "@/components/ui/badge";
 
 export function SectionHeading({
   eyebrow,
   title,
   description,
-  align = "center",
+  align = "left",
   className,
 }: {
   eyebrow?: string;
@@ -25,19 +24,19 @@ export function SectionHeading({
       whileInView="show"
       viewport={viewportOnce}
       className={cn(
-        "flex flex-col gap-5",
+        "flex flex-col gap-4",
         align === "center" ? "items-center text-center" : "items-start text-left",
         className
       )}
     >
       {eyebrow && (
-        <motion.div variants={fadeInUp}>
-          <Badge variant="brand">{eyebrow}</Badge>
-        </motion.div>
+        <motion.span variants={fadeInUp} className="label-mono text-accent-deep">
+          {eyebrow}
+        </motion.span>
       )}
       <motion.h2
         variants={fadeInUp}
-        className="text-3xl font-semibold tracking-tight text-fg-primary sm:text-4xl lg:text-5xl"
+        className="text-3xl font-black tracking-tighter text-fg-primary sm:text-4xl lg:text-[2.75rem]"
       >
         {title}
       </motion.h2>

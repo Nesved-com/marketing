@@ -6,7 +6,7 @@ import { LegalPage, type LegalSection } from "@/components/sections/legal-page";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Nesved's Privacy Policy — how we collect, use, store, share and protect your personal information across Quickbuk and Invobuk.",
+    "Nesved's Privacy Policy — how we collect, use, store, share and protect your personal information across our applications.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -29,7 +29,7 @@ const sections: LegalSection[] = [
   {
     heading: "3. GSTIN & Tax Data",
     body: [
-      "GSTIN fields are optional and self-declared by Tenants and Vendors. We collect this data solely for display on booking receipts as a convenience to users who are GST-registered businesses. Quickbuk does not use this data to compute, file, or remit GST on your behalf. GSTIN data is stored securely in our database and is visible on the receipts of bookings associated with your account. We do not share your GSTIN with any third party other than as part of the receipt visible to the customer.",
+      "GSTIN fields are optional and self-declared by Tenants and Vendors. We collect this data solely for display on booking receipts as a convenience to users who are GST-registered businesses. Nesved does not use this data to compute, file, or remit GST on your behalf. GSTIN data is stored securely in our database and is visible on the receipts of bookings associated with your account. We do not share your GSTIN with any third party other than as part of the receipt visible to the customer.",
     ],
   },
   {
@@ -47,7 +47,7 @@ const sections: LegalSection[] = [
   {
     heading: "6. Payments & Financial Data",
     body: [
-      "All online payment transactions are handled by Razorpay, a PCI-DSS compliant, RBI-licensed payment aggregator. Quickbuk does not store, process, or have access to your full card number, CVV, net-banking credentials, or UPI PIN. We only store:\n• Razorpay order and payment reference IDs.\n• Transaction amount and currency.\n• Payment method type (card/UPI/net-banking/cash).\n• Payment status (pending/paid/refunded).",
+      "All online payment transactions are handled by Razorpay, a PCI-DSS compliant, RBI-licensed payment aggregator. Nesved does not store, process, or have access to your full card number, CVV, net-banking credentials, or UPI PIN. We only store:\n• Razorpay order and payment reference IDs.\n• Transaction amount and currency.\n• Payment method type (card/UPI/net-banking/cash).\n• Payment status (pending/paid/refunded).",
       "These records are retained for booking history and legal compliance purposes.",
     ],
   },
@@ -82,7 +82,7 @@ const sections: LegalSection[] = [
   {
     heading: "11. Children's Privacy",
     body: [
-      "Quickbuk is not intended for use by anyone under the age of 18. We do not knowingly collect personal information from minors. If we discover that a minor has provided us with personal data, we will delete it promptly.",
+      "Nesved's applications are not intended for use by anyone under the age of 18. We do not knowingly collect personal information from minors. If we discover that a minor has provided us with personal data, we will delete it promptly.",
     ],
   },
   {
@@ -94,7 +94,7 @@ const sections: LegalSection[] = [
   {
     heading: "13. Cookies & Analytics",
     body: [
-      "Quickbuk is a mobile application and does not use browser cookies. We use Firebase Analytics to collect anonymised usage data to improve the platform. This data is aggregated and does not identify you personally. You may opt out of analytics tracking through your device's privacy settings (Limit Ad Tracking / Opt out of Ads Personalisation).",
+      "Nesved's mobile applications do not use browser cookies. We use Firebase Analytics to collect anonymised usage data to improve the platform. This data is aggregated and does not identify you personally. You may opt out of analytics tracking through your device's privacy settings (Limit Ad Tracking / Opt out of Ads Personalisation).",
     ],
   },
   {
@@ -120,7 +120,7 @@ export default function PrivacyPage() {
           eyebrow="Legal"
           title="Privacy Policy"
           effectiveDate="17 June 2026"
-          intro={`NesVed ("we", "our", "us") operates the Quickbuk mobile application. This Privacy Policy explains how we collect, use, store, share, and protect your personal information when you use our platform. By using Quickbuk, you agree to the practices described in this policy. This policy is compliant with the Digital Personal Data Protection Act 2023 (DPDP Act), the Information Technology Act 2000, and applicable Indian data protection regulations.`}
+          intro={`Nesved ("we", "our", "us") operates the Nesved family of mobile and web applications, including Invobuk and Room&Dine. This Privacy Policy explains how we collect, use, store, share, and protect your personal information when you use our platform. By using any Nesved application, you agree to the practices described in this policy. This policy is compliant with the Digital Personal Data Protection Act 2023 (DPDP Act), the Information Technology Act 2000, and applicable Indian data protection regulations.`}
           sections={sections}
         />
       </main>

@@ -2,112 +2,87 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
-import { GradientText } from "@/components/ui/gradient-text";
-import { StatCounter } from "@/components/ui/stat-counter";
-import { StoreBadges } from "@/components/ui/store-badges";
-import { GradientBeams } from "@/components/effects/gradient-beams";
-import { ParticleField } from "@/components/effects/particle-field";
-import { VideoBackground } from "@/components/effects/video-background";
-import { fadeInUp, staggerContainer, EASE_OUT_EXPO } from "@/lib/motion";
-import { siteConfig } from "@/config/site";
+import { LiveBoard } from "@/components/sections/live-board";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
 
 const stats = [
-  { value: 500, suffix: "+", label: "Businesses" },
-  { value: 20000, suffix: "+", label: "Bookings" },
-  { value: 10, prefix: "₹", suffix: "Cr+", label: "Transactions" },
-  { value: 99.9, suffix: "%", label: "Uptime", decimals: 1 },
+  { value: "6", label: "Nesved modules" },
+  { value: "3", label: "Desktop platforms" },
+  { value: "Offline", label: "Bills through a cut" },
 ] as const;
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-bg-base pt-18">
-      {/* Cinematic looping video background — lazy-mounted, muted, no controls */}
-      <VideoBackground
-        webmSrc="/videos/hero-bg.webm"
-        mp4Src="/videos/hero-bg.mp4"
-        poster="/images/hero-poster.jpg"
+    <section className="relative overflow-hidden bg-ink text-fg-on-ink">
+      <div className="dot-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+      <div
+        className="diagonal-accent pointer-events-none absolute -right-24 -top-32 size-[420px]"
+        aria-hidden
       />
 
-      {/* Ambient gradient beams + particle drift, layered above the video overlay */}
-      <GradientBeams />
-      <ParticleField density={70} />
-
-      <Container className="relative z-10 flex flex-col items-center gap-14 py-32 text-center">
+      <Container className="relative grid grid-cols-1 items-center gap-14 py-22 lg:grid-cols-2 lg:py-28">
         <motion.div
-          variants={staggerContainer(0.12)}
+          variants={staggerContainer(0.1)}
           initial="hidden"
           animate="show"
-          className="flex max-w-4xl flex-col items-center gap-7"
+          className="flex flex-col items-start"
         >
-          <motion.div variants={fadeInUp}>
-            <Badge variant="brand" className="gap-2">
-              <Sparkles className="size-3.5" />
-              Business automation, reimagined
-            </Badge>
+          <motion.div
+            variants={fadeInUp}
+            className="mb-6 inline-flex items-center gap-2.5 border border-line-on-ink px-3.5 py-2 font-mono text-[11.5px] uppercase tracking-[0.13em]"
+          >
+            <span className="block size-1.5 bg-brand-500" />
+            Restaurants · Hotels · Banquets
           </motion.div>
 
           <motion.h1
             variants={fadeInUp}
-            className="text-4xl font-semibold tracking-tight text-fg-primary sm:text-6xl lg:text-7xl"
+            className="mb-6 max-w-[15ch] text-[2.75rem] font-black leading-[1.03] tracking-tighter sm:text-6xl lg:text-[4.1rem]"
           >
-            Powering Modern Businesses
-            <br />
-            with <GradientText>Intelligent Software.</GradientText>
+            Run the whole floor on <span className="text-brand-400">one calm system</span>.
           </motion.h1>
 
           <motion.p
             variants={fadeInUp}
-            className="max-w-2xl text-balance text-base text-fg-muted sm:text-lg lg:text-xl"
+            className="mb-9 max-w-[47ch] text-lg leading-relaxed text-fg-on-ink-muted"
           >
-            Nesved builds software that helps businesses automate bookings,
-            billing, payments, reports and business growth.
+            Nesved ties the counter, the kitchen, the captain&apos;s hand and the guest&apos;s
+            screen together. One order, one truth — from the moment it&apos;s taken to the
+            moment it&apos;s served.
           </motion.p>
+
+          <motion.div variants={fadeInUp} className="mb-11 flex flex-wrap gap-3">
+            <Button variant="primary" size="lg" asChild>
+              <Link href="/contact">Book a 20-minute demo</Link>
+            </Button>
+            <Button variant="secondary" size="lg" asChild>
+              <Link href="/suite">Explore the suite</Link>
+            </Button>
+          </motion.div>
 
           <motion.div
             variants={fadeInUp}
-            className="mt-2 flex flex-col items-center gap-3 sm:flex-row"
+            className="flex w-full flex-wrap gap-11 border-t border-line-on-ink pt-7"
           >
-            <Button size="lg" variant="primary" asChild>
-              <Link href="/trial">
-                Start Free Trial
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/products/quickbuk">Explore Products</Link>
-            </Button>
-            <Button size="lg" variant="ghost" asChild>
-              <Link href="#demo">
-                <PlayCircle className="size-4" />
-                Watch Demo
-              </Link>
-            </Button>
-          </motion.div>
-
-          <motion.div variants={fadeInUp}>
-            <StoreBadges googlePlayHref={siteConfig.links.quickbukGooglePlay} />
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <div className="text-3xl font-black tracking-tighter">{stat.value}</div>
+                <div className="label-mono mt-1 text-fg-on-ink-muted">{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
 
-        {/* Animated statistics */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE_OUT_EXPO, delay: 0.6 }}
-          className="glass-strong grid w-full max-w-3xl grid-cols-2 gap-x-6 gap-y-8 rounded-2xl px-6 py-8 sm:grid-cols-4"
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
         >
-          {stats.map((stat) => (
-            <StatCounter key={stat.label} {...stat} />
-          ))}
+          <LiveBoard />
         </motion.div>
       </Container>
-
-      {/* Bottom fade into next section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg-base" />
     </section>
   );
 }

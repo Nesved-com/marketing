@@ -2,64 +2,72 @@
 @import "tw-animate-css";
 
 /* ==========================================================================
-   NESVED DESIGN SYSTEM
-   Premium light-first SaaS visual language — Apple / Stripe / Linear / Vercel
-   inspired. Blue-gradient brand identity, glassmorphism, rich motion.
+   NESVED DESIGN SYSTEM — "Modernist"
+   Brutalist / newspaper-inspired visual language: cream paper background,
+   ink-black text and dark sections, hard-edged cards, a single crimson
+   accent (Nesved's exact brand red), Archivo for display/body and
+   IBM Plex Mono for labels/data. No glassmorphism, no soft shadows —
+   borders and flat color do the work.
    ========================================================================== */
 
 :root {
-  /* ---- Brand: blue gradient system (matched to the Quickbuk logo blue) ---- */
-  --brand-950: #020617;
-  --brand-900: #050b1f;
-  --brand-800: #081548;
-  --brand-700: #0a1e6e;
-  --brand-600: #072ea3;
-  --brand-500: #0040dd;
-  --brand-400: #0066ff;
-  --brand-300: #1997fd;
-  --brand-200: #7ec0fe;
-  --brand-100: #cfe6ff;
-  --accent-cyan: #0891b2;
-  --accent-indigo: #4f46e5;
-  --accent-violet: #7c3aed;
+  /* ---- Brand: Nesved's exact red (#a8131f), ramped by lightness only ---- */
+  --brand-950: #1b0305;
+  --brand-900: #2e0508;
+  --brand-800: #49080e;
+  --brand-700: #6e0c14;
+  --brand-600: #93111b;
+  --brand-500: #a8131f;
+  --brand-400: #ca1725;
+  --brand-300: #e93f4c;
+  --brand-200: #f28890;
+  --brand-100: #fad1d4;
 
-  /* ---- Surface (light-first) ---- */
-  --bg-base: #ffffff;
-  --bg-raised: #f6f8fb;
-  --bg-elevated: #eef2f7;
-  --bg-overlay: #e4e9f1;
+  /* ---- Accent aliases used across the design (ac / acd) ---- */
+  --accent: var(--brand-500);
+  --accent-deep: var(--brand-700);
+  --accent-soft: #ff9783;
+
+  /* ---- Surface ---- */
+  --bg-base: #f3f2f2;
+  --bg-raised: #ffffff;
+  --bg-elevated: #fbfafa;
+  --bg-overlay: #eae9e9;
+  --ink: #131a24;
 
   /* ---- Foreground ---- */
-  --fg-primary: #0b1220;
-  --fg-secondary: #33415c;
-  --fg-muted: #5b6a85;
-  --fg-subtle: #8b96ab;
+  --fg-primary: #201e1d;
+  --fg-secondary: rgba(32, 30, 29, 0.72);
+  --fg-muted: rgba(32, 30, 29, 0.68);
+  --fg-subtle: rgba(32, 30, 29, 0.5);
+  --fg-on-ink: #f3f2f2;
+  --fg-on-ink-muted: rgba(243, 242, 242, 0.72);
 
-  /* ---- Glass ---- */
-  --glass-bg: rgba(11, 18, 32, 0.035);
-  --glass-bg-strong: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(11, 18, 32, 0.08);
-  --glass-border-strong: rgba(11, 18, 32, 0.14);
-  --glass-highlight: rgba(255, 255, 255, 0.8);
+  /* ---- Borders (hard-edged, not glass) ---- */
+  --line: rgba(32, 30, 29, 0.4);
+  --line-soft: rgba(32, 30, 29, 0.14);
+  --line-on-ink: rgba(243, 242, 242, 0.2);
 
   /* ---- Semantic ---- */
-  --success: #059669;
+  --success: #2f7d43;
   --warning: #d97706;
   --danger: #dc2626;
 
-  /* ---- Radii ---- */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
-  --radius-2xl: 2.5rem;
+  /* ---- Radii — the marketing shell is hard-edged (0); small radii are
+     reserved for literal app-UI mockups (table cards, invoice tiles) to
+     read as "real product" against the flat marketing chrome. ---- */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
   --radius-full: 9999px;
+  --radius-ui: 0.625rem;
 
-  /* ---- Shadows / glow ---- */
-  --shadow-glass: 0 1px 1px rgba(255, 255, 255, 0.6) inset, 0 8px 32px rgba(15, 23, 42, 0.1);
-  --shadow-card: 0 20px 60px -20px rgba(15, 23, 42, 0.25);
-  --shadow-glow-blue: 0 0 60px rgba(0, 102, 255, 0.25);
-  --shadow-glow-cyan: 0 0 60px rgba(8, 145, 178, 0.2);
+  /* ---- Shadows ---- */
+  --shadow-card: 0 1px 2px rgba(45, 43, 43, 0.14);
+  --shadow-card-lg: 0 12px 32px rgba(45, 43, 43, 0.22);
+  --shadow-deep: 0 12px 32px rgba(0, 0, 0, 0.35);
 
   /* ---- Easing ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -71,7 +79,6 @@
 }
 
 @theme inline {
-  /* Colors exposed as Tailwind utilities: bg-brand-500, text-fg-muted, etc. */
   --color-background: var(--bg-base);
   --color-foreground: var(--fg-primary);
 
@@ -85,24 +92,26 @@
   --color-brand-300: var(--brand-300);
   --color-brand-200: var(--brand-200);
   --color-brand-100: var(--brand-100);
-  --color-accent-cyan: var(--accent-cyan);
-  --color-accent-indigo: var(--accent-indigo);
-  --color-accent-violet: var(--accent-violet);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
 
   --color-bg-base: var(--bg-base);
   --color-bg-raised: var(--bg-raised);
   --color-bg-elevated: var(--bg-elevated);
   --color-bg-overlay: var(--bg-overlay);
+  --color-ink: var(--ink);
 
   --color-fg-primary: var(--fg-primary);
   --color-fg-secondary: var(--fg-secondary);
   --color-fg-muted: var(--fg-muted);
   --color-fg-subtle: var(--fg-subtle);
+  --color-fg-on-ink: var(--fg-on-ink);
+  --color-fg-on-ink-muted: var(--fg-on-ink-muted);
 
-  --color-glass-bg: var(--glass-bg);
-  --color-glass-bg-strong: var(--glass-bg-strong);
-  --color-glass-border: var(--glass-border);
-  --color-glass-border-strong: var(--glass-border-strong);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-line-on-ink: var(--line-on-ink);
 
   --color-success: var(--success);
   --color-warning: var(--warning);
@@ -114,11 +123,12 @@
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
   --radius-full: var(--radius-full);
+  --radius-ui: var(--radius-ui);
 
-  /* ---- Typography scale ---- */
-  --font-sans: var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* ---- Typography ---- */
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-display: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
@@ -127,7 +137,7 @@
   --text-sm: 0.875rem;
   --text-sm--line-height: 1.4rem;
   --text-base: 1rem;
-  --text-base--line-height: 1.65rem;
+  --text-base--line-height: 1.6rem;
   --text-lg: 1.125rem;
   --text-lg--line-height: 1.75rem;
   --text-xl: 1.25rem;
@@ -135,21 +145,22 @@
   --text-2xl: 1.5rem;
   --text-2xl--line-height: 2rem;
   --text-3xl: 1.875rem;
-  --text-3xl--line-height: 2.3rem;
+  --text-3xl--line-height: 2.15rem;
   --text-4xl: 2.375rem;
-  --text-4xl--line-height: 2.6rem;
+  --text-4xl--line-height: 2.5rem;
   --text-5xl: 3rem;
-  --text-5xl--line-height: 3.2rem;
+  --text-5xl--line-height: 3.1rem;
   --text-6xl: 3.75rem;
-  --text-6xl--line-height: 3.9rem;
+  --text-6xl--line-height: 3.85rem;
   --text-7xl: 4.75rem;
   --text-7xl--line-height: 4.8rem;
   --text-8xl: 6rem;
   --text-8xl--line-height: 6rem;
 
   --tracking-tightest: -0.045em;
-  --tracking-tighter: -0.03em;
-  --tracking-tight: -0.015em;
+  --tracking-tighter: -0.033em;
+  --tracking-tight: -0.02em;
+  --tracking-wide-label: 0.14em;
 
   /* ---- Spacing system (4px base, extends default scale) ---- */
   --spacing-4.5: 1.125rem;
@@ -160,101 +171,42 @@
   --spacing-26: 6.5rem;
   --spacing-30: 7.5rem;
   --spacing-34: 8.5rem;
-  --spacing-section-sm: clamp(3.5rem, 6vw, 5.5rem);
-  --spacing-section: clamp(5rem, 9vw, 8.5rem);
-  --spacing-section-lg: clamp(6rem, 12vw, 11rem);
+  --spacing-section-sm: clamp(3.25rem, 6vw, 4.5rem);
+  --spacing-section: clamp(4.5rem, 8vw, 7rem);
+  --spacing-section-lg: clamp(5rem, 10vw, 8.5rem);
 
   /* ---- Animation timing ---- */
-  --animate-float: float 6s var(--ease-out-quart) infinite;
-  --animate-float-slow: float 10s var(--ease-out-quart) infinite;
-  --animate-gradient-shift: gradient-shift 12s ease infinite;
-  --animate-mesh-drift: mesh-drift 14s ease-in-out infinite;
-  --animate-glow-pulse: glow-pulse 4s ease-in-out infinite;
-  --animate-shimmer: shimmer 2.5s linear infinite;
-  --animate-marquee: marquee 30s linear infinite;
-  --animate-spin-slow: spin 14s linear infinite;
-  --animate-fade-in: fade-in 0.6s var(--ease-out-expo) both;
-  --animate-fade-in-up: fade-in-up 0.7s var(--ease-out-expo) both;
-  --animate-scale-in: scale-in 0.5s var(--ease-out-expo) both;
-  --animate-beam: beam-sweep 8s ease-in-out infinite;
-  --animate-particle-drift: particle-drift 18s linear infinite;
-  --animate-device-sway-phone: device-sway-phone 9s ease-in-out infinite;
-  --animate-device-sway-laptop: device-sway-laptop 12s ease-in-out infinite;
-  --animate-sheen: sheen-sweep 5s ease-in-out infinite;
+  --animate-rise: rise 0.6s var(--ease-out-quart) both;
+  --animate-rise-slow: rise 0.8s var(--ease-out-quart) both;
+  --animate-reelbar: reelbar 14s linear infinite;
+  --animate-pulsedot: pulsedot 1.4s infinite;
+  --animate-slidein: slidein 0.35s ease both;
+  --animate-marquee: marquee 32s linear infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(var(--float-rotate, 0deg)); }
-  50% { transform: translateY(-18px) rotate(var(--float-rotate, 0deg)); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
 }
 
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@keyframes reelbar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
-/* Compositor-only alternative to gradient-shift — animates transform instead
-   of background-position, which avoids forcing a full repaint every frame. */
-@keyframes mesh-drift {
-  0%, 100% { transform: translate3d(-2%, -2%, 0) scale(1.1); }
-  50% { transform: translate3d(2%, 2%, 0) scale(1.1); }
+@keyframes pulsedot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
 }
 
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+@keyframes slidein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.94); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes beam-sweep {
-  0%, 100% { transform: translateX(-10%) rotate(12deg); opacity: 0.35; }
-  50% { transform: translateX(10%) rotate(12deg); opacity: 0.65; }
-}
-
-@keyframes particle-drift {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(0, -1200px, 0); }
-}
-
-@keyframes device-sway-phone {
-  0%, 100% { transform: rotateY(-6deg) rotateX(2deg); }
-  50% { transform: rotateY(6deg) rotateX(-1deg); }
-}
-
-@keyframes device-sway-laptop {
-  0%, 100% { transform: rotateX(4deg) rotateY(-3deg); }
-  50% { transform: rotateX(2deg) rotateY(3deg); }
-}
-
-@keyframes sheen-sweep {
-  0% { transform: translateX(-120%) translateY(-120%) rotate(25deg); opacity: 0; }
-  15% { opacity: 0.5; }
-  40% { opacity: 0; }
-  100% { transform: translateX(120%) translateY(120%) rotate(25deg); opacity: 0; }
 }
 
 @keyframes accordion-down {
@@ -284,18 +236,31 @@ body {
 }
 
 ::selection {
-  background: var(--brand-500);
-  color: white;
+  background: rgba(168, 19, 31, 0.22);
+  color: var(--fg-primary);
 }
 
-/* Focus ring, accessible + on-brand */
+::-moz-selection {
+  background: rgba(168, 19, 31, 0.22);
+  color: var(--fg-primary);
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--accent-deep);
+}
+
+:focus {
+  outline: none;
+}
 :focus-visible {
-  outline: 2px solid var(--brand-400);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
-/* Slim premium scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -304,8 +269,7 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--brand-500), var(--accent-cyan));
-  border-radius: var(--radius-full);
+  background: var(--accent);
   border: 2px solid var(--bg-base);
 }
 
@@ -313,59 +277,29 @@ body {
    Utility layer — brand primitives reused across components
    ========================================================================== */
 
-@utility text-gradient-brand {
-  background-image: linear-gradient(120deg, var(--brand-300) 0%, var(--brand-400) 35%, var(--accent-cyan) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-@utility bg-gradient-brand {
-  background-image: linear-gradient(120deg, var(--brand-600) 0%, var(--brand-500) 45%, var(--accent-cyan) 100%);
-}
-
-@utility bg-gradient-brand-radial {
-  background-image: radial-gradient(circle at 30% 20%, var(--brand-400) 0%, var(--brand-600) 45%, var(--bg-base) 75%);
-}
-
-@utility bg-mesh {
-  background-image:
-    radial-gradient(at 20% 20%, rgba(59, 130, 246, 0.22) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(34, 211, 238, 0.16) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, rgba(29, 78, 216, 0.22) 0px, transparent 50%);
-}
-
-@utility glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-glass);
-}
-
-@utility glass-strong {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
-  border: 1px solid var(--glass-border-strong);
-  box-shadow: var(--shadow-glass);
-}
-
-@utility shimmer-text {
-  background: linear-gradient(90deg, var(--fg-muted) 0%, var(--fg-primary) 50%, var(--fg-muted) 100%);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: shimmer 2.5s linear infinite;
-}
-
 @utility container-nesved {
   width: 100%;
-  max-width: 84rem;
+  max-width: 81.25rem;
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 3rem);
+  padding-inline: clamp(1.25rem, 4vw, 2.125rem);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide-label);
+  text-transform: uppercase;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(rgba(243, 242, 242, 0.11) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+@utility diagonal-accent {
+  background: var(--accent);
+  opacity: 0.16;
+  transform: rotate(45deg);
 }
 
 @utility no-scrollbar {

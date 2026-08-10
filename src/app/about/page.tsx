@@ -1,33 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { GradientText } from "@/components/ui/gradient-text";
 import { GlassCard } from "@/components/ui/glass-card";
 import { StatCounter } from "@/components/ui/stat-counter";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { GradientBeams } from "@/components/effects/gradient-beams";
 import { CtaBanner } from "@/components/sections/cta-banner";
 import { siteConfig } from "@/config/site";
-import {
-  Target,
-  ShieldCheck,
-  Zap,
-  Heart,
-  MapPin,
-  Mail,
-  Phone,
-  ArrowRight,
-} from "lucide-react";
+import { Target, ShieldCheck, Zap, Headphones, Mail, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Nesved",
   description:
-    "Nesved builds Quickbuk and Invobuk — software that makes running a business simple. Learn about our mission, our products, and the team behind them.",
+    "Nesved builds software for the loud hour — restaurants, hotels and banquets, plus the paperwork behind them. Learn about our mission and products.",
   alternates: { canonical: "/about" },
 };
 
@@ -41,9 +29,9 @@ const stats = [
 const values = [
   {
     icon: Target,
-    title: "Purpose-built, not generic",
+    title: "Built for the floor, not the demo",
     description:
-      "Quickbuk and Invobuk are designed around how venues, decorators, caterers and SMEs actually work — not retrofitted from a one-size-fits-all template.",
+      "Every Nesved module is designed around the loud hour — a full house, a queue at the counter — not retrofitted from a one-size-fits-all template.",
   },
   {
     icon: ShieldCheck,
@@ -53,12 +41,12 @@ const values = [
   },
   {
     icon: Zap,
-    title: "Fast, offline-ready",
+    title: "Offline-first",
     description:
-      "From real-time booking calendars to a fully offline desktop billing app — built to keep working even when your connection doesn't.",
+      "Bills, KOTs and invoices are written locally and reconcile the moment the connection returns — nothing stops for a dropped Wi-Fi signal.",
   },
   {
-    icon: Heart,
+    icon: Headphones,
     title: "Support that responds",
     description:
       "Every plan includes priority support, with a one-business-day response commitment — because software is only as good as the help behind it.",
@@ -67,22 +55,22 @@ const values = [
 
 const products = [
   {
-    name: "Quickbuk",
-    logo: "/brand/quickbuk-logo.png",
-    tagline: "Event booking, simplified.",
-    description:
-      "All-in-one platform for venues, decorators & caterers — bookings, payments, staff and reports in one app.",
-    href: "/products/quickbuk",
-    accent: "var(--brand-400)",
+    name: "Nesved",
+    tagline: "The restaurant suite.",
+    description: "POS, Live, Kitchen, Captain, CloudMenu and Inventory — one install, one login.",
+    href: "/suite",
+  },
+  {
+    name: "RoomAndDine",
+    tagline: "Hospitality, one folio.",
+    description: "Rooms, halls, banquets and catering under one calendar.",
+    href: "/roomanddine",
   },
   {
     name: "Invobuk",
-    logo: "/brand/invobuk-logo.png",
-    tagline: "Billing & invoicing, simplified.",
-    description:
-      "A desktop app for invoices, quotations, purchase orders and delivery challans — fully offline, one-time licence.",
+    tagline: "Billing & invoicing.",
+    description: "Quotations, purchase orders, sales orders and invoices, offline-ready.",
     href: "/products/invobuk",
-    accent: "var(--accent-indigo)",
   },
 ];
 
@@ -91,26 +79,22 @@ export default function AboutPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        {/* Hero */}
-        <section className="relative w-full overflow-hidden pt-32 pb-[var(--spacing-section)]">
-          <GradientBeams />
-          <Container className="relative flex flex-col items-center gap-6 text-center">
-            <Badge variant="brand">About Nesved</Badge>
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-fg-primary sm:text-5xl lg:text-6xl">
+        <section className="relative overflow-hidden bg-ink text-fg-on-ink">
+          <div className="dot-grid pointer-events-none absolute inset-0 opacity-45" aria-hidden />
+          <Container className="relative flex flex-col items-center gap-6 py-19 text-center">
+            <Badge variant="onInk">About Nesved</Badge>
+            <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tighter sm:text-5xl lg:text-6xl">
               Software that makes running your{" "}
-              <GradientText>business simple.</GradientText>
+              <span className="text-brand-400">business simple.</span>
             </h1>
-            <p className="max-w-2xl text-base text-fg-muted sm:text-lg">
-              Nesved builds two products: Quickbuk for event bookings, and
-              Invobuk for billing &amp; invoicing — each purpose-built for the
-              businesses that rely on them every day.
+            <p className="max-w-2xl text-lg text-fg-on-ink-muted">
+              Nesved builds a growing family of products — the restaurant suite, RoomAndDine
+              for hospitality, and Invobuk for billing — each purpose-built for the businesses
+              that rely on them every day.
             </p>
             <div className="mt-2 flex flex-col gap-3 sm:flex-row">
               <Button size="lg" variant="primary" asChild>
-                <Link href="/products/quickbuk">
-                  Explore Products
-                  <ArrowRight className="size-4" />
-                </Link>
+                <Link href="/suite">Explore the suite</Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
                 <Link href="/contact">Talk to Us</Link>
@@ -119,73 +103,49 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        {/* Stats */}
-        <section className="relative w-full pb-[var(--spacing-section)]">
-          <Container>
-            <GlassCard
-              variant="strong"
-              className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-x-6 gap-y-8 px-6 py-10 sm:grid-cols-4"
-            >
+        <section className="border-b-2 border-line bg-bg-base">
+          <Container className="py-17.5">
+            <div className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-x-6 gap-y-8 border-2 border-line bg-bg-raised px-6 py-10 shadow-card sm:grid-cols-4">
               {stats.map((stat) => (
                 <StatCounter key={stat.label} {...stat} />
               ))}
-            </GlassCard>
+            </div>
           </Container>
         </section>
 
-        {/* Mission */}
-        <section className="relative w-full pb-[var(--spacing-section)]">
-          <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-5">
-              <Badge variant="brand" className="w-fit">
-                Two Products, One Mission
+        <section className="border-b-2 border-line bg-bg-raised">
+          <Container className="py-17.5">
+            <div className="mb-11 max-w-2xl">
+              <Badge variant="brand" className="mb-5 w-fit">
+                One Family, One Mission
               </Badge>
-              <h2 className="text-3xl font-semibold tracking-tight text-fg-primary sm:text-4xl">
+              <h2 className="mb-4 text-3xl font-black leading-tight tracking-tighter sm:text-4xl">
                 Built by people who&apos;ve run these businesses.
               </h2>
-              <p className="text-base leading-relaxed text-fg-muted">
-                Nesved started with a simple observation: venues, decorators,
-                caterers and small retail businesses were stitching together
-                spreadsheets, WhatsApp groups and paper receipts to run
-                day-to-day operations. We build software that replaces all of
-                that with one dependable system — designed to disappear into
-                the workflow, not complicate it.
+              <p className="mb-3.5 text-base leading-relaxed text-fg-muted">
+                Nesved started with a simple observation: restaurants, hotels, banquets and
+                small businesses were stitching together spreadsheets, WhatsApp groups and
+                paper receipts to run day-to-day operations. We build software that replaces
+                all of that with one dependable system — designed to disappear into the
+                workflow, not complicate it.
               </p>
               <p className="text-base leading-relaxed text-fg-muted">
-                Today, Quickbuk and Invobuk power hundreds of businesses across
-                India, from wedding venues in Pune to retail stores tracking
-                every invoice offline.
+                Today, Nesved, RoomAndDine and Invobuk power hundreds of businesses across
+                India.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
               {products.map((product) => (
                 <Link key={product.name} href={product.href}>
-                  <GlassCard hover className="group flex h-full flex-col gap-4 p-6">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={product.logo}
-                        alt=""
-                        width={40}
-                        height={40}
-                        className="size-9 rounded-xl"
-                      />
-                      <span className="text-lg font-semibold text-fg-primary">
-                        {product.name}
-                      </span>
-                    </div>
-                    <p
-                      className="text-sm font-medium"
-                      style={{ color: product.accent }}
-                    >
-                      {product.tagline}
-                    </p>
+                  <GlassCard hover className="group flex h-full flex-col gap-3 p-7">
+                    <h3 className="text-xl font-extrabold">{product.name}</h3>
+                    <p className="text-sm font-bold text-accent-deep">{product.tagline}</p>
                     <p className="text-sm leading-relaxed text-fg-muted">
                       {product.description}
                     </p>
-                    <span className="mt-auto flex items-center gap-1.5 text-sm font-medium text-brand-300 transition-transform duration-300 group-hover:translate-x-1">
-                      Learn more
-                      <ArrowRight className="size-3.5" />
+                    <span className="mt-auto text-sm font-extrabold text-accent-deep transition-transform duration-200 group-hover:translate-x-1">
+                      Learn more →
                     </span>
                   </GlassCard>
                 </Link>
@@ -194,28 +154,21 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        {/* Values */}
-        <section className="relative w-full pb-[var(--spacing-section)]">
-          <Container className="flex flex-col gap-14">
+        <section className="border-b-2 border-line bg-bg-base">
+          <Container className="flex flex-col gap-11 py-17.5">
             <SectionHeading
               eyebrow="What We Believe"
               title="The principles behind everything we build."
               description="Four commitments that shape every product decision at Nesved."
             />
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {values.map((value) => (
-                <GlassCard
-                  key={value.title}
-                  hover
-                  className="group flex flex-col gap-4 p-6"
-                >
-                  <span className="flex size-11 items-center justify-center rounded-xl border border-glass-border-strong bg-black/[0.04] text-brand-300 transition-transform duration-300 group-hover:scale-110">
+                <GlassCard key={value.title} hover className="flex flex-col gap-4 p-7">
+                  <span className="flex size-11 items-center justify-center bg-brand-100 text-brand-500">
                     <value.icon className="size-5" />
                   </span>
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="text-base font-semibold text-fg-primary">
-                      {value.title}
-                    </h3>
+                    <h3 className="text-base font-extrabold">{value.title}</h3>
                     <p className="text-sm leading-relaxed text-fg-muted">
                       {value.description}
                     </p>
@@ -226,45 +179,38 @@ export default function AboutPage() {
           </Container>
         </section>
 
-        {/* Location / contact strip */}
-        <section className="relative w-full pb-[var(--spacing-section)]">
-          <Container>
-            <GlassCard
-              variant="strong"
-              className="flex flex-col items-center gap-6 p-10 text-center sm:flex-row sm:justify-between sm:text-left"
-            >
+        <section className="border-b-2 border-line bg-bg-raised">
+          <Container className="py-14">
+            <div className="flex flex-col items-center gap-6 bg-ink p-10 text-center text-fg-on-ink sm:flex-row sm:justify-between sm:text-left">
               <div className="flex flex-col gap-1.5">
-                <span className="flex items-center justify-center gap-2 text-sm font-medium text-fg-primary sm:justify-start">
-                  <MapPin className="size-4 text-brand-300" />
-                  Pune, Maharashtra, India
-                </span>
-                <p className="text-sm text-fg-muted">
+                <span className="text-sm font-bold">Pune, Maharashtra, India</span>
+                <p className="text-sm text-fg-on-ink-muted">
                   Reach out any time — a real person will get back to you.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="flex items-center gap-2 text-sm text-fg-secondary transition-colors hover:text-brand-200"
+                  className="flex items-center gap-2 text-sm text-fg-on-ink-muted transition-colors hover:text-fg-on-ink"
                 >
-                  <Mail className="size-4 text-brand-300" />
+                  <Mail className="size-4" />
                   {siteConfig.contact.email}
                 </a>
                 <a
-                  href="tel:+918806012475"
-                  className="flex items-center gap-2 text-sm text-fg-secondary transition-colors hover:text-brand-200"
+                  href={`tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`}
+                  className="flex items-center gap-2 text-sm text-fg-on-ink-muted transition-colors hover:text-fg-on-ink"
                 >
-                  <Phone className="size-4 text-brand-300" />
+                  <Phone className="size-4" />
                   {siteConfig.contact.phone}
                 </a>
               </div>
-            </GlassCard>
+            </div>
           </Container>
         </section>
 
         <CtaBanner
           title="Ready to run your business smarter?"
-          description="Start your free trial of Quickbuk, or download Invobuk today."
+          description="Book a demo of the full suite, or download Invobuk today."
         />
       </main>
       <Footer />

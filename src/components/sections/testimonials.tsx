@@ -1,159 +1,71 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, TrendingUp } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { GlassCard } from "@/components/ui/glass-card";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { cn } from "@/lib/utils";
+import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
-interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-  growth: string;
-  before: string;
-  after: string;
-  accent: string;
-}
-
-const testimonials: Testimonial[] = [
+const testimonials = [
   {
     quote:
-      "Quickbuk turned our booking chaos into a single calendar. We stopped double-booking venues within the first week.",
-    name: "Ritika Sharma",
-    role: "Owner",
-    company: "Urbanhall Venues",
-    growth: "+42%",
-    before: "18 bookings/mo",
-    after: "26 bookings/mo",
-    accent: "var(--brand-400)",
+      "The guest screen ended the \"how long more?\" queue at the counter. Staff finally get to serve instead of explain.",
+    name: "Owner name",
+    context: "Restaurant · city",
   },
   {
     quote:
-      "Invobuk's offline mode is a lifesaver — our team keeps billing even when the internet drops mid-event.",
-    name: "Arjun Mehta",
-    role: "Founder",
-    company: "Feastly Catering",
-    growth: "+58%",
-    before: "₹4.1L/mo revenue",
-    after: "₹6.5L/mo revenue",
-    accent: "var(--accent-cyan)",
+      "Closing stock used to be a Sunday job. Now it's a screen — the recipes take it out as we bill.",
+    name: "Owner name",
+    context: "Chain · 4 outlets",
   },
   {
     quote:
-      "We manage every decor project, quote and vendor payment from Quickbuk now. Nothing falls through the cracks anymore.",
-    name: "Priya Nair",
-    role: "Creative Director",
-    company: "Bloomcraft Decor",
-    growth: "+35%",
-    before: "12 projects/mo",
-    after: "16 projects/mo",
-    accent: "var(--accent-indigo)",
-  },
-  {
-    quote:
-      "Reports and profit & loss used to take our accountant two days. With Quickbuk it's instant, every single month.",
-    name: "Vikram Singh",
-    role: "Managing Director",
-    company: "Nestbuild Construction",
-    growth: "+27%",
-    before: "3 sites tracked",
-    after: "9 sites tracked",
-    accent: "var(--brand-300)",
+      "One wedding, one file: hall, rooms, banquet menu and catering. The accountant stopped calling me.",
+    name: "Owner name",
+    context: "Hotel & banquet",
   },
 ];
 
-function AnimatedStars() {
-  return (
-    <div className="flex items-center gap-1">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: i * 0.08 }}
-        >
-          <Star className="size-4 fill-warning text-warning" />
-        </motion.span>
-      ))}
-    </div>
-  );
-}
-
 export function Testimonials() {
-  const marqueeCards = [...testimonials, ...testimonials];
-
   return (
-    <section className="relative w-full overflow-hidden py-[var(--spacing-section)]">
-      <div className="bg-mesh pointer-events-none absolute inset-0 opacity-20" aria-hidden />
+    <section className="border-b-2 border-line bg-bg-raised">
+      <Container className="py-21">
+        <span className="label-mono mb-4 block text-accent-deep">From the floor</span>
+        <h2 className="mb-11 max-w-[18ch] text-3xl font-black leading-tight tracking-tighter sm:text-4xl">
+          What owners say after a month.
+        </h2>
 
-      <Container className="relative flex flex-col gap-14">
-        <SectionHeading
-          eyebrow="Customer Stories"
-          title="Real businesses. Real growth."
-          description="See how venues, caterers, decorators and builders are growing faster with Nesved."
-        />
-      </Container>
-
-      {/* Auto-scrolling testimonial row */}
-      <div className="group relative mt-4 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
-        <div className="flex w-max shrink-0 gap-6 py-2 animate-marquee group-hover:[animation-play-state:paused]">
-          {marqueeCards.map((t, i) => (
-            <GlassCard
-              key={`${t.name}-${i}`}
-              hover
-              className={cn("flex w-[380px] shrink-0 flex-col gap-5 p-7")}
+        <motion.div
+          variants={staggerContainer(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {testimonials.map((t) => (
+            <motion.div
+              key={t.quote}
+              variants={fadeInUp}
+              className="border-2 border-line bg-bg-base p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-card-lg"
             >
-              <div className="flex items-center justify-between">
-                <AnimatedStars />
-                <span
-                  className="flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold"
-                  style={{ backgroundColor: `${t.accent}22`, color: t.accent }}
-                >
-                  <TrendingUp className="size-3.5" />
-                  {t.growth}
-                </span>
-              </div>
-
-              <p className="text-sm leading-relaxed text-fg-secondary">
-                “{t.quote}”
-              </p>
-
-              <div className="flex items-center gap-3 border-t border-glass-border pt-4">
-                <span
-                  className="flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white"
-                  style={{ background: `linear-gradient(135deg, ${t.accent}, var(--accent-cyan))` }}
-                >
-                  {t.name.charAt(0)}
-                </span>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-fg-primary">{t.name}</span>
-                  <span className="text-xs text-fg-muted">
-                    {t.role}, {t.company}
-                  </span>
+              <div className="mb-4 text-5xl font-black leading-none text-brand-500">&ldquo;</div>
+              <p className="mb-6 text-[16.5px] leading-relaxed">{t.quote}</p>
+              <div className="flex items-center gap-3 border-t-2 border-line pt-4.5">
+                <div
+                  className="size-10 shrink-0"
+                  style={{
+                    background:
+                      "repeating-linear-gradient(135deg,#d7d3d3 0 6px,#e3e1e1 6px 12px)",
+                  }}
+                />
+                <div>
+                  <div className="text-sm font-extrabold">{t.name}</div>
+                  <div className="label-mono text-fg-subtle">{t.context}</div>
                 </div>
               </div>
-
-              <div className="flex items-center justify-between rounded-xl bg-black/[0.04] px-4 py-3 text-xs">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-fg-subtle">Before</span>
-                  <span className="font-medium text-fg-muted">{t.before}</span>
-                </div>
-                <div className="h-6 w-px bg-glass-border" />
-                <div className="flex flex-col gap-0.5 text-right">
-                  <span className="text-fg-subtle">After</span>
-                  <span className="font-medium" style={{ color: t.accent }}>
-                    {t.after}
-                  </span>
-                </div>
-              </div>
-            </GlassCard>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </Container>
     </section>
   );
 }

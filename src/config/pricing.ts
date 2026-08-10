@@ -1,66 +1,68 @@
-import type { PricingPlan } from "@/components/ui/pricing-card";
+export interface NesvedTier {
+  eyebrow: string;
+  price: string;
+  period: string;
+  features: string[];
+  cta: string;
+  featured?: boolean;
+}
 
-export const quickbukPlans: PricingPlan[] = [
+/** Nesved suite pricing — three outlet-based tiers, middle one raised/featured. */
+export const nesvedTiers: NesvedTier[] = [
   {
-    name: "Venue Owner",
-    price: "₹9999",
-    period: "year",
-    description: "Full booking calendar, payments and staff management for venues.",
-    features: [
-      "Smart booking & calendar",
-      "Integrated payments",
-      "Staff management",
-      "Priority support",
-    ],
-    accent: "var(--brand-400)",
-    screenshot: "/screenshots/quickbuk-venue-owner-dashboard.jpg",
+    eyebrow: "Counter",
+    price: "₹799",
+    period: "/ outlet / month",
+    features: ["Nesved POS", "Nesved Live (1 screen)", "CloudMenu", "Email support"],
+    cta: "Start here",
   },
   {
-    name: "Decorator",
-    price: "₹4999",
-    period: "year",
-    description: "Quotes, project tracking and client billing for decorators.",
+    eyebrow: "Full floor · most chosen",
+    price: "₹1,499",
+    period: "/ outlet / month",
     features: [
-      "Project & quote tracking",
-      "Client billing",
-      "Reports & analytics",
-      "Priority support",
+      "Everything in Counter",
+      "Kitchen (KDS) + Captain",
+      "Inventory & recipe costing",
+      "Live on unlimited screens",
+      "Phone support",
     ],
-    accent: "var(--accent-violet)",
-    recommended: true,
-    screenshot: "/screenshots/quickbuk-decorator-dashboard.jpg",
+    cta: "Book a demo",
+    featured: true,
   },
   {
-    name: "Caterer",
-    price: "₹5999",
-    period: "year",
-    description: "Order planning, menus and invoicing built for caterers.",
+    eyebrow: "Chain",
+    price: "Custom",
+    period: "5+ outlets",
     features: [
-      "Menu & order planning",
-      "Invoicing",
-      "Expense tracking",
-      "Priority support",
+      "Everything in Full floor",
+      "Central item & price control",
+      "Consolidated reporting",
+      "On-site rollout & training",
+      "Named account manager",
     ],
-    accent: "var(--success)",
-    screenshot: "/screenshots/quickbuk-caterer-dashboard.jpg",
+    cta: "Talk to us",
   },
 ];
 
-export const invobukPlans: PricingPlan[] = [
+export interface ProductPricing {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+}
+
+export const otherPricing: ProductPricing[] = [
+  {
+    name: "RoomAndDine",
+    price: "₹2,499",
+    period: "/ property / month",
+    description: "Rooms, marriage & banquet halls, catering, in-house restaurant and stores.",
+  },
   {
     name: "Invobuk",
-    price: "₹4999",
-    period: "year",
-    description: "The complete invoicing & inventory suite for SMEs and retail businesses.",
-    features: [
-      "Unlimited invoices & quotations",
-      "Purchase orders & delivery challans",
-      "Inventory management",
-      "Offline mode + Google Drive sync",
-      "Priority support",
-    ],
-    cta: "Download Now",
-    href: "/download",
-    accent: "var(--accent-indigo)",
+    price: "₹399",
+    period: "/ user / month",
+    description: "Invoices, quotations, purchase and sales orders. Windows, Linux and macOS.",
   },
 ];

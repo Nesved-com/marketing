@@ -2,20 +2,17 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { GradientText } from "@/components/ui/gradient-text";
-import { GradientBeams } from "@/components/effects/gradient-beams";
 import { fadeInUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export function CtaBanner({
-  title = "Ready to automate your business?",
-  description = "Join hundreds of businesses already running on Nesved. Start your free trial today — no credit card required.",
-  primaryLabel = "Start Free Trial",
-  primaryHref = "/trial",
-  secondaryLabel = "Talk to Sales",
-  secondaryHref = "/contact",
+  title = "Come see it on a real Friday night.",
+  description = "We'll set up a demo outlet with your menu — POS, kitchen screen and the guest display — and let you try to break it.",
+  primaryLabel = "Book a demo",
+  primaryHref = "/contact",
+  secondaryLabel = "Download the apps",
+  secondaryHref = "/download",
 }: {
   title?: string;
   description?: string;
@@ -25,39 +22,40 @@ export function CtaBanner({
   secondaryHref?: string;
 }) {
   return (
-    <section className="relative w-full overflow-hidden py-[var(--spacing-section)]">
-      <GradientBeams />
-      <Container className="relative">
+    <section className="relative overflow-hidden bg-ink text-fg-on-ink">
+      <div
+        className="diagonal-accent pointer-events-none absolute -bottom-36 -left-20 size-[380px]"
+        aria-hidden
+      />
+      <Container className="relative grid grid-cols-1 items-center gap-14 py-24 lg:grid-cols-2">
         <motion.div
           variants={staggerContainer(0.1)}
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="glass-strong mx-auto flex max-w-4xl flex-col items-center gap-6 rounded-[2rem] px-8 py-16 text-center sm:px-16"
         >
           <motion.h2
             variants={fadeInUp}
-            className="text-3xl font-semibold tracking-tight text-fg-primary sm:text-4xl lg:text-5xl"
+            className="max-w-[18ch] text-4xl font-black leading-[1.03] tracking-tighter sm:text-5xl"
           >
-            <GradientText>{title}</GradientText>
+            {title}
           </motion.h2>
-          <motion.p
-            variants={fadeInUp}
-            className="max-w-xl text-base text-fg-muted sm:text-lg"
-          >
+        </motion.div>
+        <motion.div
+          variants={staggerContainer(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="flex flex-col gap-8"
+        >
+          <motion.p variants={fadeInUp} className="max-w-[46ch] text-lg text-fg-on-ink-muted">
             {description}
           </motion.p>
-          <motion.div
-            variants={fadeInUp}
-            className="mt-2 flex flex-col items-center gap-3 sm:flex-row"
-          >
-            <Button size="lg" variant="primary" asChild>
-              <Link href={primaryHref}>
-                {primaryLabel}
-                <ArrowRight className="size-4" />
-              </Link>
+          <motion.div variants={fadeInUp} className="flex flex-col gap-3">
+            <Button variant="primary" size="lg" className="w-fit" asChild>
+              <Link href={primaryHref}>{primaryLabel}</Link>
             </Button>
-            <Button size="lg" variant="secondary" asChild>
+            <Button variant="secondary" size="lg" className="w-fit" asChild>
               <Link href={secondaryHref}>{secondaryLabel}</Link>
             </Button>
           </motion.div>

@@ -4,23 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium tracking-tight transition-all duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base [&_svg]:size-4 [&_svg]:shrink-0",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap text-left text-sm font-extrabold tracking-tight transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "bg-gradient-brand text-white shadow-[0_1px_0_0_rgba(255,255,255,0.25)_inset,0_8px_24px_-6px_rgba(29,78,216,0.55)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.3)_inset,0_10px_32px_-6px_rgba(59,130,246,0.7)] hover:-translate-y-0.5 active:translate-y-0",
+          "bg-brand-500 text-fg-on-ink shadow-deep hover:bg-brand-700 hover:-translate-y-0.5",
         secondary:
-          "glass text-fg-primary hover:glass-strong hover:-translate-y-0.5",
+          "border border-line-on-ink bg-transparent text-fg-on-ink hover:bg-white/12",
         outline:
-          "border border-glass-border-strong text-fg-primary bg-transparent hover:bg-black/5 hover:-translate-y-0.5",
-        ghost: "text-fg-secondary hover:text-fg-primary hover:bg-black/5",
-        link: "text-brand-300 underline-offset-4 hover:underline",
+          "border-2 border-line bg-transparent text-fg-primary hover:border-ink hover:bg-ink hover:text-fg-on-ink",
+        ghost: "text-fg-secondary hover:text-brand-700",
+        link: "text-brand-500 underline-offset-4 hover:underline",
+        ink: "bg-ink text-fg-on-ink hover:bg-brand-500",
       },
       size: {
         sm: "h-9 px-4 text-xs",
-        md: "h-11 px-6",
-        lg: "h-13 px-8 text-base",
+        md: "h-11 px-5",
+        lg: "h-13 px-6 text-base",
         icon: "size-10",
       },
     },

@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Nesved",
-  tagline: "Powering Modern Businesses with Intelligent Software.",
+  tagline: "Run the whole floor on one calm system.",
   description:
-    "Nesved builds software that helps businesses automate bookings, billing, payments, reports and business growth.",
+    "Nesved ties the counter, the kitchen, the captain's hand and the guest's screen together — restaurant, hotel and banquet software for the loud hour, not the demo.",
   url: "https://www.nesved.com",
   contact: {
     email: "contact@nesved.com",
@@ -10,62 +10,53 @@ export const siteConfig = {
     website: "www.nesved.com",
   },
   links: {
-    quickbukGooglePlay:
-      "https://play.google.com/store/apps/details?id=com.nesved.quickbuk",
+    roomAndDine: "https://roomanddine.com",
   },
 } as const;
 
-export type NavChild = {
-  label: string;
-  href: string;
-  description?: string;
-};
-
 export type NavItem = {
   label: string;
-  href?: string;
-  children?: NavChild[];
+  href: string;
 };
 
 export const navConfig: NavItem[] = [
   { label: "Home", href: "/" },
-  {
-    label: "Products",
-    children: [
-      {
-        label: "Quickbuk",
-        href: "/products/quickbuk",
-        description: "Flagship booking & billing automation platform.",
-      },
-      {
-        label: "Invobuk",
-        href: "/products/invobuk",
-        description: "Smart invoicing and payments, simplified.",
-      },
-    ],
-  },
+  { label: "Suite", href: "/suite" },
+  { label: "POS", href: "/pos" },
+  { label: "Nesved Live", href: "/live" },
+  { label: "RoomAndDine", href: "/roomanddine" },
+  { label: "Invobuk", href: "/products/invobuk" },
   { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Downloads", href: "/download" },
 ];
 
 export const footerConfig = {
   columns: [
     {
-      title: "Products",
+      title: "Nesved",
       links: [
-        { label: "Quickbuk", href: "/products/quickbuk" },
+        { label: "Restaurant POS", href: "/pos" },
+        { label: "Live display", href: "/live" },
+        { label: "Kitchen", href: "/suite" },
+        { label: "Captain", href: "/suite" },
+        { label: "CloudMenu", href: "/suite" },
+        { label: "Inventory", href: "/suite" },
+      ],
+    },
+    {
+      title: "Other products",
+      links: [
+        { label: "RoomAndDine", href: "/roomanddine" },
         { label: "Invobuk", href: "/products/invobuk" },
-        { label: "Pricing", href: "/pricing" },
-        { label: "Download", href: "/download" },
       ],
     },
     {
       title: "Company",
       links: [
+        { label: "Pricing", href: "/pricing" },
+        { label: "Downloads", href: "/download" },
+        { label: "Book a demo", href: "/contact" },
         { label: "About", href: "/about" },
-        { label: "Contact", href: "/contact" },
-        { label: "Start Free Trial", href: "/trial" },
       ],
     },
   ],

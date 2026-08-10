@@ -6,7 +6,7 @@ export function FaqSection({
   items,
   eyebrow = "FAQ",
   title = "Frequently asked questions",
-  description = "Everything you need to know about Quickbuk, Invobuk, pricing and support.",
+  description = "Everything you need to know, in plain terms.",
 }: {
   items: FaqItem[];
   eyebrow?: string;
@@ -14,10 +14,12 @@ export function FaqSection({
   description?: string;
 }) {
   return (
-    <section className="relative w-full overflow-hidden py-[var(--spacing-section)]">
-      <Container className="flex flex-col gap-12">
+    <section className="border-b-2 border-line bg-bg-base">
+      <Container className="flex flex-col gap-11 py-21">
         <SectionHeading eyebrow={eyebrow} title={title} description={description} />
-        <FaqAccordion items={items} />
+        <div className="mx-auto w-full max-w-3xl">
+          <FaqAccordion items={items} />
+        </div>
       </Container>
     </section>
   );
