@@ -20,9 +20,17 @@ interface PlatformBuild {
 }
 
 const nesvedBuilds: PlatformBuild[] = [
-  { os: "Windows", detail: "10 / 11 · x64 — coming soon" },
-  { os: "Linux", detail: "deb · rpm · AppImage — coming soon" },
-  { os: "macOS", detail: "13+ · universal — coming soon" },
+  {
+    os: "Windows",
+    detail: "10 / 11 · x64 · 104 MB",
+    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/KitoosAppe-win.exe",
+  },
+  {
+    os: "Linux",
+    detail: "deb",
+    href: "https://github.com/officialnesved/kittosappe-releases/releases/latest/download/KitoosAppe-linux.deb",
+  },
+  { os: "macOS", detail: "universal — coming soon" },
 ];
 
 const invobukBuilds: PlatformBuild[] = [
@@ -106,8 +114,9 @@ export default function DownloadPage() {
           <Container className="py-14">
             <ProductDownloads
               name="Nesved"
-              version="Suite — coming soon"
+              version="v1.0.3 · released 29 Jul 2026"
               builds={nesvedBuilds}
+              featured
             />
             <ProductDownloads
               name="Invobuk"

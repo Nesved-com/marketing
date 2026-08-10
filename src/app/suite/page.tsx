@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -86,6 +87,32 @@ export default function SuitePage() {
                 </div>
               </div>
             ))}
+          </Container>
+        </section>
+
+        <section className="border-b-2 border-line bg-bg-base">
+          <Container className="grid grid-cols-1 items-center gap-14 py-17.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+            <div className="order-2 lg:order-1">
+              <span className="label-mono mb-4 block text-accent-deep">On the floor</span>
+              <h2 className="mb-5 text-3xl font-black leading-tight tracking-tighter sm:text-4xl">
+                Captain, on the phone staff already carry.
+              </h2>
+              <p className="max-w-[46ch] text-lg text-fg-muted">
+                A table map staff can read at a glance — occupied tables, running totals and
+                guest counts — with orders taken and fired straight from the floor.
+              </p>
+            </div>
+            <div className="order-1 mx-auto lg:order-2">
+              <div className="relative aspect-[421/910] w-[240px] overflow-hidden rounded-[1.75rem] border-4 border-ink shadow-deep sm:w-[260px]">
+                <Image
+                  src="/screenshots/nesved-captain.png"
+                  alt="Nesved Captain — table map with live occupancy and running totals, on a staff member's phone"
+                  fill
+                  className="object-cover object-top"
+                  sizes="260px"
+                />
+              </div>
+            </div>
           </Container>
         </section>
 

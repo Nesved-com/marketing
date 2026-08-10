@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
-import { PosPreview } from "@/components/sections/pos-preview";
 
 export const metadata: Metadata = {
   title: "Nesved POS — Restaurant Billing",
@@ -39,8 +39,8 @@ export default function PosPage() {
             className="diagonal-accent pointer-events-none absolute -right-24 -top-24 size-[400px]"
             aria-hidden
           />
-          <Container className="relative grid grid-cols-1 items-center gap-14 py-18 lg:grid-cols-2">
-            <div>
+          <Container className="relative py-16">
+            <div className="mb-11 max-w-2xl">
               <span className="label-mono mb-5 block text-accent-soft">Nesved Restaurant POS</span>
               <h1 className="mb-5 text-4xl font-black leading-[1.03] tracking-tighter sm:text-5xl">
                 Billing that keeps up with a full house.
@@ -58,7 +58,17 @@ export default function PosPage() {
                 </Button>
               </div>
             </div>
-            <PosPreview />
+
+            <div className="relative aspect-[1860/929] w-full overflow-hidden border border-white/10 shadow-deep">
+              <Image
+                src="/screenshots/nesved-pos-counter.png"
+                alt="Nesved POS order screen — menu, live cart and day-close totals for Table 3"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 1300px) 100vw, 1232px"
+                priority
+              />
+            </div>
           </Container>
         </section>
 

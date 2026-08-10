@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/live", priority: 0.7, changeFrequency: "monthly" },
     { path: "/roomanddine", priority: 0.8, changeFrequency: "monthly" },
     { path: "/products/invobuk", priority: 0.8, changeFrequency: "weekly" },
-    { path: "/pricing", priority: 0.8, changeFrequency: "monthly" },
     { path: "/download", priority: 0.7, changeFrequency: "weekly" },
     { path: "/about", priority: 0.6, changeFrequency: "monthly" },
     { path: "/contact", priority: 0.7, changeFrequency: "monthly" },

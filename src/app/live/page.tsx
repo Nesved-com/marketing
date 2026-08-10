@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { GlassCard } from "@/components/ui/glass-card";
-import { LiveBoard } from "@/components/sections/live-board";
 
 export const metadata: Metadata = {
   title: "Nesved Live — Guest Order Display",
@@ -60,7 +60,16 @@ export default function LivePage() {
             </div>
           </Container>
           <Container className="relative pb-18">
-            <LiveBoard big />
+            <div className="relative aspect-[1922/993] w-full overflow-hidden border border-white/10 shadow-deep">
+              <Image
+                src="/screenshots/nesved-live-board.png"
+                alt="Nesved Live guest display — New, Preparing and Ready columns with a featured reel tile"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1300px) 100vw, 1232px"
+                priority
+              />
+            </div>
           </Container>
         </section>
 
